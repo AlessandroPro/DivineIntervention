@@ -63,7 +63,7 @@ public class WingedSpiritController : MonoBehaviour
     {
         if(collision.gameObject.name == "Death")
         {
-            DamageTaken();
+            TakeDamage(10);
         }
     }
 
@@ -97,7 +97,7 @@ public class WingedSpiritController : MonoBehaviour
         }
     }
 
-    private void DamageTaken()
+    public void TakeDamage(float damage)
     {
         if(invincible)
         {

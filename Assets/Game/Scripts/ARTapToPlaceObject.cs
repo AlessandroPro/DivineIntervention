@@ -17,6 +17,8 @@ public class ARTapToPlaceObject : MonoBehaviour
     private bool placementPoseIsValid = false;
     private bool isPlaced = false;
 
+    public LayerMask blockMask;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,10 +34,31 @@ public class ARTapToPlaceObject : MonoBehaviour
             UpdatePlacementPose();
             UpdatePlacementIndicator();
         }
+        else
+        {
+            CheckForTaps();
+        }
 
         if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             PlaceObject();
+        }
+    }
+
+    private void CheckForTaps()
+    {
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, blockMask))
+            {
+                Block block = hit.collider.gameObject.GetComponent<Block>();
+                if (block)
+                {
+                    block.toggleMove();
+                }
+            }
         }
     }
 

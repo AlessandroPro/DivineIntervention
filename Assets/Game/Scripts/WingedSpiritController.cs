@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Renderer))]
@@ -32,6 +33,9 @@ public class WingedSpiritController : MonoBehaviour
     public Material dashingMat;
     public Material dashingInvMat;
 
+    [Header("UI Info")]
+    public Text healthTxt;
+
 
     private Rigidbody rb;
     private Renderer _renderer;
@@ -46,6 +50,7 @@ public class WingedSpiritController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         _renderer = GetComponent<Renderer>();
         capCol = GetComponent<CapsuleCollider>();
+        healthTxt.text = health.ToString();
     }
 
     // Update is called once per frame
@@ -105,6 +110,7 @@ public class WingedSpiritController : MonoBehaviour
         }
 
         health -= 10;
+        healthTxt.text = health.ToString();
 
         if(health <= 0)
         {
@@ -116,6 +122,7 @@ public class WingedSpiritController : MonoBehaviour
 
     private void Die()
     {
+        healthTxt.text = "Dead";
         Destroy(this.gameObject);
     }
 

@@ -20,7 +20,7 @@ public class WingedSpiritController : MonoBehaviour
 
     private float dashCooldownTimer = 0;
     private bool dashOnCooldown = false;
-    private bool dashing = false;
+    //private bool dashing = false;
 
     [Header("Invincible")]
     public float invincibleTime = 2.0f;

@@ -9,10 +9,12 @@ public class BulletLogic : MonoBehaviour
     public float damage = 5.0f;
 
     private Rigidbody rigid;
+    private Vector3 startPos;
 
     void Start()
     {
-        rigid = GetComponent<Rigidbody>();    
+        rigid = GetComponent<Rigidbody>();
+        startPos = transform.position;
     }
 
     // Update is called once per frame
@@ -30,6 +32,10 @@ public class BulletLogic : MonoBehaviour
             spiritController.TakeDamage(damage);
         }
 
-        Destroy(this.gameObject);
+        if(!other.GetComponent<BlockChanger>() || Vector3.Distance(transform.position, startPos) > 40)
+        {
+            Destroy(this.gameObject);
+        }
+        
     }
 }

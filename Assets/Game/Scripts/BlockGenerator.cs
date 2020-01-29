@@ -55,6 +55,11 @@ public class BlockGenerator : MonoBehaviour
         Vector3 blockPos = new Vector3(blockPosX, blockPosY, blockPosZ);
 
         // Create block and set its properties
+        if (only2D && planeID != 0)
+        {
+            return;
+        }
+
         GameObject block = Instantiate(blockPrefab, transform);
         block.transform.localScale = new Vector3(blockScaleX, 1, blockThickness);
         block.transform.localPosition = blockPos;

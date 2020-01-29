@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Scrollable))]
 public class GyserLogic : MonoBehaviour
 {
     public float riseSpeed = 5.0f;
@@ -62,6 +63,7 @@ public class GyserLogic : MonoBehaviour
         if(other.tag == "Block")
         {
             blockCollide = true;
+            GetComponent<Scrollable>().enabled = true;
         }
     }
 

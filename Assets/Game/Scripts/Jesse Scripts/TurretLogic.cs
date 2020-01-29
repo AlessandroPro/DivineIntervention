@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,10 +21,11 @@ public class TurretLogic : MonoBehaviour
 
     //public float dp;
     private float vDp;
+    private Transform parentTransform;
     // Start is called before the first frame update
     void Start()
     {
-        
+        parentTransform = transform.parent;   
     }
 
     // Update is called once per frame
@@ -37,7 +39,17 @@ public class TurretLogic : MonoBehaviour
         else
         {      
             AimLogicUpdateDot();
+            OutOfBoundsCheck();
         }
+    }
+
+    private void OutOfBoundsCheck()
+    {
+        if (parentTransform.position.y <= 0.0f)
+        {
+            Destroy(parentTransform.gameObject);
+        }
+           
     }
 
     private void FindSpirit()

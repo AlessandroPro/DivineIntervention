@@ -12,10 +12,9 @@ public class GyserSpawnerLogic : MonoBehaviour
     {
     }
 
-    public void SpawnGyser()
+    public void SpawnGyser(Vector2 position)
     {
-        Vector3 spawnPosition = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, transform.position.y, 0.0f);
-
+        Vector3 spawnPosition = new Vector3(position.x, transform.position.y, 0.0f);
         Instantiate(gyserPrefab, spawnPosition, gyserPrefab.transform.rotation);
     }
 }

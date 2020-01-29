@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1560176038745088894}
   - component: {fileID: 1560176038745088881}
   - component: {fileID: 6777226664639915871}
+  - component: {fileID: 3755571783273578322}
   m_Layer: 0
   m_Name: Gyser
   m_TagString: Untagged
@@ -93,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d532d20805042f24ab0d49b0423fcbf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  riseSpeed: 15
+  riseSpeed: 25
   lifeTime: 3
   damage: 5
   destroySpeed: 2
@@ -126,3 +127,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &3755571783273578322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560176038745088895}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bddff7f6dde69d49a515f83c732c36e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropSpeed: 1.8

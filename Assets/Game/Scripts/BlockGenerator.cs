@@ -42,7 +42,7 @@ public class BlockGenerator : MonoBehaviour
         float generateDistance = (size * 0.5f) - (blockThickness * 0.5f);
 
         // Randomized block size
-        int blockScaleX = (int) Random.Range(0.1f * size, 0.5f * size);
+        int blockScaleX = (int) Random.Range(0.2f * size, 0.7f * size);
         float blockHalfWidth = blockScaleX * 0.5f;
         //int blockScaleY = 
 

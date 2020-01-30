@@ -45,7 +45,7 @@ public class TurretLogic : MonoBehaviour
 
     private void OutOfBoundsCheck()
     {
-        if (parentTransform.position.y <= 0.0f)
+        if (parentTransform.localPosition.y <= 0.0f)
         {
             Destroy(parentTransform.gameObject);
         }
@@ -86,12 +86,12 @@ public class TurretLogic : MonoBehaviour
         }
         else if (vDp > 0.0f)
         {
-            this.transform.Rotate(Vector3.forward, (-aimSpeed * Time.deltaTime), Space.World);
+            this.transform.Rotate(transform.forward, (-aimSpeed * Time.deltaTime), Space.World);
 
         }
         else
         {
-            this.transform.Rotate(Vector3.forward, (aimSpeed * Time.deltaTime), Space.World);
+            this.transform.Rotate(transform.forward, (aimSpeed * Time.deltaTime), Space.World);
         }
 
     }

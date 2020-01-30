@@ -14,7 +14,11 @@ public class GyserSpawnerLogic : MonoBehaviour
 
     public void SpawnGyser(Vector2 position)
     {
-        Vector3 spawnPosition = new Vector3(position.x, transform.position.y, 0.0f);
-        Instantiate(gyserPrefab, spawnPosition, gyserPrefab.transform.rotation);
+        //Vector3 spawnPosition = new Vector3(position.x, transform.position.y, 0.0f);
+        //Instantiate(gyserPrefab, spawnPosition, gyserPrefab.transform.rotation);
+
+        GameObject geyser = Instantiate(gyserPrefab, transform);
+        geyser.transform.rotation = transform.rotation;
+        geyser.transform.localPosition = new Vector3(position.x, 0, 0);
     }
 }

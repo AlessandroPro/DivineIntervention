@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7838316905302827117}
   - component: {fileID: 9090644033471585279}
   - component: {fileID: 6689336133030054138}
+  - component: {fileID: -8623086666863166771}
   m_Layer: 8
   m_Name: Block
   m_TagString: Block
@@ -110,3 +111,15 @@ MonoBehaviour:
   outPlaneID: 0
   moveDistance: 0
   insidePlane: 0
+--- !u!114 &-8623086666863166771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373063488805746608}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 121917e39e1bd5c4c96b2011656f6ff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -14,7 +14,7 @@ public class BulletLogic : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
-        startPos = transform.position;
+        startPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
 
     // Update is called once per frame

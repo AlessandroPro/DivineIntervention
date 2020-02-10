@@ -7,7 +7,7 @@ public class TurretSpawnerLogic : MonoBehaviour
     public GameObject turretPrefab;
 
 
-    public void SpawnTurret(Vector2 position)
+    public void SpawnTurret(Vector2 position, Transform wingedSpirit)
     {
         Vector3 spawnPosition = new Vector3(position.x, position.y, 0.0f);
 

@@ -12,11 +12,13 @@ public class HinderanceDietyController : MonoBehaviour
     private bool swipeActivated = false;
 
     private Vector2 touchStartPosition;
+    private Transform wingedSpirit;
+
 
     // Start is called before the first frame update
     void Start()
     {
-
+        wingedSpirit = GameObject.Find("WingedSpirit").transform;
     }
 
     // Update is called once per frame
@@ -29,7 +31,7 @@ public class HinderanceDietyController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && DeviceManager.Instance.devMode)
         {
-           tapAbility.ExecuteAbility(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+           tapAbility.ExecuteAbility(Camera.main.ScreenToWorldPoint(Input.mousePosition), wingedSpirit);
         }
 
         if (Input.touchCount > 0)
@@ -55,7 +57,7 @@ public class HinderanceDietyController : MonoBehaviour
                     }
 
                     tapMoved = true;
-                    swipeAbility.ExecuteAbility(touchPos);
+                    swipeAbility.ExecuteAbility(touchPos, wingedSpirit);
                     swipeActivated = true;
                 }
             }
@@ -67,7 +69,7 @@ public class HinderanceDietyController : MonoBehaviour
                 }
                 else
                 {
-                    tapAbility.ExecuteAbility(touchPos);
+                    tapAbility.ExecuteAbility(touchPos, wingedSpirit);
                 }
                 tapMoved = false;
             }

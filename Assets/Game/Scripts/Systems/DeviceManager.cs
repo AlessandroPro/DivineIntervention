@@ -66,6 +66,7 @@ public class DeviceManager : Singleton<DeviceManager>
         if(!devMode)
         {
             Destroy(mainCamera);
+            AR.SetActive(true);
         }
         else
         {

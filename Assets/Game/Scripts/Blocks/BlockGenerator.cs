@@ -46,7 +46,7 @@ public class BlockGenerator : MonoBehaviour
         // Randomized block size
         int blockScaleX = (int) Random.Range(0.2f * size, 0.7f * size);
         float blockHalfWidth = blockScaleX * 0.5f;
-        //int blockScaleY = 
+        int blockScaleY = (int)Random.Range(0.05f * size, 0.2f * size);
 
         // Randomized block plane and position
         float blockPosZ = planeID * generateDistance;
@@ -63,7 +63,7 @@ public class BlockGenerator : MonoBehaviour
         }
 
         GameObject block = Instantiate(blockPrefab, transform);
-        block.transform.localScale = new Vector3(blockScaleX, 1, blockThickness);
+        block.transform.localScale = new Vector3(blockScaleX, blockScaleY, blockThickness);
         block.transform.localPosition = blockPos;
         Block blockData = block.GetComponent<Block>();
         blockData.dropSpeed = dropSpeed;

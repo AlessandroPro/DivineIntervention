@@ -15,17 +15,24 @@ public class Block : MonoBehaviour
 
     private float zPosTarget = 0;
 
+    public GameObject blockOutlinePrefab;
+    private GameObject blockOutline;
+
     // Start is called before the first frame update
     void Start()
     {
         mRenderer = GetComponent<MeshRenderer>();
         zPosTarget = outPlaneID * moveDistance;
 
+        blockOutline = Instantiate(blockOutlinePrefab);
+        blockOutline.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 0.2f);
+        blockOutline.transform.rotation = transform.rotation;
+
         // Randomly select an out plane ID for the block if it was generated inside the 2D plane
-        if(outPlaneID == 0)
+        if (outPlaneID == 0)
         {
             insidePlane = true;
-            if(Random.Range(0, 2) == 0)
+            if (Random.Range(0, 2) == 0)
             {
                 outPlaneID = -1;
             }
@@ -34,6 +41,7 @@ public class Block : MonoBehaviour
                 outPlaneID = 1;
             }
         }
+
     }
 
     // Update is called once per frame
@@ -46,8 +54,11 @@ public class Block : MonoBehaviour
 
         if(transform.localPosition.y < 0)
         {
+            Destroy(blockOutline);
             Destroy(this.gameObject);
         }
+
+        blockOutline.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
     public void toggleMove()
@@ -71,6 +82,14 @@ public class Block : MonoBehaviour
         if (!mRenderer.enabled)
         {
             mRenderer.enabled = true;
+        }
+    }
+
+    public void toggleOutline()
+    {
+        if(blockOutline)
+        {
+            blockOutline.SetActive(!blockOutline.activeSelf);
         }
     }
 }

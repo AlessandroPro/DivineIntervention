@@ -8,6 +8,7 @@ using UnityEngine.XR.ARSubsystems;
 
 public class ARTapToPlaceObject : MonoBehaviour
 {
+    public ARSessionOrigin arOrigin;
     public GameObject placementIndicator;
     //public GameObject objectToPlace;
 
@@ -79,7 +80,11 @@ public class ARTapToPlaceObject : MonoBehaviour
         if(placementPoseIsValid)
         {
             placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+
+            //UNCOMMENT THIS to go back to regular AR placement
+            //placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+            arOrigin.MakeContentAppearAt(placementIndicator.transform, placementPose.position, placementPose.rotation);
+            
         }
         else
         {

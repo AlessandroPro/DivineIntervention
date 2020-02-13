@@ -6,13 +6,40 @@ public class GyserSpawnerLogic : MonoBehaviour
 {
     public GameObject gyserPrefab;
 
+    private GyserChargeScript gyserCharge;
+
+
+    private void Start()
+    {
+        Transform child = gameObject.transform.GetChild(0);
+
+        if(child != null)
+        {
+            gyserCharge = child.GetChild(0).GetComponent<GyserChargeScript>();
+        }
+        
+    }
+
     public void SpawnGyser(Vector2 position, Transform wingedSpirit)
     {
-        //Vector3 spawnPosition = new Vector3(position.x, transform.position.y, 0.0f);
-        //Instantiate(gyserPrefab, spawnPosition, gyserPrefab.transform.rotation);
+        int verdict = gyserCharge.GyserRequest();
 
-        GameObject geyser = Instantiate(gyserPrefab, transform);
-        geyser.transform.rotation = transform.rotation;
-        geyser.transform.localPosition = new Vector3(position.x, 0, 0);
+        if(verdict == 1)
+        {
+            GameObject geyser = Instantiate(gyserPrefab, transform);
+            geyser.transform.rotation = transform.rotation;
+            geyser.transform.localPosition = new Vector3(position.x, 0, 0);
+        }
+        else if(verdict == 2)
+        {
+            GameObject geyser = null;
+
+            for (int i = -10; i < 12; i += 2)
+            {
+                geyser = Instantiate(gyserPrefab, transform);
+                geyser.transform.rotation = transform.rotation;
+                geyser.transform.localPosition = new Vector3(i, 0, 0);
+            }
+        }
     }
 }

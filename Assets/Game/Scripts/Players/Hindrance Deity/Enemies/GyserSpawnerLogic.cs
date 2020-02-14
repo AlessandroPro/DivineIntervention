@@ -15,7 +15,7 @@ public class GyserSpawnerLogic : MonoBehaviour
 
         if(child != null)
         {
-            gyserCharge = child.GetChild(0).GetComponent<GyserChargeScript>();
+           // gyserCharge = child.GetChild(0).GetComponent<GyserChargeScript>();
         }
         
     }

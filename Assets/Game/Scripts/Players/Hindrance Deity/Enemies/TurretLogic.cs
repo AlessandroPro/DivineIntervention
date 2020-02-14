@@ -22,6 +22,10 @@ public class TurretLogic : MonoBehaviour
     //public float dp;
     private float vDp;
     private Transform parentTransform;
+
+    private bool destroyed = false;
+    private float timeSincePlaced = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +45,8 @@ public class TurretLogic : MonoBehaviour
             AimLogicUpdateDot();
             OutOfBoundsCheck();
         }
+
+        timeSincePlaced += Time.deltaTime;
     }
 
     private void OutOfBoundsCheck()
@@ -78,7 +84,7 @@ public class TurretLogic : MonoBehaviour
 
         if (vDp > -0.05f && vDp < 0.05f)
         {
-            if (currentFireCooldown <= 0.0f)
+            if (currentFireCooldown <= 0.0f && !destroyed)
             {
                 Instantiate(projectile, barrel.transform.position, barrel.transform.rotation);
                 currentFireCooldown = rateOfFire;
@@ -94,5 +100,28 @@ public class TurretLogic : MonoBehaviour
             this.transform.Rotate(transform.forward, (aimSpeed * Time.deltaTime), Space.World);
         }
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Knocks the turret out of the 2D plane if hit by a block, then it is destroyed
+        if(collision.gameObject.GetComponent<Block>() && !destroyed)
+        {
+            destroyed = true;
+
+            if (timeSincePlaced < 0.5f)
+            {
+                // TODO: this is only for turrets that spawn within blocks
+                // Remove this once the Hindrance AI is smart enough to avoid this
+                Destroy(parentTransform.gameObject);
+            }
+            else
+            {
+                Destroy(GetComponent<Rigidbody>());
+                Rigidbody rb = parentTransform.gameObject.AddComponent<Rigidbody>();
+                rb.AddForce(Vector3.forward * 20, ForceMode.Impulse);
+                Destroy(parentTransform.gameObject, 2);
+            }
+        }
     }
 }

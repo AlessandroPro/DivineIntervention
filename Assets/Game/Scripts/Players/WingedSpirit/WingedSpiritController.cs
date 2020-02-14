@@ -28,6 +28,7 @@ public class WingedSpiritController : MonoBehaviour
     [SerializeField]private bool invincible = false;
     
     [Header("Winged Spirit Colors")]
+    public SkinnedMeshRenderer _renderer;
     public Material normalMat;
     public Material normalInvMat;
     public Material dashingMat;
@@ -37,8 +38,10 @@ public class WingedSpiritController : MonoBehaviour
     public Text healthTxt;
 
 
+    [Header("Attack")]
+    public SpiritAttack orbAttack;
+
     private Rigidbody rb;
-    private Renderer _renderer;
     private CapsuleCollider capCol;
     private Vector3 moveVelocity;
     private Vector2 moveInput;
@@ -48,7 +51,6 @@ public class WingedSpiritController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        _renderer = GetComponent<Renderer>();
         capCol = GetComponent<CapsuleCollider>();
         healthTxt.text = health.ToString();
     }
@@ -172,5 +174,10 @@ public class WingedSpiritController : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
+
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            orbAttack.execute();
+        }
     }
 }

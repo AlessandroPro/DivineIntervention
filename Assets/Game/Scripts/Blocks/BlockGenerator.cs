@@ -20,12 +20,6 @@ public class BlockGenerator : MonoBehaviour
     public bool enableBlockAI = false;
     
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -40,13 +34,25 @@ public class BlockGenerator : MonoBehaviour
 
     private void generateBlock()
     {
-        int planeID = Random.Range(-1, 2);
+        int planeID = Random.Range(0, 2);
         float generateDistance = (size * 0.5f) - (blockThickness * 0.5f);
 
         // Randomized block size
-        int blockScaleX = (int) Random.Range(0.2f * size, 0.7f * size);
+        int blockScale = (int) Random.Range(0.2f * size, 0.5f * size);
+        float blockScaleX = 1;
+        float blockScaleY = 1;
+
+        int orientation = Random.Range(0, 2);
+        //if(orientation == 0)
+        //{
+            blockScaleX = blockScale;
+        //}
+        //else
+        //{
+            //blockScaleY = blockScale;
+        //}
+
         float blockHalfWidth = blockScaleX * 0.5f;
-        int blockScaleY = (int)Random.Range(0.05f * size, 0.2f * size);
 
         // Randomized block plane and position
         float blockPosZ = planeID * generateDistance;

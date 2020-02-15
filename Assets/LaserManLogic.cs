@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Scrollable))]
 public class LaserManLogic : MonoBehaviour
 {
     public LayerMask layerMask;
@@ -37,13 +36,18 @@ public class LaserManLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TrackSpirit();
-        Cooldown();
 
         if (landed == false)
         {
             Fall();
         }
+        else
+        {
+            TrackSpirit();
+            Cooldown();
+        }
+        OutOfBoundsCheck();
+
     }
 
     private void Fall()
@@ -56,8 +60,17 @@ public class LaserManLogic : MonoBehaviour
         if(collision.transform.GetComponent<Block>() != null)
         {
             landed = true;
-            GetComponent<Scrollable>().enabled = true;
+            transform.parent.GetComponent<Scrollable>().enabled = true;
         }
+    }
+
+    private void OutOfBoundsCheck()
+    {
+        if (transform.parent.localPosition.y <= 0.0f)
+        {
+            Destroy(transform.parent.gameObject);
+        }
+
     }
 
     private void Cooldown()

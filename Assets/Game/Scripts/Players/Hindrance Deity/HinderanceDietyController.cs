@@ -8,6 +8,7 @@ public class HinderanceDietyController : MonoBehaviour
     public HinderanceAbility tapAbility;
     public HinderanceAbility swipeAbility;
     public LayerMask mask;
+    public Transform tapAllowance;
     public float disallowedRadius = 4.0f;
     public float errorTime = 1.0f;
 
@@ -44,18 +45,25 @@ public class HinderanceDietyController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && DeviceManager.Instance.devMode)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            Physics.Raycast(ray, out hit, Mathf.Infinity, mask);
+            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //RaycastHit hit;
+            //Physics.Raycast(ray, out hit, Mathf.Infinity, mask);
 
-            if (hit.collider != null)
+            //if (hit.collider != null)
+            //{
+            //    return;
+            //}
+
+
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+
+            if (mousePosition.y <= tapAllowance.position.y)
             {
                 return;
             }
 
 
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0;
             float dist = Vector3.Distance(mousePosition, wingedSpirit.position);
 
 
@@ -74,6 +82,12 @@ public class HinderanceDietyController : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
             Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+
+            if (touchPos.y <= tapAllowance.position.y)
+            {
+                return;
+            }
+
 
             if(touch.phase == TouchPhase.Began)
             {

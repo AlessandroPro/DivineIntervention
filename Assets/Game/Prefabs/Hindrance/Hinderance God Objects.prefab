@@ -164,11 +164,6 @@ PrefabInstance:
       propertyPath: dietyController
       value: 
       objectReference: {fileID: 3947090293630814733}
-    - target: {fileID: 822375557161578320, guid: e0d554c9d71a1d64a86a3f589c23a931,
-        type: 3}
-      propertyPath: hinderanceAbility
-      value: 
-      objectReference: {fileID: 4408145920767212048}
     - target: {fileID: 822375556825923637, guid: e0d554c9d71a1d64a86a3f589c23a931,
         type: 3}
       propertyPath: hinderance
@@ -179,21 +174,26 @@ PrefabInstance:
       propertyPath: dietyController
       value: 
       objectReference: {fileID: 3947090293630814733}
-    - target: {fileID: 822375556241821729, guid: e0d554c9d71a1d64a86a3f589c23a931,
-        type: 3}
-      propertyPath: hinderanceAbility
-      value: 
-      objectReference: {fileID: 2867098928219349674}
     - target: {fileID: 822375556290037499, guid: e0d554c9d71a1d64a86a3f589c23a931,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4408145921997830012}
+    - target: {fileID: 822375557161578320, guid: e0d554c9d71a1d64a86a3f589c23a931,
+        type: 3}
+      propertyPath: hinderanceAbility
+      value: 
+      objectReference: {fileID: 4408145920767212048}
     - target: {fileID: 822375556897687078, guid: e0d554c9d71a1d64a86a3f589c23a931,
         type: 3}
       propertyPath: hinderanceAbility
       value: 
       objectReference: {fileID: 4408145921997830012}
+    - target: {fileID: 822375556241821729, guid: e0d554c9d71a1d64a86a3f589c23a931,
+        type: 3}
+      propertyPath: hinderanceAbility
+      value: 
+      objectReference: {fileID: 2867098928219349674}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0d554c9d71a1d64a86a3f589c23a931, type: 3}
 --- !u!224 &2174562247954587609 stripped
@@ -360,12 +360,17 @@ PrefabInstance:
         type: 3}
       propertyPath: tapAbility
       value: 
-      objectReference: {fileID: 2867098928219349674}
+      objectReference: {fileID: 4408145920767212048}
     - target: {fileID: 858499681906137963, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
         type: 3}
       propertyPath: swipeAbility
       value: 
       objectReference: {fileID: 4408145921376286735}
+    - target: {fileID: 858499681906137963, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
+        type: 3}
+      propertyPath: tapAllowance
+      value: 
+      objectReference: {fileID: 4408145920733544756}
     - target: {fileID: 1203005615, guid: f4bcdadc174fe7c40a3a11604c2abaa1, type: 3}
       propertyPath: tapAbility
       value: 
@@ -375,8 +380,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4408145921376286735}
     - target: {fileID: 1203005615, guid: f4bcdadc174fe7c40a3a11604c2abaa1, type: 3}
-      propertyPath: gameWindow2D
-      value: 
+      propertyPath: swipeIntervalMax
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4bcdadc174fe7c40a3a11604c2abaa1, type: 3}
@@ -465,6 +470,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4838911872121254524, guid: 9d05418d881e9684c80a5cc2c46febe4,
+        type: 3}
+      propertyPath: turretPrefab
+      value: 
+      objectReference: {fileID: 6640450290226409466, guid: 6b6b5916647e3ee4e93dbba3085255dc,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d05418d881e9684c80a5cc2c46febe4, type: 3}
 --- !u!4 &2867098928219349675 stripped
@@ -552,7 +563,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 408417663, guid: bc9742acb302a9944b92c4ee5541d282, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bc9742acb302a9944b92c4ee5541d282, type: 3}
 --- !u!4 &1161067641498638255 stripped
 Transform:
@@ -584,11 +596,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HudBlocker
       objectReference: {fileID: 0}
-    - target: {fileID: 8459786603340236952, guid: b852eec4e51cddb4789ffe698f80a41f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8459786603340236953, guid: b852eec4e51cddb4789ffe698f80a41f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -597,7 +604,7 @@ PrefabInstance:
     - target: {fileID: 8459786603340236953, guid: b852eec4e51cddb4789ffe698f80a41f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.6699829
+      value: 2.79
       objectReference: {fileID: 0}
     - target: {fileID: 8459786603340236953, guid: b852eec4e51cddb4789ffe698f80a41f,
         type: 3}
@@ -642,6 +649,16 @@ PrefabInstance:
     - target: {fileID: 8459786603340236953, guid: b852eec4e51cddb4789ffe698f80a41f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8459786603340236953, guid: b852eec4e51cddb4789ffe698f80a41f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.13955602
+      objectReference: {fileID: 0}
+    - target: {fileID: 8459786603340236954, guid: b852eec4e51cddb4789ffe698f80a41f,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

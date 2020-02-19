@@ -18,6 +18,8 @@ public class BlockGenerator : MonoBehaviour
     private float timeElapsed = 0;
 
     public bool enableBlockAI = false;
+
+    private int outPlaneID = 1;
     
 
     // Update is called once per frame
@@ -34,7 +36,12 @@ public class BlockGenerator : MonoBehaviour
 
     private void generateBlock()
     {
-        int planeID = Random.Range(0, 2);
+        // Randomly choose if default position is in the plane or outside
+        int blockPlaneID = outPlaneID;
+        if(Random.Range(0, 2) == 0)
+        {
+            blockPlaneID = 0;
+        }
         float generateDistance = (size * 0.5f) - (blockThickness * 0.5f);
 
         // Randomized block size
@@ -55,7 +62,7 @@ public class BlockGenerator : MonoBehaviour
         float blockHalfWidth = blockScaleX * 0.5f;
 
         // Randomized block plane and position
-        float blockPosZ = planeID * generateDistance;
+        float blockPosZ = blockPlaneID * generateDistance;
         float baseHalfWidth = size * 0.5f;
         float blockPosX = Random.Range(-baseHalfWidth + blockHalfWidth, baseHalfWidth - blockHalfWidth);
         float blockPosY = startHeight;
@@ -63,7 +70,7 @@ public class BlockGenerator : MonoBehaviour
         Vector3 blockPos = new Vector3(blockPosX, blockPosY, blockPosZ);
 
         // Create block and set its properties
-        if (only2D && planeID != 0)
+        if (only2D && blockPlaneID != 0)
         {
             return;
         }
@@ -74,7 +81,7 @@ public class BlockGenerator : MonoBehaviour
         Block blockData = block.GetComponent<Block>();
         blockData.dropSpeed = dropSpeed;
         blockData.moveDistance = generateDistance;
-        blockData.outPlaneID = planeID;
+        blockData.outPlaneID = blockPlaneID;
 
         ProtectionDeityAI protectionAi = block.GetComponent<ProtectionDeityAI>();
 
@@ -83,5 +90,12 @@ public class BlockGenerator : MonoBehaviour
             protectionAi.enabled = enableBlockAI;
         }
         
+    }
+
+    public void swapPlanes()
+    {
+        outPlaneID *= -1;
+
+
     }
 }

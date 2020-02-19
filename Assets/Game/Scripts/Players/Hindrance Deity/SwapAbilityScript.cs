@@ -32,7 +32,7 @@ public class SwapAbilityScript : MonoBehaviour
     {
         if(hinderance.abilityName == dietyController.tapAbility.abilityName)
         {
-            _buttonImage.color = Color.cyan;
+            _buttonImage.color = Color.blue;
         }
         else
         {

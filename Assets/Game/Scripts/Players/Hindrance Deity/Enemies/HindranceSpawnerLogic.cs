@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretSpawnerLogic : MonoBehaviour
+public class HindranceSpawnerLogic : MonoBehaviour
 {
     public GameObject turretPrefab;
 
 
-    public void SpawnTurret(Vector2 position)
+    public void SpawnHindrance(Vector2 position, Transform wingedSpirit)
     {
         Vector3 spawnPosition = new Vector3(position.x, position.y, 0.0f);
 

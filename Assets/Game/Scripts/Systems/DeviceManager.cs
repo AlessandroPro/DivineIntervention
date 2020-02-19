@@ -24,6 +24,9 @@ public class DeviceManager : Singleton<DeviceManager>
     public GameObject wingedSpirit;
     public GameObject hindranceDeity;
     public GameObject blockGenerator;
+    public GameObject gyserGauge;
+    public GameObject AbilitySwapCanvas;
+    public GameObject HudBlocker;
 
 
     private void Awake()
@@ -44,7 +47,6 @@ public class DeviceManager : Singleton<DeviceManager>
 
     private void PCSetup()
     {
-
         Destroy(AR);
         Destroy(interaction);
         
@@ -55,6 +57,11 @@ public class DeviceManager : Singleton<DeviceManager>
 
         hindranceDeity.GetComponent<HinderanceDietyController>().enabled = false;
         hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = true;
+
+        gyserGauge.GetComponent<MeshRenderer>().enabled = false;
+        gyserGauge.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+        AbilitySwapCanvas.SetActive(false);
+        HudBlocker.SetActive(false);
 
         BlockGenerator blockGenScript = blockGenerator.GetComponent<BlockGenerator>();
         blockGenScript.enableBlockAI = true;
@@ -81,6 +88,11 @@ public class DeviceManager : Singleton<DeviceManager>
         hindranceDeity.GetComponent<HinderanceDietyController>().enabled = false;
         hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = true;
 
+        gyserGauge.GetComponent<MeshRenderer>().enabled = false;
+        gyserGauge.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+        AbilitySwapCanvas.SetActive(false);
+        HudBlocker.SetActive(false);
+
         BlockGenerator blockGenScript = blockGenerator.GetComponent<BlockGenerator>();
         blockGenScript.enableBlockAI = false;
         blockGenScript.only2D = false;
@@ -97,6 +109,11 @@ public class DeviceManager : Singleton<DeviceManager>
 
         hindranceDeity.GetComponent<HinderanceDietyController>().enabled = true;
         hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = false;
+
+        gyserGauge.GetComponent<MeshRenderer>().enabled = true;
+        gyserGauge.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+        AbilitySwapCanvas.SetActive(true);
+        HudBlocker.SetActive(true);
 
         BlockGenerator blockGenScript = blockGenerator.GetComponent<BlockGenerator>();
         blockGenScript.enableBlockAI = true;

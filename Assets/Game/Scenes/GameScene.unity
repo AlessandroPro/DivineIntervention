@@ -248,8 +248,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eda9d5de145b13e43b031d06723860d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  device: 0
-  devMode: 0
+  device: 2
+  devMode: 1
   AR: {fileID: 1651043982}
   mainCamera: {fileID: 963194225}
   interaction: {fileID: 1770307291}

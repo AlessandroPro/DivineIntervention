@@ -54,6 +54,12 @@ public class BlockGenerator : MonoBehaviour
         {
             blockPlaneID = 0;
         }
+
+        if (only2D && blockPlaneID != 0)
+        {
+            blockPlaneID = 0;
+        }
+
         float generateDistance = (size * 0.5f) - (blockThickness * 0.5f);
 
         // Randomized block size
@@ -83,10 +89,7 @@ public class BlockGenerator : MonoBehaviour
         Vector3 blockPos = new Vector3(blockPosX, blockPosY, blockPosZ);
 
         // Create block and set its properties
-        if (only2D && blockPlaneID != 0)
-        {
-            return;
-        }
+
 
         GameObject block = Instantiate(blockPrefab, transform);
         block.transform.localScale = new Vector3(blockScaleX, blockScaleY, blockThickness);

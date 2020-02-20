@@ -175,7 +175,7 @@ public class WingedSpiritController : MonoBehaviour
 
         rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
 
-        if(Input.GetKeyDown(KeyCode.B))
+        if(Input.GetKeyDown("joystick button 0"))
         {
             orbAttack.execute();
         }

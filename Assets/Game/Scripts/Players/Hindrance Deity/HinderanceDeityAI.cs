@@ -6,6 +6,7 @@ public class HinderanceDeityAI : MonoBehaviour
 {
     public HinderanceAbility tapAbility;
     public HinderanceAbility swipeAbility;
+    public BlockGenerator blockGen;
     public GameObject gameWindow2D;
     
 
@@ -34,7 +35,15 @@ public class HinderanceDeityAI : MonoBehaviour
     {
         if(tapTimer > tapInterval)
         {
-            tapAbility.ExecuteAbility(getRandomScenePoint(), wingedSpirit);
+            if(Random.Range(0, 5) == 0)
+            {
+                blockGen.swapPlanes();
+            }
+            else
+            {
+                tapAbility.ExecuteAbility(getRandomScenePoint(), wingedSpirit);
+            }
+            
             //tapAbility.ExecuteAbility(getRandomScreenPoint());
             tapTimer = 0;
             tapInterval = Random.Range(tapIntervalMin, tapIntervalMax);

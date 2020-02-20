@@ -22,26 +22,11 @@ public class Block : MonoBehaviour
     void Start()
     {
         mRenderer = GetComponent<MeshRenderer>();
-        zPosTarget = outPlaneID * moveDistance;
+        zPosTarget = transform.position.z;
 
         blockOutline = Instantiate(blockOutlinePrefab);
         blockOutline.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 0.2f);
         blockOutline.transform.rotation = transform.rotation;
-
-        // Randomly select an out plane ID for the block if it was generated inside the 2D plane
-        if (outPlaneID == 0)
-        {
-            insidePlane = true;
-            if (Random.Range(0, 2) == 0)
-            {
-                outPlaneID = -1;
-            }
-            else
-            {
-                outPlaneID = 1;
-            }
-        }
-
     }
 
     // Update is called once per frame
@@ -90,6 +75,16 @@ public class Block : MonoBehaviour
         if(blockOutline)
         {
             blockOutline.SetActive(!blockOutline.activeSelf);
+        }
+    }
+
+    public void swapSides(int planeID)
+    {
+        outPlaneID = planeID;
+
+        if(!insidePlane)
+        {
+            zPosTarget = moveDistance * outPlaneID;
         }
     }
 }

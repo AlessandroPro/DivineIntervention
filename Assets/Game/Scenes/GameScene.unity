@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   device: 0
-  devMode: 1
+  devMode: 0
   AR: {fileID: 1651043982}
   mainCamera: {fileID: 963194225}
   interaction: {fileID: 1770307291}
@@ -1119,6 +1119,10 @@ PrefabInstance:
       propertyPath: healthTxt
       value: 
       objectReference: {fileID: 1021478189}
+    - target: {fileID: 1957562558, guid: 07738152095b18e41a2e0e2f3c9e33cd, type: 3}
+      propertyPath: orbAttack
+      value: 
+      objectReference: {fileID: 1977285539}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07738152095b18e41a2e0e2f3c9e33cd, type: 3}
 --- !u!1 &1123157407
@@ -6228,7 +6232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1342264010
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6593,6 +6597,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1065757960}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1977285539 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1589798723, guid: 07738152095b18e41a2e0e2f3c9e33cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1065757960}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 394333473977d744dae324b182d82a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2128243188
 GameObject:
   m_ObjectHideFlags: 0
@@ -6808,6 +6824,21 @@ PrefabInstance:
       propertyPath: swipeIntervalMax
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4408145922223552969, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: tapIntervalMax
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4408145922223552969, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: blockGen
+      value: 
+      objectReference: {fileID: 1221042896}
+    - target: {fileID: 4408145922223552969, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: tapIntervalMin
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4408145922184094216, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
         type: 3}
       propertyPath: m_Enabled
@@ -6839,6 +6870,11 @@ PrefabInstance:
       propertyPath: tapAbility
       value: 
       objectReference: {fileID: 1388230961}
+    - target: {fileID: 4408145920733544758, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4408145922184094219, guid: 1bcf23c5bd5e51e43a0d72772ec88c91, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1bcf23c5bd5e51e43a0d72772ec88c91, type: 3}

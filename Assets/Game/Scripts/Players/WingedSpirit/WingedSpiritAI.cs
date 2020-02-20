@@ -13,11 +13,16 @@ public class WingedSpiritAI : MonoBehaviour
     private float decisionTimer = 0;
     private Vector3 moveVelocity;
 
+    public SpiritAttack orbAttack;
+    private float attackTimer = 0;
+    private float attackTime = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         moveVelocity = new Vector3();
+        attackTime = Random.Range(1f, 6f);
     }
 
     // Update is called once per frame
@@ -80,8 +85,17 @@ public class WingedSpiritAI : MonoBehaviour
         }
 
         moveVelocity = moveVelocity.normalized * speed;
-        //rb.MovePosition(transform.position + transform.TransformDirection(moveVelocity) * Time.deltaTime);
         transform.localPosition = transform.localPosition + moveVelocity * Time.deltaTime;
+
+
+        // Random attack
+        if(attackTimer > attackTime)
+        {
+            attackTime = Random.Range(1f, 6f);
+            orbAttack.execute();
+            attackTimer = 0;
+        }
+        attackTimer += Time.deltaTime;
     }
 
     void randomizeDirection()

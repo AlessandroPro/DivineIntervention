@@ -104,8 +104,10 @@ public class TurretLogic : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Block block = collision.gameObject.GetComponent<Block>();
+
         // Knocks the turret out of the 2D plane if hit by a block, then it is destroyed
-        if(collision.gameObject.GetComponent<Block>() && !destroyed)
+        if (block != null && !destroyed)
         {
             destroyed = true;
 
@@ -119,7 +121,7 @@ public class TurretLogic : MonoBehaviour
             {
                 Destroy(GetComponent<Rigidbody>());
                 Rigidbody rb = parentTransform.gameObject.AddComponent<Rigidbody>();
-                rb.AddForce(Vector3.forward * 20, ForceMode.Impulse);
+                rb.AddForce(Vector3.forward * 20 * block.outPlaneID * -1, ForceMode.Impulse);
                 Destroy(parentTransform.gameObject, 2);
             }
         }

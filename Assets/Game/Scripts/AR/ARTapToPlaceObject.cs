@@ -105,7 +105,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
             var cameraForward = Camera.current.transform.forward;
             var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-            placementPose.rotation = Quaternion.LookRotation(cameraBearing);
+            //placementPose.rotation = Quaternion.LookRotation(cameraBearing);
         }
     }
 }

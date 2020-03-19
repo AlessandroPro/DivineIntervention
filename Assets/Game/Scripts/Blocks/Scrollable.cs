@@ -6,6 +6,11 @@ public class Scrollable : MonoBehaviour
 {
     public float dropSpeed;
 
+
+    private void Start()
+    {
+        dropSpeed = GameManager.Instance.scrollSpeed;
+    }
     // Update is called once per frame
     void Update()
     {

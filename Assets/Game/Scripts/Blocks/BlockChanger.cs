@@ -6,18 +6,8 @@ public class BlockChanger : MonoBehaviour
 {
     public Material enterMat;
     public Material exitMat;
+    public bool removeOutline = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,6 +15,10 @@ public class BlockChanger : MonoBehaviour
         if (block)
         {
             block.changeMaterial(enterMat);
+            if(removeOutline)
+            {
+                block.toggleOutline();
+            }
         }
     }
 
@@ -34,6 +28,10 @@ public class BlockChanger : MonoBehaviour
         if (block)
         {
             block.changeMaterial(exitMat);
+            if (removeOutline)
+            {
+                block.toggleOutline();
+            }
         }
     }
 }

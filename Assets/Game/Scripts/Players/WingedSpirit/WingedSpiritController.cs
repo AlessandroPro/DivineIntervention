@@ -28,29 +28,33 @@ public class WingedSpiritController : MonoBehaviour
     [SerializeField]private bool invincible = false;
     
     [Header("Winged Spirit Colors")]
+    public SkinnedMeshRenderer _renderer;
     public Material normalMat;
     public Material normalInvMat;
     public Material dashingMat;
     public Material dashingInvMat;
 
-    [Header("UI Info")]
-    public Text healthTxt;
 
+    [Header("Attack")]
+    public SpiritAttack orbAttack;
 
     private Rigidbody rb;
-    private Renderer _renderer;
     private CapsuleCollider capCol;
     private Vector3 moveVelocity;
     private Vector2 moveInput;
 
+    public WingedSpiritAI wingedSpiritAI;
+
+    private void Awake()
+    {
+        name = "WingedSpirit";
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        _renderer = GetComponent<Renderer>();
         capCol = GetComponent<CapsuleCollider>();
-        healthTxt.text = health.ToString();
     }
 
     // Update is called once per frame
@@ -110,7 +114,7 @@ public class WingedSpiritController : MonoBehaviour
         }
 
         health -= 10;
-        healthTxt.text = health.ToString();
+        GameManager.Instance.UpdateHealth(health);
 
         if(health <= 0)
         {
@@ -122,12 +126,17 @@ public class WingedSpiritController : MonoBehaviour
 
     private void Die()
     {
-        healthTxt.text = "Dead";
+        GameManager.Instance.UpdateHealth(0);
         Destroy(this.gameObject);
     }
 
     private void WingedSpiritControls()
     {
+        if(wingedSpiritAI.enabled == true)
+        {
+            return;
+        }
+
         if (dashOnCooldown)
         {
             dashCooldownTimer += Time.deltaTime;
@@ -172,5 +181,10 @@ public class WingedSpiritController : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
+
+        if(Input.GetKeyDown("joystick button 0"))
+        {
+            orbAttack.execute();
+        }
     }
 }

@@ -29,14 +29,24 @@ public class HinderanceDietyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        wingedSpirit = GameObject.Find("WingedSpirit").transform;
         line = gameObject.GetComponent<LineRenderer>();
-       
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(wingedSpirit == null)
+        {
+            try
+            {
+                wingedSpirit = GameObject.Find("WingedSpirit").transform;
+            }
+            catch(Exception e)
+            {
+                //blah
+            }
+        }
+
         CheckEvents();
         DrawDisallowedArea();
     }
@@ -138,6 +148,10 @@ public class HinderanceDietyController : MonoBehaviour
 
     private void DrawDisallowedArea()
     {
+        if(wingedSpirit == null)
+        {
+            return;
+        }
 
         line.positionCount = 51;
         line.transform.position = wingedSpirit.position;

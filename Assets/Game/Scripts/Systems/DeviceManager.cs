@@ -53,9 +53,7 @@ public class DeviceManager : Singleton<DeviceManager>
         plane2D.GetComponent<MeshRenderer>().enabled = false;
 
         wingedSpirit.GetComponent<WingedSpiritAI>().enabled = false;
-        wingedSpirit.GetComponent<WingedSpiritController>().enabled = true;
 
-        hindranceDeity.GetComponent<HinderanceDietyController>().enabled = false;
         hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = true;
 
         gyserGauge.GetComponent<MeshRenderer>().enabled = false;
@@ -83,7 +81,6 @@ public class DeviceManager : Singleton<DeviceManager>
         plane2D.GetComponent<MeshRenderer>().enabled = true;
 
         wingedSpirit.GetComponent<WingedSpiritAI>().enabled = true;
-        wingedSpirit.GetComponent<WingedSpiritController>().enabled = false;
 
         hindranceDeity.GetComponent<HinderanceDietyController>().enabled = false;
         hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = true;
@@ -105,7 +102,6 @@ public class DeviceManager : Singleton<DeviceManager>
         plane2D.GetComponent<MeshRenderer>().enabled = false;
 
         wingedSpirit.GetComponent<WingedSpiritAI>().enabled = true;
-        wingedSpirit.GetComponent<WingedSpiritController>().enabled = false;
 
         hindranceDeity.GetComponent<HinderanceDietyController>().enabled = true;
         hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = false;

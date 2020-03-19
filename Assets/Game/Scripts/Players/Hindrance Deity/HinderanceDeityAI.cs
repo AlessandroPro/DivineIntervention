@@ -27,13 +27,24 @@ public class HinderanceDeityAI : MonoBehaviour
     {
         tapInterval = Random.Range(tapIntervalMin, tapIntervalMax);
         swipeInterval = Random.Range(swipeIntervalMin, swipeIntervalMax);
-        wingedSpirit = GameObject.Find("WingedSpirit").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(tapTimer > tapInterval)
+        if (wingedSpirit == null)
+        {
+            try
+            {
+                wingedSpirit = GameObject.Find("WingedSpirit").transform;
+            }
+            finally
+            {
+                //blah
+            }
+        }
+
+        if (tapTimer > tapInterval)
         {
             if(Random.Range(0, 5) == 0)
             {

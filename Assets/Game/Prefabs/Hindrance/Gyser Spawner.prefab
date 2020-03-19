@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4cd12f7052cc524c9619803e5e8f566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gyserPrefab: {fileID: 1560176038745088895, guid: c596babc5deb8784480dd32109a11e39,
+  gyserPrefab: {fileID: 1216898857736352216, guid: c596babc5deb8784480dd32109a11e39,
     type: 3}
 --- !u!114 &1211182971
 MonoBehaviour:

@@ -34,9 +34,6 @@ public class WingedSpiritController : MonoBehaviour
     public Material dashingMat;
     public Material dashingInvMat;
 
-    [Header("UI Info")]
-    public Text healthTxt;
-
 
     [Header("Attack")]
     public SpiritAttack orbAttack;
@@ -46,13 +43,18 @@ public class WingedSpiritController : MonoBehaviour
     private Vector3 moveVelocity;
     private Vector2 moveInput;
 
+    public WingedSpiritAI wingedSpiritAI;
+
+    private void Awake()
+    {
+        name = "WingedSpirit";
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         capCol = GetComponent<CapsuleCollider>();
-        healthTxt.text = health.ToString();
     }
 
     // Update is called once per frame
@@ -112,7 +114,7 @@ public class WingedSpiritController : MonoBehaviour
         }
 
         health -= 10;
-        healthTxt.text = health.ToString();
+        GameManager.Instance.UpdateHealth(health);
 
         if(health <= 0)
         {
@@ -124,12 +126,17 @@ public class WingedSpiritController : MonoBehaviour
 
     private void Die()
     {
-        healthTxt.text = "Dead";
+        GameManager.Instance.UpdateHealth(0);
         Destroy(this.gameObject);
     }
 
     private void WingedSpiritControls()
     {
+        if(wingedSpiritAI.enabled == true)
+        {
+            return;
+        }
+
         if (dashOnCooldown)
         {
             dashCooldownTimer += Time.deltaTime;

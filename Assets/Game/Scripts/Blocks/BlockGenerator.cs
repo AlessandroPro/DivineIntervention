@@ -20,7 +20,12 @@ public class BlockGenerator : MonoBehaviour
     public bool enableBlockAI = false;
 
     private int outPlaneID = 1;
-    
+
+
+    private void Start()
+    {
+        dropSpeed = GameManager.Instance.scrollSpeed;
+    }
 
     // Update is called once per frame
     void Update()

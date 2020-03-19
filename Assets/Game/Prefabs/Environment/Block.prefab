@@ -111,6 +111,8 @@ MonoBehaviour:
   outPlaneID: 0
   moveDistance: 0
   insidePlane: 0
+  blockOutlinePrefab: {fileID: 7345856714061461610, guid: 107cdfdffb027624ba861179bad8aa5f,
+    type: 3}
 --- !u!114 &-8623086666863166771
 MonoBehaviour:
   m_ObjectHideFlags: 0

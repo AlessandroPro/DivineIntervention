@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Scrollable))]
 public class GyserLogic : MonoBehaviour
 {
     public float riseSpeed = 5.0f;
+    public float shrinkSpeed = 1.8f;
     public float lifeTime = 3.0f;
     public float damage = 5.0f;
     public float destroySpeed = 2.0f;
@@ -23,7 +23,14 @@ public class GyserLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveUp();
+        if (blockCollide == false)
+        {
+            MoveUp();
+        }
+        else
+        {
+            Shrink();
+        }
         ReduceLifeTime();
     }
 
@@ -55,7 +62,17 @@ public class GyserLogic : MonoBehaviour
             return;
         }
 
-       transform.Translate(transform.up * riseSpeed * Time.deltaTime, Space.World);
+        transform.parent.localScale += new Vector3(0.0f, riseSpeed * Time.deltaTime, 0.0f);
+    }
+
+    private void Shrink()
+    {
+        transform.parent.localScale -= new Vector3(0.0f, shrinkSpeed * Time.deltaTime, 0.0f);
+
+        if(transform.parent.localScale.y < 0.0f)
+        {
+            Destroy(transform.parent.gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -63,7 +80,6 @@ public class GyserLogic : MonoBehaviour
         if(other.tag == "Block")
         {
             blockCollide = true;
-            GetComponent<Scrollable>().enabled = true;
         }
     }
 

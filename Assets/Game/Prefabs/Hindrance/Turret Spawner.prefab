@@ -62,7 +62,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 333181838306702937}
-        m_MethodName: SpawnTurret
+        m_MethodName: SpawnHindrance
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -73,3 +73,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: AbilityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  hasCooldown: 1
+  cooldownTimer: 3
+  currentCooldown: 0
+  abilityName: Turret

@@ -6,7 +6,9 @@ public class HinderanceDeityAI : MonoBehaviour
 {
     public HinderanceAbility tapAbility;
     public HinderanceAbility swipeAbility;
+    public BlockGenerator blockGen;
     public GameObject gameWindow2D;
+    
 
     public float tapIntervalMin;
     public float tapIntervalMax;
@@ -18,20 +20,41 @@ public class HinderanceDeityAI : MonoBehaviour
     private float swipeInterval;
     private float swipeTimer;
 
+    private Transform wingedSpirit;
+
     // Start is called before the first frame update
     void Start()
     {
         tapInterval = Random.Range(tapIntervalMin, tapIntervalMax);
         swipeInterval = Random.Range(swipeIntervalMin, swipeIntervalMax);
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(tapTimer > tapInterval)
+        if (wingedSpirit == null)
         {
-            tapAbility.ExecuteAbility(getRandomScenePoint());
+            try
+            {
+                wingedSpirit = GameObject.Find("WingedSpirit").transform;
+            }
+            finally
+            {
+                //blah
+            }
+        }
+
+        if (tapTimer > tapInterval)
+        {
+            if(Random.Range(0, 5) == 0)
+            {
+                blockGen.swapPlanes();
+            }
+            else
+            {
+                tapAbility.ExecuteAbility(getRandomScenePoint(), wingedSpirit);
+            }
+            
             //tapAbility.ExecuteAbility(getRandomScreenPoint());
             tapTimer = 0;
             tapInterval = Random.Range(tapIntervalMin, tapIntervalMax);
@@ -39,7 +62,7 @@ public class HinderanceDeityAI : MonoBehaviour
 
         if (swipeTimer > swipeInterval)
         {
-            swipeAbility.ExecuteAbility(getRandomScenePoint());
+            swipeAbility.ExecuteAbility(getRandomScenePoint(), wingedSpirit);
             //swipeAbility.ExecuteAbility(getRandomScreenPoint());
             swipeTimer = 0;
             swipeInterval = Random.Range(swipeIntervalMin, swipeIntervalMax);

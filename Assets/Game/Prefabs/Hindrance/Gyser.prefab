@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1560176038745088895
+--- !u!1 &1216898857736352216
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,13 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1560176038745088882}
-  - component: {fileID: 1560176038745088883}
-  - component: {fileID: 1560176038745088892}
-  - component: {fileID: 1560176038745088894}
-  - component: {fileID: 1560176038745088881}
-  - component: {fileID: 6777226664639915871}
-  - component: {fileID: 3755571783273578322}
+  - component: {fileID: 1216898857736352217}
   m_Layer: 0
   m_Name: Gyser
   m_TagString: Untagged
@@ -22,35 +16,71 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1560176038745088882
+--- !u!4 &1216898857736352217
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560176038745088895}
+  m_GameObject: {fileID: 1216898857736352216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.1675, y: 17.411062, z: 1.7212738}
-  m_Children: []
+  m_LocalPosition: {x: 22.2, y: -17.542, z: -0.00000017881393}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6483518406804580244}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1560176038745088883
+--- !u!1 &6483518406804580249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6483518406804580244}
+  - component: {fileID: 6483518406804580245}
+  - component: {fileID: 6483518406804580250}
+  - component: {fileID: 6483518406804580248}
+  - component: {fileID: 6483518406804580247}
+  - component: {fileID: 1319912900086457273}
+  m_Layer: 0
+  m_Name: Gyser Render
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6483518406804580244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6483518406804580249}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.2119999, z: 0}
+  m_LocalScale: {x: 2.1675, y: 0.21206674, z: 1.7212738}
+  m_Children: []
+  m_Father: {fileID: 1216898857736352217}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6483518406804580245
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560176038745088895}
+  m_GameObject: {fileID: 6483518406804580249}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &1560176038745088892
+--- !u!23 &6483518406804580250
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560176038745088895}
+  m_GameObject: {fileID: 6483518406804580249}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -82,29 +112,30 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1560176038745088894
+--- !u!114 &6483518406804580248
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560176038745088895}
+  m_GameObject: {fileID: 6483518406804580249}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d532d20805042f24ab0d49b0423fcbf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  riseSpeed: 25
+  riseSpeed: 35
+  shrinkSpeed: 4.4
   lifeTime: 3
   damage: 5
   destroySpeed: 2
---- !u!54 &1560176038745088881
+--- !u!54 &6483518406804580247
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560176038745088895}
+  m_GameObject: {fileID: 6483518406804580249}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -114,29 +145,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6777226664639915871
+--- !u!65 &1319912900086457273
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560176038745088895}
+  m_GameObject: {fileID: 6483518406804580249}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &3755571783273578322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560176038745088895}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bddff7f6dde69d49a515f83c732c36e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropSpeed: 1.8

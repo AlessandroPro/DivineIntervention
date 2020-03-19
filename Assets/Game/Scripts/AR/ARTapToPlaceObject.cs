@@ -8,6 +8,7 @@ using UnityEngine.XR.ARSubsystems;
 
 public class ARTapToPlaceObject : MonoBehaviour
 {
+    public ARSessionOrigin arOrigin;
     public GameObject placementIndicator;
     //public GameObject objectToPlace;
 
@@ -79,7 +80,11 @@ public class ARTapToPlaceObject : MonoBehaviour
         if(placementPoseIsValid)
         {
             placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+
+            //UNCOMMENT THIS to go back to regular AR placement
+            //placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+            arOrigin.MakeContentAppearAt(placementIndicator.transform, placementPose.position, placementPose.rotation);
+            
         }
         else
         {
@@ -100,7 +105,7 @@ public class ARTapToPlaceObject : MonoBehaviour
 
             var cameraForward = Camera.current.transform.forward;
             var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-            placementPose.rotation = Quaternion.LookRotation(cameraBearing);
+            //placementPose.rotation = Quaternion.LookRotation(cameraBearing);
         }
     }
 }

@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eda9d5de145b13e43b031d06723860d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  device: 2
+  device: 1
   devMode: 1
   AR: {fileID: 1651043982}
   mainCamera: {fileID: 963194225}
@@ -6669,6 +6669,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hinderance God Objects
       objectReference: {fileID: 0}
+    - target: {fileID: 2174562247954587589, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4408145920828906406, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6758,11 +6763,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 2174562247954587589, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9082535496157936501, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
         type: 3}

@@ -9,22 +9,33 @@ public class TurretLogic : MonoBehaviour
     public float aimSpeed = 10.0f;
 
     public float rateOfFire = 2.0f;
+
+    public LayerMask layerMask;
+
+
+    [HideInInspector]
+    public bool lineOfSight = false;
+
+    [HideInInspector]
+    public bool fireCooldown = false;
+
     private float currentFireCooldown = 0.0f;
 
     public GameObject barrel;
     public GameObject projectile;
 
-    private GameObject spirit;
-    private Vector3 vFacing;
-    private Vector3 vT2E;
-    private Vector3 vResult;
+    public GameObject spirit;
 
-    //public float dp;
-    private float vDp;
     private Transform parentTransform;
 
     private bool destroyed = false;
     private float timeSincePlaced = 0;
+
+    private Vector3 vFacing;
+    private Vector3 vT2E;
+    private Vector3 vResult;
+
+    public float vDp;
 
     // Start is called before the first frame update
     void Start()
@@ -36,17 +47,66 @@ public class TurretLogic : MonoBehaviour
     void Update()
     {
         currentFireCooldown -= Time.deltaTime;
+
+        if(currentFireCooldown < 0.0f)
+        {
+            fireCooldown = false;
+        }
+        else
+        {
+            fireCooldown = true;
+        }
+
         if (spirit == null)
         {
             FindSpirit();
         }
         else
-        {      
-            AimLogicUpdateDot();
+        {
+            CheckFacing();
+            CheckLineOfSight();
             OutOfBoundsCheck();
         }
 
         timeSincePlaced += Time.deltaTime;
+    }
+
+    private void CheckFacing()
+    {
+        vFacing = this.transform.right;
+        vFacing.Normalize();
+
+        vT2E = (spirit.transform.position - this.transform.position);
+        vT2E.Normalize();
+
+        //Do the work
+        vDp = Vector3.Dot(this.transform.right, vT2E);
+    }
+
+    private void CheckLineOfSight()
+    {
+        RaycastHit hit;
+        Physics.Raycast(transform.position, (spirit.transform.position - transform.position), out hit, layerMask);
+
+        if (hit.transform.GetComponent<Block>() == null)
+        {
+            lineOfSight = true;
+        }
+        else
+        {
+            lineOfSight = false;
+        }
+    }
+
+
+    public void TurnLeft()
+    {
+        this.transform.Rotate(transform.forward, (-aimSpeed * Time.deltaTime), Space.World);
+    }
+
+    public void TurnRight()
+    {
+        this.transform.Rotate(transform.forward, (aimSpeed * Time.deltaTime), Space.World);
     }
 
     private void OutOfBoundsCheck()
@@ -55,7 +115,15 @@ public class TurretLogic : MonoBehaviour
         {
             Destroy(parentTransform.gameObject);
         }
-           
+    }
+
+    public void Fire()
+    {
+        if (!destroyed)
+        {
+            Instantiate(projectile, barrel.transform.position, barrel.transform.rotation);
+            currentFireCooldown = rateOfFire;
+        }
     }
 
     private void FindSpirit()
@@ -68,39 +136,6 @@ public class TurretLogic : MonoBehaviour
         }
     }
 
-    private void AimLogicUpdateDot()
-    {
-        //Compute A and B and nomalize them
-
-        vFacing = this.transform.right;
-        vFacing.Normalize();
-
-        vT2E = (spirit.transform.position - this.transform.position);
-        vT2E.Normalize();
-
-        //Do the work
-        vDp = Vector3.Dot(this.transform.right, vT2E);
-
-
-        if (vDp > -0.05f && vDp < 0.05f)
-        {
-            if (currentFireCooldown <= 0.0f && !destroyed)
-            {
-                Instantiate(projectile, barrel.transform.position, barrel.transform.rotation);
-                currentFireCooldown = rateOfFire;
-            }
-        }
-        else if (vDp > 0.0f)
-        {
-            this.transform.Rotate(transform.forward, (-aimSpeed * Time.deltaTime), Space.World);
-
-        }
-        else
-        {
-            this.transform.Rotate(transform.forward, (aimSpeed * Time.deltaTime), Space.World);
-        }
-
-    }
 
     private void OnCollisionEnter(Collision collision)
     {

@@ -7,13 +7,27 @@ using UnityEngine;
 [RequireComponent(typeof(Scrollable))]
 public class LaserManLogic : MonoBehaviour
 {
-    public LayerMask layerMask;
     public GameObject laserPrefab;
 
     public float speed = 1.0f;
     public float fallSpeed = 3.0f;
     public float coolDown = 3.0f;
-    public bool willMove = false;
+    public LayerMask layerMask;
+
+    [HideInInspector]
+    public bool lineOfSight = false;
+
+    [HideInInspector]
+    public bool fireCooldown = false;
+
+    [HideInInspector]
+    public bool landed;
+
+    [HideInInspector]
+    public BoxCollider blockCol;
+
+    [HideInInspector]
+    public GameObject spirit;
 
 
     private Vector3 moveVel;
@@ -22,14 +36,13 @@ public class LaserManLogic : MonoBehaviour
 
     private float currentCoolDown = 0.0f;
     private Rigidbody rig;
-    private bool landed;
+
+
 
     private GameObject block;
-    private BoxCollider blockCol;
     private Scrollable scroller;
 
 
-    private GameObject spirit;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,9 +73,9 @@ public class LaserManLogic : MonoBehaviour
 
     private void CheckBlock()
     {
-        if(block != null)
+        if (block != null)
         {
-            if(blockCol.enabled == false)
+            if (blockCol.enabled == false)
             {
                 ChangeLandState(false);
                 block = null;
@@ -89,6 +102,15 @@ public class LaserManLogic : MonoBehaviour
         rig.MovePosition(transform.position + fallVel * Time.deltaTime);
     }
 
+    public void MoveLeft()
+    {
+        rig.MovePosition(transform.position - moveVel * Time.deltaTime);
+    }
+
+    public void MoveRight()
+    {
+        rig.MovePosition(transform.position + moveVel * Time.deltaTime);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -124,50 +146,50 @@ public class LaserManLogic : MonoBehaviour
         if (currentCoolDown > 0)
         {
             currentCoolDown -= Time.deltaTime;
+            fireCooldown = true;
+        }
+        else
+        {
+            fireCooldown = false;
         }
     }
 
     private void TrackSpirit()
     {
+        float left = this.transform.position.x - this.transform.localScale.x * 0.25f;
+        float right = this.transform.position.x + this.transform.localScale.x * 0.25f;
 
-        RaycastHit hit;
-        Physics.Raycast(transform.position, (spirit.transform.position - transform.position), out hit, layerMask);
+        RaycastHit hit1;
+        Physics.Raycast(new Vector3(left, this.transform.position.y, this.transform.position.z), (spirit.transform.position - transform.position), out hit1, layerMask);
 
-        if (hit.transform.GetComponent<Block>() == null)
+        RaycastHit hit2;
+        Physics.Raycast(new Vector3(right, this.transform.position.y, this.transform.position.z), (spirit.transform.position - transform.position), out hit2, layerMask);
+
+
+        if (hit1.transform.GetComponent<Block>() == null && hit2.transform.GetComponent<Block>() == null)
         {
-            FireMahLaser();
+            lineOfSight = true;
         }
         else
         {
-            if (willMove)
-            {
-                if (spirit.transform.position.x > transform.position.x)
-                {
-                    rig.MovePosition(transform.position + moveVel * Time.deltaTime);
-                }
-                else if (spirit.transform.position.x < transform.position.x)
-                {
-                    rig.MovePosition(transform.position + (moveVel * -1) * Time.deltaTime);
-                }
-            }
-
+            lineOfSight = false;
         }
-
-
     }
 
-    private void FireMahLaser()
+    public void FireLaser()
     {
-        if (currentCoolDown <= 0)
-        {
-            GameObject laser = Instantiate(laserPrefab, transform.position, transform.rotation);
-            Vector3 target = spirit.transform.position - laser.transform.position;
+        GameObject laser = Instantiate(laserPrefab, transform.position, transform.rotation);
+        Vector3 target = spirit.transform.position - laser.transform.position;
 
-            Quaternion newRot = Quaternion.FromToRotation(laser.transform.up, target);
-            laser.transform.rotation = newRot;
+        Quaternion newRot = Quaternion.FromToRotation(laser.transform.up, target);
+        laser.transform.rotation = newRot;
 
-            currentCoolDown = coolDown;
-        }
+        LaserLogic laserLogic = laser.GetComponentInChildren<LaserLogic>();
+
+        laserLogic.SetCurrentBlock(blockCol);
+
+        currentCoolDown = coolDown;
+
     }
 
     private void FindSpirit()
@@ -179,4 +201,18 @@ public class LaserManLogic : MonoBehaviour
             spirit = spiritControl.gameObject;
         }
     }
+
+    //private void OnDrawGizmos()
+    //{
+    //    float left = this.transform.position.x - this.transform.localScale.x * 0.25f;
+    //    float right = this.transform.position.x + this.transform.localScale.x * 0.25f;
+
+    //    Vector3 leftEnd = new Vector3(left, this.transform.position.y - 1.05f, this.transform.position.z);
+
+    //    Debug.DrawLine(new Vector3(left,this.transform.position.y , this.transform.position.z), leftEnd, Color.red);
+
+    //    Vector3 rightEnd = new Vector3(right, this.transform.position.y - 1.05f, this.transform.position.z);
+
+    //    Debug.DrawLine(new Vector3(right, this.transform.position.y, this.transform.position.z), rightEnd, Color.red);
+    //}
 }

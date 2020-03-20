@@ -13,6 +13,8 @@ public class LaserLogic : MonoBehaviour
 
     private bool blockCollide;
 
+    private BoxCollider currentBox;
+
 
     void Update()
     {
@@ -26,6 +28,11 @@ public class LaserLogic : MonoBehaviour
         {
             transform.parent.localScale += new Vector3(0.0f, growSpeed * Time.deltaTime, 0.0f);
         }
+    }
+
+    public void SetCurrentBlock(BoxCollider box)
+    {
+        currentBox = box;
     }
 
     private void ReduceLifeTime()
@@ -51,7 +58,7 @@ public class LaserLogic : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Block")
+        if (other.tag == "Block" && other != currentBox)
         {
             blockCollide = true;
         }

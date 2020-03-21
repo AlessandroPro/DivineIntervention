@@ -96,25 +96,31 @@ public class BlockGenerator : MonoBehaviour
         // Create block and set its properties
 
 
-        GameObject block = Instantiate(blockPrefab, transform);
-        block.transform.localScale = new Vector3(blockScaleX, blockScaleY, blockThickness);
-        block.transform.localPosition = blockPos;
-        Block blockData = block.GetComponent<Block>();
-        blockData.dropSpeed = dropSpeed;
-        blockData.moveDistance = generateDistance;
-        blockData.outPlaneID = outPlaneID;
-
-        if(blockPlaneID == 0)
+        //GameObject block = Instantiate(blockPrefab, transform);
+        if (NetworkManager.Instance.IsMasterClient())
         {
-            blockData.insidePlane = true;
+            GameObject block = NetworkManager.Instance.InstantiateGameObject("Block", transform.position, transform.rotation);
+            block.transform.parent = transform;
+            block.transform.localScale = new Vector3(blockScaleX, blockScaleY, blockThickness);
+            block.transform.localPosition = blockPos;
+            Block blockData = block.GetComponent<Block>();
+            blockData.dropSpeed = dropSpeed;
+            blockData.moveDistance = generateDistance;
+            blockData.outPlaneID = outPlaneID;
+
+            if (blockPlaneID == 0)
+            {
+                blockData.insidePlane = true;
+            }
+
+            ProtectionDeityAI protectionAi = block.GetComponent<ProtectionDeityAI>();
+
+            if (protectionAi != null)
+            {
+                protectionAi.enabled = enableBlockAI;
+            }
         }
 
-        ProtectionDeityAI protectionAi = block.GetComponent<ProtectionDeityAI>();
-
-        if(protectionAi != null)
-        {
-            protectionAi.enabled = enableBlockAI;
-        }
     }
 
     public void swapPlanes()

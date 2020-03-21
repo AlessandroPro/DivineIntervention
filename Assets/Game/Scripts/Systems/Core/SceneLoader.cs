@@ -137,4 +137,9 @@ public class SceneLoader : Singleton<SceneLoader>
 	{
 		SceneManager.SetActiveScene(scene);
 	}
+
+	public void SetActiveScene(SceneReference scene)
+	{
+		SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene.SceneName));
+	}
 }

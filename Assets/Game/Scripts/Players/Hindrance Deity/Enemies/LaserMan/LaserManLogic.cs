@@ -14,6 +14,9 @@ public class LaserManLogic : MonoBehaviour
     public float coolDown = 3.0f;
     public LayerMask layerMask;
 
+    public GameObject currentBlockBlocking;
+
+
     [HideInInspector]
     public bool lineOfSight = false;
 
@@ -172,6 +175,10 @@ public class LaserManLogic : MonoBehaviour
         }
         else
         {
+            if(hit1.transform.gameObject == hit2.transform.gameObject)
+            {
+                currentBlockBlocking = hit1.transform.gameObject;
+            }
             lineOfSight = false;
         }
     }

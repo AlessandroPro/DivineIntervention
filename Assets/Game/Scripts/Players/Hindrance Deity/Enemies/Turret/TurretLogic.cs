@@ -12,6 +12,8 @@ public class TurretLogic : MonoBehaviour
 
     public LayerMask layerMask;
 
+    public GameObject currentBlockBlocking;
+
 
     [HideInInspector]
     public bool lineOfSight = false;
@@ -40,7 +42,7 @@ public class TurretLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        parentTransform = transform.parent;   
+        parentTransform = transform.parent;
     }
 
     // Update is called once per frame
@@ -94,6 +96,7 @@ public class TurretLogic : MonoBehaviour
         }
         else
         {
+            currentBlockBlocking = hit.transform.gameObject;
             lineOfSight = false;
         }
     }

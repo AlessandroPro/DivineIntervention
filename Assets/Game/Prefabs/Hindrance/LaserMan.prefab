@@ -133,6 +133,9 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  currentBlockBlocking: {fileID: 0}
+  dragonEnemyTracker: {fileID: 1062575708345641150, guid: c64f044e36938924f8af389c40926686,
+    type: 3}
   lineOfSight: 0
   fireCooldown: 0
   landed: 0

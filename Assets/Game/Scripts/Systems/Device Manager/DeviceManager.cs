@@ -3,17 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameDevice
+{
+    IPhoneAR,
+    AndroidTablet,
+    PC
+};
+
 public class DeviceManager : Singleton<DeviceManager>
 {
 
-    public enum Devices
-    {
-        IPhoneAR,
-        AndroidTablet,
-        PC
-    };
 
-    public Devices device;
+    public GameDevice device;
 
     public bool devMode = true;
 
@@ -33,18 +34,29 @@ public class DeviceManager : Singleton<DeviceManager>
     {
         switch(device)
         {
-            case Devices.AndroidTablet:
+            case GameDevice.AndroidTablet:
                 AndroidSetup();
                 break;
-            case Devices.IPhoneAR:
+            case GameDevice.IPhoneAR:
                 IPhoneARSetup();
                 break;
-            case Devices.PC:
+            case GameDevice.PC:
                 PCSetup();
                 break;
         }
     }
 
+    public bool IsThisDevice(GameDevice _device)
+    {
+        if (device == _device)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    // Move the following to GameSetup script
     private void PCSetup()
     {
         Destroy(AR);
@@ -80,7 +92,7 @@ public class DeviceManager : Singleton<DeviceManager>
 
         plane2D.GetComponent<MeshRenderer>().enabled = true;
 
-        wingedSpirit.GetComponent<WingedSpiritAI>().enabled = true;
+       // wingedSpirit.GetComponent<WingedSpiritAI>().enabled = true;
 
         hindranceDeity.GetComponent<HinderanceDietyController>().enabled = false;
         hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = true;
@@ -101,7 +113,7 @@ public class DeviceManager : Singleton<DeviceManager>
         Destroy(interaction);
         plane2D.GetComponent<MeshRenderer>().enabled = false;
 
-        wingedSpirit.GetComponent<WingedSpiritAI>().enabled = true;
+        //wingedSpirit.GetComponent<WingedSpiritAI>().enabled = true;
 
         hindranceDeity.GetComponent<HinderanceDietyController>().enabled = true;
         hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = false;

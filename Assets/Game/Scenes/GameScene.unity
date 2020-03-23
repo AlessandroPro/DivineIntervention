@@ -283,15 +283,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213243884}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b8dfbcafb8dd3d459685cf57d30df0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 1.8
-  wingedSpirit: {fileID: 4902003423698506739, guid: 07738152095b18e41a2e0e2f3c9e33cd,
-    type: 3}
-  healthTxt: {fileID: 1021478189}
+  wingedSpirit: {fileID: 0}
 --- !u!1 &222613930 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6398945458768777617, guid: 4a59036ac9b756249b9f7562be2cbe61,
@@ -1037,18 +1035,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1021478189 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8587134945948935418, guid: 3d8d5509852595f429a1c79b76d2dacb,
-    type: 3}
-  m_PrefabInstance: {fileID: 549791970}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1034629424 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6398945458768777614, guid: 4a59036ac9b756249b9f7562be2cbe61,
@@ -6156,13 +6142,14 @@ GameObject:
   - component: {fileID: 1342264012}
   - component: {fileID: 1342264011}
   - component: {fileID: 1342264010}
+  - component: {fileID: 1342264014}
   m_Layer: 0
   m_Name: BackgroundPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1342264010
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6232,11 +6219,24 @@ Transform:
   m_GameObject: {fileID: 1342264009}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 0, y: 16.7, z: 60.7}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 2.77, y: 1, z: 3.56}
   m_Children: []
   m_Father: {fileID: 674283424}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
+--- !u!114 &1342264014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342264009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff9e230dca625644970ec5856102335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollSpeed: 0.04
 --- !u!114 &1388230961 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4408145921376286735, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,

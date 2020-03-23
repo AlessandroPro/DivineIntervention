@@ -644,7 +644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1436922671
 Transform:
   m_ObjectHideFlags: 0
@@ -666,14 +666,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1436922670}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b8dfbcafb8dd3d459685cf57d30df0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 0
+  scrollSpeed: 1.8
   wingedSpirit: {fileID: 0}
-  healthTxt: {fileID: 0}
 --- !u!1 &1507600640
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,6 +747,11 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  OnRaiseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: PunCallbackHandler+RaiseEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &1507600643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,6 +766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   punHandler: {fileID: 1507600642}
   roomName: GameRoom
+  useNetwork: 1
 --- !u!1 &1907719000
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class NetworkManager : Singleton<NetworkManager>
 {
     public PunCallbackHandler punHandler;
     public string roomName = "GameRoom";
+    public bool useNetwork = true;
     string gameVersion = "1";
 
     void Awake()
@@ -35,6 +36,22 @@ public class NetworkManager : Singleton<NetworkManager>
     public bool IsMasterClient()
     {
         return PhotonNetwork.IsMasterClient;
+    }
+
+    public bool IsViewMine(PhotonView photonView)
+    {
+        return photonView.IsMine;
+    }
+
+
+    public bool IsDeviceViewMine(GameDevice device, PhotonView photonView)
+    {
+        if(DeviceManager.Instance.IsThisDevice(device) && IsViewMine(photonView))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void Connect()
@@ -77,6 +94,19 @@ public class NetworkManager : Singleton<NetworkManager>
     {
         GameObject newObject = PhotonNetwork.Instantiate(prefabName, position, rotation);
         return newObject;
+    }
+
+    public void DestroyGameObject(GameObject gameObject)
+    {
+        PhotonView photonView = gameObject.GetComponent<PhotonView>();
+
+        if(photonView == null)
+        {
+            Debug.LogError("Can't Network-Destroy a game object without a Photon View.");
+            return;
+        }
+
+        PhotonNetwork.Destroy(photonView);
     }
 
     public void RaiseEventAll(object content, byte evCode)

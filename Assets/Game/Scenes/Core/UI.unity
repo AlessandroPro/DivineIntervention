@@ -476,6 +476,8 @@ MonoBehaviour:
     sceneName: MainMenuScene
   playerStatusText: {fileID: 953412044}
   startGameButton: {fileID: 735457249}
+  gameLoadedCount: 0
+  numClientsRequired: 1
 --- !u!1 &535871347
 GameObject:
   m_ObjectHideFlags: 0

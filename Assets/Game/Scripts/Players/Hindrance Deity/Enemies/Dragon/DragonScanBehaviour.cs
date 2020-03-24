@@ -10,7 +10,7 @@ public class DragonScanBehaviour : StateMachineBehaviour
     private float currentTargetingTime = 0.0f;
     private DragonLogic dragon;
 
-    
+
 
 
     override public void OnStateEnter(Animator fsm, AnimatorStateInfo stateInfo, int layerIndex)
@@ -25,7 +25,7 @@ public class DragonScanBehaviour : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator fsm, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(dragon.lifeOver)
+        if (dragon.lifeOver)
         {
             fsm.SetTrigger("Leave");
             return;
@@ -38,8 +38,8 @@ public class DragonScanBehaviour : StateMachineBehaviour
         foreach (GameObject enemy in enemies)
         {
             bool duplicate = false;
-            
-            if(enemy == null)
+
+            if (enemy == null)
             {
                 continue;
             }
@@ -47,7 +47,7 @@ public class DragonScanBehaviour : StateMachineBehaviour
 
             TurretLogic turret = enemy.GetComponentInChildren<TurretLogic>();
 
-            if(turret != null)
+            if (turret != null)
             {
                 foreach (GameObject target in dragon.destroyTargets)
                 {
@@ -58,7 +58,7 @@ public class DragonScanBehaviour : StateMachineBehaviour
                     }
                 }
 
-                if(duplicate == true)
+                if (duplicate == true)
                 {
                     continue;
                 }
@@ -81,6 +81,17 @@ public class DragonScanBehaviour : StateMachineBehaviour
 
             if (laserMan != null)
             {
+                if (laserMan.landed == false)
+                {
+                    continue;
+                }
+
+                if (laserMan.currentBlockBlocking == laserMan.blockCol.gameObject)
+                {
+                    continue;
+                }
+
+
                 foreach (GameObject target in dragon.destroyTargets)
                 {
                     if (target == laserMan.currentBlockBlocking)
@@ -108,7 +119,7 @@ public class DragonScanBehaviour : StateMachineBehaviour
             }
         }
 
-        if(currentTargetingTime >= targetingTime)
+        if (currentTargetingTime >= targetingTime)
         {
             currentTargetingTime = 0.0f;
 

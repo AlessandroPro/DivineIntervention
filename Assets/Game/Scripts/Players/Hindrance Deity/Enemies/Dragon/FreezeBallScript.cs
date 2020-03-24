@@ -27,7 +27,7 @@ public class FreezeBallScript : MonoBehaviour
     void Update()
     {
         t += Time.deltaTime / timeToReach;
-        transform.position = Vector3.Lerp(startPosition, target.transform.position, t);
+        transform.position = Vector3.Lerp(startPosition, new Vector3(target.transform.position.x, target.transform.position.y, 0.0f), t);
 
         if (isAR == false)
         {
@@ -36,7 +36,11 @@ public class FreezeBallScript : MonoBehaviour
 
         if (t >= 1.0f)
         {
-            //Add freeze here
+            if (target.GetComponent<Block>().insidePlane == true)
+            {
+                //Add freeze here            
+            }
+
 
             Destroy(this.gameObject);
         }

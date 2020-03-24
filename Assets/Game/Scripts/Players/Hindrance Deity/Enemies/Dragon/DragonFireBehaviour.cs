@@ -28,13 +28,19 @@ public class DragonFireBehaviour : StateMachineBehaviour
         {
             if(block != null)
             {
-                dragon.DestroyTarget(block);
+                if (block.GetComponent<Block>().insidePlane == true)
+                {
+                    dragon.DestroyTarget(block);
+                }
             }
         }
 
         if(dragon.detectedSpiritBlock != null)
         {
-            dragon.FreezeTarget(dragon.detectedSpiritBlock);
+            if (dragon.detectedSpiritBlock.GetComponent<Block>().insidePlane == true)
+            {
+                dragon.FreezeTarget(dragon.detectedSpiritBlock);
+            }
         }
 
         fsm.SetTrigger("Scan");

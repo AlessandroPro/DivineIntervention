@@ -229,7 +229,6 @@ GameObject:
   m_Component:
   - component: {fileID: 213243886}
   - component: {fileID: 213243885}
-  - component: {fileID: 213243887}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -250,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   device: 1
-  devMode: 1
+  devMode: 0
   AR: {fileID: 1651043982}
   mainCamera: {fileID: 963194225}
   interaction: {fileID: 1770307291}
@@ -276,20 +275,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &213243887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213243884}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8dfbcafb8dd3d459685cf57d30df0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrollSpeed: 1.8
-  wingedSpirit: {fileID: 0}
 --- !u!1 &222613930 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6398945458768777617, guid: 4a59036ac9b756249b9f7562be2cbe61,
@@ -6219,7 +6204,7 @@ Transform:
   m_GameObject: {fileID: 1342264009}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 0, y: 16.7, z: 60.7}
-  m_LocalScale: {x: 2.77, y: 1, z: 3.56}
+  m_LocalScale: {x: 2.1205983, y: 0.951, z: 3.8810873}
   m_Children: []
   m_Father: {fileID: 674283424}
   m_RootOrder: 10
@@ -6236,7 +6221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ff9e230dca625644970ec5856102335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 0.04
+  scrollSpeed: 0.025
 --- !u!114 &1388230961 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4408145921376286735, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,

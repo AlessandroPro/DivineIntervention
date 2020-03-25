@@ -72,7 +72,8 @@ public class PunCallbackHandler : MonoBehaviourPunCallbacks, IOnEventCallback
     public void OnEvent(EventData photonEvent)
     {
         byte eventCode = photonEvent.Code;
-        object[] data = (object[])photonEvent.CustomData;
+        object[] data = new object[] { };
+        //object[] data = (object[])photonEvent.CustomData;
 
         OnRaiseEvent.Invoke(eventCode, data);
     }

@@ -457,16 +457,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 822375557338989464, guid: e0d554c9d71a1d64a86a3f589c23a931,
+    - target: {fileID: 822375556290037499, guid: e0d554c9d71a1d64a86a3f589c23a931,
         type: 3}
-      propertyPath: hinderance
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2046708538468709613}
-    - target: {fileID: 822375557338989464, guid: e0d554c9d71a1d64a86a3f589c23a931,
-        type: 3}
-      propertyPath: dietyController
-      value: 
-      objectReference: {fileID: 1697116520435729648}
+      objectReference: {fileID: 2046708537786202497}
     - target: {fileID: 822375556825923637, guid: e0d554c9d71a1d64a86a3f589c23a931,
         type: 3}
       propertyPath: hinderance
@@ -477,9 +472,24 @@ PrefabInstance:
       propertyPath: dietyController
       value: 
       objectReference: {fileID: 1697116520435729648}
-    - target: {fileID: 822375556290037499, guid: e0d554c9d71a1d64a86a3f589c23a931,
+    - target: {fileID: 822375557338989464, guid: e0d554c9d71a1d64a86a3f589c23a931,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: hinderance
+      value: 
+      objectReference: {fileID: 2046708538468709613}
+    - target: {fileID: 822375557338989464, guid: e0d554c9d71a1d64a86a3f589c23a931,
+        type: 3}
+      propertyPath: dietyController
+      value: 
+      objectReference: {fileID: 1697116520435729648}
+    - target: {fileID: 822375556241821729, guid: e0d554c9d71a1d64a86a3f589c23a931,
+        type: 3}
+      propertyPath: hinderanceAbility
+      value: 
+      objectReference: {fileID: 469012655918541911}
+    - target: {fileID: 822375556897687078, guid: e0d554c9d71a1d64a86a3f589c23a931,
+        type: 3}
+      propertyPath: hinderanceAbility
       value: 
       objectReference: {fileID: 2046708537786202497}
     - target: {fileID: 822375557161578320, guid: e0d554c9d71a1d64a86a3f589c23a931,
@@ -487,16 +497,6 @@ PrefabInstance:
       propertyPath: hinderanceAbility
       value: 
       objectReference: {fileID: 2046708538468709613}
-    - target: {fileID: 822375556897687078, guid: e0d554c9d71a1d64a86a3f589c23a931,
-        type: 3}
-      propertyPath: hinderanceAbility
-      value: 
-      objectReference: {fileID: 2046708537786202497}
-    - target: {fileID: 822375556241821729, guid: e0d554c9d71a1d64a86a3f589c23a931,
-        type: 3}
-      propertyPath: hinderanceAbility
-      value: 
-      objectReference: {fileID: 469012655918541911}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0d554c9d71a1d64a86a3f589c23a931, type: 3}
 --- !u!224 &4568381863362285860 stripped
@@ -773,7 +773,7 @@ PrefabInstance:
         type: 3}
       propertyPath: enemyPrefab
       value: 
-      objectReference: {fileID: 6640450290226409466, guid: 6b6b5916647e3ee4e93dbba3085255dc,
+      objectReference: {fileID: 8970433145977907811, guid: 409cf7e00f0e07f4db3e9ab95be9a0a6,
         type: 3}
     - target: {fileID: 4838911872121254524, guid: 9d05418d881e9684c80a5cc2c46febe4,
         type: 3}

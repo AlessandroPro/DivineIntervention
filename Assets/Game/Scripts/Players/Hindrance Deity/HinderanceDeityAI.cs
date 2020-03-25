@@ -34,13 +34,13 @@ public class HinderanceDeityAI : MonoBehaviour
     {
         if (wingedSpirit == null)
         {
-            try
+            if(GameManager.Instance.wingedSpirit == null)
             {
-                wingedSpirit = GameObject.Find("WingedSpirit").transform;
+                return;
             }
-            finally
+            else
             {
-                //blah
+                wingedSpirit = GameManager.Instance.wingedSpirit.transform;
             }
         }
 

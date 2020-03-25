@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Block : MonoBehaviour
+public class Block : MonoBehaviourPun, IPunObservable
 {
     public float dropSpeed;
     public float yThreshold = 0;
@@ -14,19 +15,13 @@ public class Block : MonoBehaviour
     public bool insidePlane = false;
 
     private float zPosTarget = 0;
-
-    public GameObject blockOutlinePrefab;
-    private GameObject blockOutline;
+    public GameObject blockOutline;
 
     // Start is called before the first frame update
     void Start()
     {
         mRenderer = GetComponent<MeshRenderer>();
         zPosTarget = transform.position.z;
-
-        blockOutline = Instantiate(blockOutlinePrefab);
-        blockOutline.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 0.2f);
-        blockOutline.transform.rotation = transform.rotation;
     }
 
     // Update is called once per frame
@@ -37,13 +32,17 @@ public class Block : MonoBehaviour
         float zPos = Mathf.Lerp(transform.localPosition.z, zPosTarget, 0.1f);
         transform.localPosition = new Vector3(xPos, yPos, zPos);
 
-        if(transform.localPosition.y < 0)
-        {
-            Destroy(blockOutline);
-            Destroy(this.gameObject);
-        }
-
         blockOutline.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+
+        if (transform.localPosition.y < 0 && NetworkManager.Instance.IsViewMine(photonView))
+        {
+            NetworkManager.Instance.DestroyGameObject(this.gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(blockOutline);
     }
 
     public void toggleMove()
@@ -85,6 +84,24 @@ public class Block : MonoBehaviour
         if(!insidePlane)
         {
             zPosTarget = moveDistance * outPlaneID;
+        }
+    }
+
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(zPosTarget);
+            stream.SendNext(outPlaneID);
+            stream.SendNext(moveDistance);
+            stream.SendNext(insidePlane);
+        }
+        else
+        {
+            zPosTarget = (float)stream.ReceiveNext();
+            outPlaneID = (int)stream.ReceiveNext();
+            moveDistance = (float)stream.ReceiveNext();
+            insidePlane = (bool)stream.ReceiveNext();
         }
     }
 }

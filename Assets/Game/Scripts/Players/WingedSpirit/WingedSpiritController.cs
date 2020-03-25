@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(CapsuleCollider))]
 
-public class WingedSpiritController : MonoBehaviour
+public class WingedSpiritController : MonoBehaviourPun
 {
     [Header("Stats")]
     public float health = 100;
@@ -55,11 +56,18 @@ public class WingedSpiritController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         capCol = GetComponent<CapsuleCollider>();
+        GameManager.Instance.wingedSpirit = this.gameObject;
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.wingedSpirit = null;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         WingedSpiritControls();
 
         if (invincible == true)

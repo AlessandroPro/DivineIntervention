@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class HindranceSpawnerLogic : MonoBehaviour
 {
-    public GameObject turretPrefab;
+    public GameObject enemyPrefab;
+    public DragonEnemyTracker dragonEnemyTracker;
 
 
     public void SpawnHindrance(Vector2 position, Transform wingedSpirit)
     {
         Vector3 spawnPosition = new Vector3(position.x, position.y, 0.0f);
 
-        GameObject newTurret = Instantiate(turretPrefab, transform);
-        newTurret.transform.localPosition = spawnPosition;
+        GameObject newSpawn = Instantiate(enemyPrefab, transform);
+        newSpawn.transform.localPosition = spawnPosition;
+
+        dragonEnemyTracker.AddToEnemyList(newSpawn);
+
     }
 }

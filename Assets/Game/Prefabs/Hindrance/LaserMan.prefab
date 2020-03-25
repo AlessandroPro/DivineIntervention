@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6640450290226409465}
   - component: {fileID: 6640450290226409467}
   - component: {fileID: -5499402839829021463}
+  - component: {fileID: 6553390223371691795}
   m_Layer: 0
   m_Name: LaserMan
   m_TagString: Untagged
@@ -124,15 +125,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5268d66079453f42a3c20b87865ed5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 256
   laserPrefab: {fileID: 6232485737791682543, guid: 1a3adf9b97a5417408f4a249cde514d7,
     type: 3}
   speed: 5
   fallSpeed: 7
   coolDown: 3
-  willMove: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  currentBlockBlocking: {fileID: 0}
+  dragonEnemyTracker: {fileID: 1062575708345641150, guid: c64f044e36938924f8af389c40926686,
+    type: 3}
+  lineOfSight: 0
+  fireCooldown: 0
+  landed: 0
+  blockCol: {fileID: 0}
+  spirit: {fileID: 0}
 --- !u!114 &-5499402839829021463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,3 +154,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropSpeed: 1.8
+--- !u!95 &6553390223371691795
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6640450290226409466}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cb38fc98052cff444982109b60dd01c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

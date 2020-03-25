@@ -266,9 +266,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimSpeed: 100
   rateOfFire: 2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  currentBlockBlocking: {fileID: 0}
+  dragonEnemyTracker: {fileID: 1062575708345641150, guid: c64f044e36938924f8af389c40926686,
+    type: 3}
+  lineOfSight: 0
+  fireCooldown: 0
   barrel: {fileID: 510779852}
   projectile: {fileID: 1523240972267963310, guid: bf64d171c6ee0094bb8cea82a89bcee1,
     type: 3}
+  spirit: {fileID: 0}
+  vDp: 0
 --- !u!1 &5303307700427850972
 GameObject:
   m_ObjectHideFlags: 0

@@ -128,7 +128,6 @@ public class LaserManLogic : MonoBehaviour
     public void Stop()
     {
         animator.SetBool("Run Forward", false);
-        transform.rotation = Quaternion.Euler(0, 180, 0);
     }
 
     private void OnTriggerEnter(Collider other)

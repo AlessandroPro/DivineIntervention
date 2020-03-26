@@ -7,6 +7,7 @@ public class HinderanceDeityAI : MonoBehaviour
     public HinderanceAbility tapAbility;
     public HinderanceAbility swipeAbility;
     public BlockGenerator blockGen;
+    public HinderanceAbility dragonAbility;
     public GameObject gameWindow2D;
     
 
@@ -20,6 +21,11 @@ public class HinderanceDeityAI : MonoBehaviour
     private float swipeInterval;
     private float swipeTimer;
 
+    public float dragonIntervalMin;
+    public float dragonIntervalMax;
+    private float dragonInterval;
+    private float dragonTimer;
+
     private Transform wingedSpirit;
 
     // Start is called before the first frame update
@@ -27,6 +33,7 @@ public class HinderanceDeityAI : MonoBehaviour
     {
         tapInterval = Random.Range(tapIntervalMin, tapIntervalMax);
         swipeInterval = Random.Range(swipeIntervalMin, swipeIntervalMax);
+        dragonInterval = Random.Range(dragonIntervalMin, dragonIntervalMax);
     }
 
     // Update is called once per frame
@@ -68,8 +75,16 @@ public class HinderanceDeityAI : MonoBehaviour
             swipeInterval = Random.Range(swipeIntervalMin, swipeIntervalMax);
         }
 
+        if(dragonTimer > dragonInterval)
+        {
+            dragonAbility.ExecuteSkill();
+            dragonTimer = 0;
+            dragonInterval = Random.Range(dragonIntervalMin, dragonIntervalMax);
+        }
+
         tapTimer += Time.deltaTime;
         swipeTimer += Time.deltaTime;
+        dragonTimer += Time.deltaTime;
     }
 
     Vector2 getRandomScreenPoint()

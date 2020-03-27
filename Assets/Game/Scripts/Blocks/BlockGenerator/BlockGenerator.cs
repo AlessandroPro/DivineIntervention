@@ -36,7 +36,7 @@ public class BlockGenerator : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-           // swapPlanes(); 
+           swapPlanes(); 
         }
     }
 

@@ -156,7 +156,7 @@ MonoBehaviour:
     sceneName: UI
   startupScene:
     sceneAsset: {fileID: 102900000, guid: 35543e029c931044aad8c60db0dd7db3, type: 3}
-    scenePath: Assets/Game/Scenes/MainMenuScene.unity
+    scenePath: Assets/Game/Scenes/Game/MainMenuScene.unity
     sceneName: MainMenuScene
 --- !u!4 &41186693
 Transform:
@@ -814,7 +814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   device: 0
-  editorDevice: 0
+  editorDevice: 1
   useEditorDevice: 1
   devMode: 1
 --- !u!1 &1907719000

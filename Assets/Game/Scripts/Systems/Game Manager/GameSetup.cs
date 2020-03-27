@@ -17,6 +17,7 @@ public class GameSetup : MonoBehaviour
     public GameObject AbilitySwapCanvas;
     public GameObject HudBlocker;
     public GameObject background;
+    public GameObject basePlatform;
 
     // Start is called before the first frame update
     void Awake()
@@ -112,6 +113,7 @@ public class GameSetup : MonoBehaviour
         blockGenScript.enableBlockAI = false;
 
         background.SetActive(false);
+        basePlatform.GetComponent<MeshRenderer>().enabled = true;
     }
 
     private void AndroidSetup()

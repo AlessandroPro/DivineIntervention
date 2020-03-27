@@ -816,7 +816,7 @@ MonoBehaviour:
   device: 0
   editorDevice: 0
   useEditorDevice: 1
-  devMode: 0
+  devMode: 1
 --- !u!1 &1907719000
 GameObject:
   m_ObjectHideFlags: 0

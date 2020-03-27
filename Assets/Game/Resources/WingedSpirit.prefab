@@ -1067,7 +1067,6 @@ GameObject:
   - component: {fileID: 1957562558}
   - component: {fileID: 8998043357005997268}
   - component: {fileID: 8279419138581253845}
-  - component: {fileID: 7407406286899024491}
   m_Layer: 0
   m_Name: WingedSpirit
   m_TagString: Untagged
@@ -1202,7 +1201,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4902003423698506739}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03ed616709bf99b47bb25556e8306b9a, type: 3}
   m_Name: 
@@ -1232,6 +1231,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 8279419138581253845}
+  - {fileID: 4902003423698505736}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1250,25 +1250,6 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
---- !u!95 &7407406286899024491
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4902003423698506739}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5269861384141842575
 GameObject:
   m_ObjectHideFlags: 0

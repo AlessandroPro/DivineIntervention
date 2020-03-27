@@ -37,8 +37,12 @@ public class DragonLogic : MonoBehaviour
     void Start()
     {
         transform.position = spawnLocation;
-        spirit = GameObject.Find("WingedSpirit").transform;
         enemyTracker = transform.parent.GetComponent<DragonEnemyTracker>();
+
+        if(GameManager.Instance.wingedSpirit != null)
+        {
+            spirit = GameManager.Instance.wingedSpirit.transform;
+        }
     }
 
     // Update is called once per frame

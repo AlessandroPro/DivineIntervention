@@ -15,7 +15,7 @@ public class LobbyMenu : Menu
     private readonly byte GameSceneLoadedEvent = 2;
 
     public int gameLoadedCount = 0;
-    public int numClientsRequired = 3;
+    private int numClientsRequired = 0;
     public override void Start()
     {
         base.Start();
@@ -31,6 +31,7 @@ public class LobbyMenu : Menu
 
         // Tell all clients to load the game scene
         NetworkManager.Instance.RaiseEventAll(null, LoadGameSceneEvent);
+        numClientsRequired = NetworkManager.Instance.GetNumPlayersInRoom();
     }
 
     public void showPlayerStatus()
@@ -59,7 +60,6 @@ public class LobbyMenu : Menu
         SceneLoader.Instance.onSceneLoadedEvent.AddListener(NotifyGameSceneLoaded);
         SceneLoader.Instance.UnloadScene(sceneToUnload);
         SceneLoader.Instance.LoadScene(sceneToLoad);
-        
     }
 
     public void NotifyGameSceneLoaded(List<string> scenes)
@@ -89,7 +89,7 @@ public class LobbyMenu : Menu
         {
             gameLoadedCount++;
 
-            // Start the game once the GameScene is loaded on all clients
+            // Start the game once the GameScene is loaded on all clients in the current room
             if(gameLoadedCount == numClientsRequired)
             {
                 GameManager.Instance.StartGame();

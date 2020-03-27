@@ -9,17 +9,15 @@ public class BlockGenerator : MonoBehaviour
     public float size;
     public float blockThickness;
     public float startHeight;
-    public bool only2D = false;
     public float dropSpeed;
     public float timeInterval;
 
     public GameObject blockPrefab;
-
-    private float timeElapsed = 0;
-
     public bool enableBlockAI = false;
 
+    private float timeElapsed = 0;
     private int outPlaneID = 1;
+    private bool blockGeneratorOn = false;
 
 
     private void Start()
@@ -30,19 +28,32 @@ public class BlockGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeElapsed += Time.deltaTime;
-
-        if(timeElapsed > timeInterval)
+        if(blockGeneratorOn)
         {
-            generateBlock(0, 0.9f);
-            generateBlock(1, 0.3f);
-            timeElapsed = 0;
+            timeElapsed += Time.deltaTime;
+
+            if (timeElapsed > timeInterval)
+            {
+                generateBlock(0, 0.9f);
+                generateBlock(1, 0.3f);
+                timeElapsed = 0;
+            }
         }
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            swapPlanes(); 
+           // swapPlanes(); 
         }
+    }
+
+    public void startGeneratingBlocks()
+    {
+        blockGeneratorOn = true;
+    }
+
+    public void stopGeneratingBlocks()
+    {
+        blockGeneratorOn = false;
     }
 
     private void generateBlock(int orientation, float chance)
@@ -56,11 +67,6 @@ public class BlockGenerator : MonoBehaviour
         // Randomly choose if default position is in the plane or outside
         int blockPlaneID = outPlaneID;
         if(Random.Range(0, 2) == 0)
-        {
-            blockPlaneID = 0;
-        }
-
-        if (only2D && blockPlaneID != 0)
         {
             blockPlaneID = 0;
         }
@@ -95,32 +101,27 @@ public class BlockGenerator : MonoBehaviour
 
         // Create block and set its properties
 
+        GameObject block = NetworkManager.Instance.InstantiateGameObject("Block", transform.position, transform.rotation);
+        block.transform.parent = transform;
+        block.transform.localScale = new Vector3(blockScaleX, blockScaleY, blockThickness);
+        block.transform.localPosition = blockPos;
+        Block blockData = block.GetComponent<Block>();
+        blockData.dropSpeed = dropSpeed;
+        blockData.moveDistance = generateDistance;
+        blockData.outPlaneID = outPlaneID;
+        blockData.onlyShowIn2D = false;
 
-        //GameObject block = Instantiate(blockPrefab, transform);
-        if (NetworkManager.Instance.IsMasterClient())
+        if (blockPlaneID == 0)
         {
-            GameObject block = NetworkManager.Instance.InstantiateGameObject("Block", transform.position, transform.rotation);
-            block.transform.parent = transform;
-            block.transform.localScale = new Vector3(blockScaleX, blockScaleY, blockThickness);
-            block.transform.localPosition = blockPos;
-            Block blockData = block.GetComponent<Block>();
-            blockData.dropSpeed = dropSpeed;
-            blockData.moveDistance = generateDistance;
-            blockData.outPlaneID = outPlaneID;
-
-            if (blockPlaneID == 0)
-            {
-                blockData.insidePlane = true;
-            }
-
-            ProtectionDeityAI protectionAi = block.GetComponent<ProtectionDeityAI>();
-
-            if (protectionAi != null)
-            {
-                protectionAi.enabled = enableBlockAI;
-            }
+            blockData.insidePlane = true;
         }
 
+        ProtectionDeityAI protectionAi = block.GetComponent<ProtectionDeityAI>();
+
+        if (protectionAi != null)
+        {
+            //protectionAi.enabled = enableBlockAI;
+        }
     }
 
     public void swapPlanes()

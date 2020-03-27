@@ -13,6 +13,7 @@ public class Block : MonoBehaviourPun, IPunObservable
     public int outPlaneID = 0;
     public float moveDistance = 0;
     public bool insidePlane = false;
+    public bool onlyShowIn2D = true;
 
     private float zPosTarget = 0;
     public GameObject blockOutline;
@@ -21,6 +22,8 @@ public class Block : MonoBehaviourPun, IPunObservable
     void Start()
     {
         mRenderer = GetComponent<MeshRenderer>();
+        mRenderer.enabled = false;
+        blockOutline.SetActive(false);
         zPosTarget = transform.position.z;
     }
 
@@ -63,17 +66,9 @@ public class Block : MonoBehaviourPun, IPunObservable
     {
         mRenderer.material = mat;
 
-        if (!mRenderer.enabled)
+        if (!mRenderer.enabled && !onlyShowIn2D)
         {
             mRenderer.enabled = true;
-        }
-    }
-
-    public void toggleOutline()
-    {
-        if(blockOutline)
-        {
-            blockOutline.SetActive(!blockOutline.activeSelf);
         }
     }
 
@@ -102,6 +97,43 @@ public class Block : MonoBehaviourPun, IPunObservable
             outPlaneID = (int)stream.ReceiveNext();
             moveDistance = (float)stream.ReceiveNext();
             insidePlane = (bool)stream.ReceiveNext();
+        }
+    }
+
+    public void OnEnteredPlane(int planeID)
+    {
+        if (planeID == 0 && insidePlane)
+        {
+            if (onlyShowIn2D)
+            {
+                mRenderer.enabled = true;
+            }
+            else
+            {
+                blockOutline.SetActive(false);
+            }
+        }
+        else if(planeID != 0)
+        {
+            if (!onlyShowIn2D)
+            {
+                blockOutline.SetActive(true);
+            }
+        }
+    }
+
+    public void OnExitedPlane(int planeID)
+    {
+        if (planeID == 0)
+        {
+            if (onlyShowIn2D)
+            {
+                mRenderer.enabled = false;
+            }
+            else
+            {
+                blockOutline.SetActive(true);
+            }
         }
     }
 }

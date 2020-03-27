@@ -360,6 +360,15 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: AbilityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  skill:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ActiveSkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  hasCooldown: 0
+  cooldownTimer: 3
+  currentCooldown: 0
+  abilityName: 
 --- !u!1 &1733751418
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,11 +617,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 858499681906137960, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
+    - target: {fileID: 858499681906137963, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
         type: 3}
-      propertyPath: m_Name
-      value: Hinderance God Control
-      objectReference: {fileID: 0}
+      propertyPath: tapAbility
+      value: 
+      objectReference: {fileID: 1658437190}
     - target: {fileID: 858499681906137962, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -668,11 +677,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 858499681906137963, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
+    - target: {fileID: 858499681906137960, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
         type: 3}
-      propertyPath: tapAbility
-      value: 
-      objectReference: {fileID: 1658437190}
+      propertyPath: m_Name
+      value: Hinderance God Control
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4bcdadc174fe7c40a3a11604c2abaa1, type: 3}
 --- !u!1001 &3083599786161341965
@@ -885,6 +894,11 @@ PrefabInstance:
       propertyPath: healthTxt
       value: 
       objectReference: {fileID: 80720325}
+    - target: {fileID: 8998043357005997268, guid: 07738152095b18e41a2e0e2f3c9e33cd,
+        type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07738152095b18e41a2e0e2f3c9e33cd, type: 3}
 --- !u!1001 &8587134946012730687

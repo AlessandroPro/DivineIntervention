@@ -109,6 +109,11 @@ public class NetworkManager : Singleton<NetworkManager>
         PhotonNetwork.Destroy(photonView);
     }
 
+    public int GetNumPlayersInRoom()
+    {
+        return PhotonNetwork.PlayerList.Length;
+    }
+
     public void RaiseEventAll(object content, byte evCode)
     {
         RaiseEvent(content, evCode, ReceiverGroup.All);

@@ -400,6 +400,7 @@ Transform:
   - {fileID: 1279532912}
   - {fileID: 1507600641}
   - {fileID: 1436922671}
+  - {fileID: 1573782488}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -673,6 +674,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scrollSpeed: 1.8
   wingedSpirit: {fileID: 0}
+  gameSetup: {fileID: 0}
+  gameOverMenu: {fileID: 11400000, guid: ab8fff9e7c31b064b925e4915918d8fe, type: 2}
 --- !u!1 &1507600640
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +770,53 @@ MonoBehaviour:
   punHandler: {fileID: 1507600642}
   roomName: GameRoom
   useNetwork: 1
+--- !u!1 &1573782487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1573782488}
+  - component: {fileID: 1573782489}
+  m_Layer: 0
+  m_Name: Device Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1573782488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573782487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1213736690}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1573782489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573782487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eda9d5de145b13e43b031d06723860d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  device: 0
+  editorDevice: 0
+  useEditorDevice: 1
+  devMode: 0
 --- !u!1 &1907719000
 GameObject:
   m_ObjectHideFlags: 0

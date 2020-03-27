@@ -9,7 +9,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(CapsuleCollider))]
 
-public class WingedSpiritController : MonoBehaviourPun
+public class WingedSpiritController : MonoBehaviourPun, IPunObservable
 {
     [Header("Stats")]
     public float health = 100;
@@ -62,12 +62,12 @@ public class WingedSpiritController : MonoBehaviourPun
     private void OnDestroy()
     {
         GameManager.Instance.wingedSpirit = null;
+        GameManager.Instance.EndGame();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         WingedSpiritControls();
 
         if (invincible == true)
@@ -122,11 +122,15 @@ public class WingedSpiritController : MonoBehaviourPun
         }
 
         health -= 10;
-        GameManager.Instance.UpdateHealth(health);
+        //GameManager.Instance.UpdateHealth(health);
 
         if(health <= 0)
         {
-            Die();
+            health = 0;
+            if(NetworkManager.Instance.IsViewMine(photonView))
+            {
+                Die();
+            }
         }
 
         invincible = true;
@@ -134,8 +138,8 @@ public class WingedSpiritController : MonoBehaviourPun
 
     private void Die()
     {
-        GameManager.Instance.UpdateHealth(0);
-        Destroy(this.gameObject);
+        //GameManager.Instance.UpdateHealth(0);
+        NetworkManager.Instance.DestroyGameObject(this.gameObject);
     }
 
     private void WingedSpiritControls()
@@ -190,9 +194,21 @@ public class WingedSpiritController : MonoBehaviourPun
 
         rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
 
-        if(Input.GetKeyDown("joystick button 0"))
+        if(Input.GetKeyDown("joystick button 0") || Input.GetKeyDown(KeyCode.A))
         {
             orbAttack.execute();
+        }
+    }
+
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(health);
+        }
+        else
+        {
+            health = (float)stream.ReceiveNext();
         }
     }
 }

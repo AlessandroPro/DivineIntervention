@@ -5,43 +5,42 @@ using UnityEngine;
 
 public enum GameDevice
 {
+    PC,
     IPhoneAR,
     AndroidTablet,
-    PC
+    All
 };
 
 public class DeviceManager : Singleton<DeviceManager>
 {
+    [HideInInspector] 
+    public GameDevice device;       // the actual device this is on
+    public GameDevice editorDevice; // the device specified in the editor
 
-
-    public GameDevice device;
-
+    public bool useEditorDevice = false;
     public bool devMode = true;
-
-    public GameObject AR;
-    public GameObject mainCamera;
-    public GameObject interaction;
-    public GameObject plane2D;
-    public GameObject wingedSpirit;
-    public GameObject hindranceDeity;
-    public GameObject blockGenerator;
-    public GameObject gyserGauge;
-    public GameObject AbilitySwapCanvas;
-    public GameObject HudBlocker;
-
 
     private void Awake()
     {
-        switch(device)
+        if(useEditorDevice)
         {
-            case GameDevice.AndroidTablet:
-                AndroidSetup();
+            device = editorDevice;
+            return;
+        }
+
+        switch(Application.platform)
+        {
+            case RuntimePlatform.WindowsPlayer:
+                device = GameDevice.PC;
                 break;
-            case GameDevice.IPhoneAR:
-                IPhoneARSetup();
+            case RuntimePlatform.Android:
+                device = GameDevice.AndroidTablet;
                 break;
-            case GameDevice.PC:
-                PCSetup();
+            case RuntimePlatform.IPhonePlayer:
+                device = GameDevice.IPhoneAR;
+                break;
+            default:
+                device = editorDevice;
                 break;
         }
     }
@@ -54,77 +53,5 @@ public class DeviceManager : Singleton<DeviceManager>
         }
 
         return false;
-    }
-
-    // Move the following to GameSetup script
-    private void PCSetup()
-    {
-        Destroy(AR);
-        Destroy(interaction);
-        
-        plane2D.GetComponent<MeshRenderer>().enabled = false;
-
-        wingedSpirit.GetComponent<WingedSpiritAI>().enabled = false;
-
-        hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = true;
-
-        gyserGauge.GetComponent<MeshRenderer>().enabled = false;
-        gyserGauge.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
-        AbilitySwapCanvas.SetActive(false);
-        HudBlocker.SetActive(false);
-
-        BlockGenerator blockGenScript = blockGenerator.GetComponent<BlockGenerator>();
-        blockGenScript.enableBlockAI = true;
-        blockGenScript.only2D = true;
-    }
-
-    private void IPhoneARSetup()
-    {
-        if(!devMode)
-        {
-            Destroy(mainCamera);
-            AR.SetActive(true);
-        }
-        else
-        {
-            Destroy(AR);
-        }
-
-        plane2D.GetComponent<MeshRenderer>().enabled = true;
-
-        wingedSpirit.GetComponent<WingedSpiritAI>().enabled = true;
-
-        hindranceDeity.GetComponent<HinderanceDietyController>().enabled = false;
-        hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = true;
-
-        gyserGauge.GetComponent<MeshRenderer>().enabled = false;
-        gyserGauge.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
-        AbilitySwapCanvas.SetActive(false);
-        HudBlocker.SetActive(false);
-
-        BlockGenerator blockGenScript = blockGenerator.GetComponent<BlockGenerator>();
-        blockGenScript.enableBlockAI = false;
-        blockGenScript.only2D = false;
-    }
-
-    private void AndroidSetup()
-    {
-        Destroy(AR);
-        Destroy(interaction);
-        plane2D.GetComponent<MeshRenderer>().enabled = false;
-
-        wingedSpirit.GetComponent<WingedSpiritAI>().enabled = true;
-
-        hindranceDeity.GetComponent<HinderanceDietyController>().enabled = true;
-        hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = false;
-
-        gyserGauge.GetComponent<MeshRenderer>().enabled = true;
-        gyserGauge.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
-        AbilitySwapCanvas.SetActive(true);
-        HudBlocker.SetActive(true);
-
-        BlockGenerator blockGenScript = blockGenerator.GetComponent<BlockGenerator>();
-        blockGenScript.enableBlockAI = true;
-        blockGenScript.only2D = true;
-    }
+    } 
 }

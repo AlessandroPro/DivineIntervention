@@ -6,7 +6,7 @@ public class BlockChanger : MonoBehaviour
 {
     public Material enterMat;
     public Material exitMat;
-    public bool removeOutline = false;
+    public int planeID;
 
 
     private void OnTriggerEnter(Collider other)
@@ -15,10 +15,7 @@ public class BlockChanger : MonoBehaviour
         if (block)
         {
             block.changeMaterial(enterMat);
-            if(removeOutline)
-            {
-                block.toggleOutline();
-            }
+            block.OnEnteredPlane(planeID);
         }
     }
 
@@ -28,10 +25,7 @@ public class BlockChanger : MonoBehaviour
         if (block)
         {
             block.changeMaterial(exitMat);
-            if (removeOutline)
-            {
-                block.toggleOutline();
-            }
+            block.OnExitedPlane(planeID);
         }
     }
 }

@@ -38,7 +38,7 @@ public class FireballScript : MonoBehaviour
         {
             if(target.GetComponent<Block>().insidePlane == true)
             {
-                Destroy(target);
+               // Destroy(target);
             }
 
             Destroy(this.gameObject);

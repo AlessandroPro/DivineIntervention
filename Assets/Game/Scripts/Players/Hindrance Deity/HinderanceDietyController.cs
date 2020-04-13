@@ -37,13 +37,13 @@ public class HinderanceDietyController : MonoBehaviour
     {
         if(wingedSpirit == null)
         {
-            try
+            if (GameManager.Instance.wingedSpirit == null)
             {
-                wingedSpirit = GameObject.Find("WingedSpirit").transform;
+                return;
             }
-            catch(Exception e)
+            else
             {
-                //blah
+                wingedSpirit = GameManager.Instance.wingedSpirit.transform;
             }
         }
 

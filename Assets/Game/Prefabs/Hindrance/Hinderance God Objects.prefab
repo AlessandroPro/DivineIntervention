@@ -457,16 +457,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 822375557338989464, guid: e0d554c9d71a1d64a86a3f589c23a931,
+    - target: {fileID: 822375556290037499, guid: e0d554c9d71a1d64a86a3f589c23a931,
         type: 3}
-      propertyPath: hinderance
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2046708538468709613}
-    - target: {fileID: 822375557338989464, guid: e0d554c9d71a1d64a86a3f589c23a931,
-        type: 3}
-      propertyPath: dietyController
-      value: 
-      objectReference: {fileID: 1697116520435729648}
+      objectReference: {fileID: 2046708537786202497}
     - target: {fileID: 822375556825923637, guid: e0d554c9d71a1d64a86a3f589c23a931,
         type: 3}
       propertyPath: hinderance
@@ -477,9 +472,24 @@ PrefabInstance:
       propertyPath: dietyController
       value: 
       objectReference: {fileID: 1697116520435729648}
-    - target: {fileID: 822375556290037499, guid: e0d554c9d71a1d64a86a3f589c23a931,
+    - target: {fileID: 822375557338989464, guid: e0d554c9d71a1d64a86a3f589c23a931,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      propertyPath: hinderance
+      value: 
+      objectReference: {fileID: 2046708538468709613}
+    - target: {fileID: 822375557338989464, guid: e0d554c9d71a1d64a86a3f589c23a931,
+        type: 3}
+      propertyPath: dietyController
+      value: 
+      objectReference: {fileID: 1697116520435729648}
+    - target: {fileID: 822375556241821729, guid: e0d554c9d71a1d64a86a3f589c23a931,
+        type: 3}
+      propertyPath: hinderanceAbility
+      value: 
+      objectReference: {fileID: 469012655918541911}
+    - target: {fileID: 822375556897687078, guid: e0d554c9d71a1d64a86a3f589c23a931,
+        type: 3}
+      propertyPath: hinderanceAbility
       value: 
       objectReference: {fileID: 2046708537786202497}
     - target: {fileID: 822375557161578320, guid: e0d554c9d71a1d64a86a3f589c23a931,
@@ -487,16 +497,6 @@ PrefabInstance:
       propertyPath: hinderanceAbility
       value: 
       objectReference: {fileID: 2046708538468709613}
-    - target: {fileID: 822375556897687078, guid: e0d554c9d71a1d64a86a3f589c23a931,
-        type: 3}
-      propertyPath: hinderanceAbility
-      value: 
-      objectReference: {fileID: 2046708537786202497}
-    - target: {fileID: 822375556241821729, guid: e0d554c9d71a1d64a86a3f589c23a931,
-        type: 3}
-      propertyPath: hinderanceAbility
-      value: 
-      objectReference: {fileID: 469012655918541911}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0d554c9d71a1d64a86a3f589c23a931, type: 3}
 --- !u!224 &4568381863362285860 stripped
@@ -709,11 +709,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2046708538941445467}
     m_Modifications:
-    - target: {fileID: 1937983890824194989, guid: 9d05418d881e9684c80a5cc2c46febe4,
-        type: 3}
-      propertyPath: m_Name
-      value: Laser Man Spawner
-      objectReference: {fileID: 0}
     - target: {fileID: 1937983890824194978, guid: 9d05418d881e9684c80a5cc2c46febe4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -769,11 +764,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1937983890824194989, guid: 9d05418d881e9684c80a5cc2c46febe4,
+        type: 3}
+      propertyPath: m_Name
+      value: Laser Man Spawner
+      objectReference: {fileID: 0}
     - target: {fileID: 4838911872121254524, guid: 9d05418d881e9684c80a5cc2c46febe4,
         type: 3}
       propertyPath: enemyPrefab
       value: 
-      objectReference: {fileID: 6640450290226409466, guid: 6b6b5916647e3ee4e93dbba3085255dc,
+      objectReference: {fileID: 8970433145977907811, guid: 409cf7e00f0e07f4db3e9ab95be9a0a6,
         type: 3}
     - target: {fileID: 4838911872121254524, guid: 9d05418d881e9684c80a5cc2c46febe4,
         type: 3}
@@ -807,11 +807,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2046708538941445467}
     m_Modifications:
-    - target: {fileID: 858499681906137960, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
+    - target: {fileID: 858499681906137963, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
         type: 3}
-      propertyPath: m_Name
-      value: Hinderance God Control
-      objectReference: {fileID: 0}
+      propertyPath: tapAbility
+      value: 
+      objectReference: {fileID: 2046708538415085298}
+    - target: {fileID: 858499681906137963, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
+        type: 3}
+      propertyPath: swipeAbility
+      value: 
+      objectReference: {fileID: 2046708538415085298}
+    - target: {fileID: 858499681906137963, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
+        type: 3}
+      propertyPath: tapAllowance
+      value: 
+      objectReference: {fileID: 2046708538502025161}
     - target: {fileID: 858499681906137962, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -867,21 +877,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 858499681906137963, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
+    - target: {fileID: 858499681906137960, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
         type: 3}
-      propertyPath: tapAbility
-      value: 
-      objectReference: {fileID: 2046708538415085298}
-    - target: {fileID: 858499681906137963, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
-        type: 3}
-      propertyPath: swipeAbility
-      value: 
-      objectReference: {fileID: 2046708538415085298}
-    - target: {fileID: 858499681906137963, guid: f4bcdadc174fe7c40a3a11604c2abaa1,
-        type: 3}
-      propertyPath: tapAllowance
-      value: 
-      objectReference: {fileID: 2046708538502025161}
+      propertyPath: m_Name
+      value: Hinderance God Control
+      objectReference: {fileID: 0}
     - target: {fileID: 1203005615, guid: f4bcdadc174fe7c40a3a11604c2abaa1, type: 3}
       propertyPath: tapAbility
       value: 
@@ -891,8 +891,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2046708538415085298}
     - target: {fileID: 1203005615, guid: f4bcdadc174fe7c40a3a11604c2abaa1, type: 3}
+      propertyPath: dragonAbility
+      value: 
+      objectReference: {fileID: 2399222119402160082}
+    - target: {fileID: 1203005615, guid: f4bcdadc174fe7c40a3a11604c2abaa1, type: 3}
       propertyPath: swipeIntervalMax
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1203005615, guid: f4bcdadc174fe7c40a3a11604c2abaa1, type: 3}
+      propertyPath: dragonIntervalMin
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1203005615, guid: f4bcdadc174fe7c40a3a11604c2abaa1, type: 3}
+      propertyPath: dragonIntervalMax
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4bcdadc174fe7c40a3a11604c2abaa1, type: 3}
@@ -921,11 +933,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2046708538941445467}
     m_Modifications:
-    - target: {fileID: 1062575708345641144, guid: c64f044e36938924f8af389c40926686,
-        type: 3}
-      propertyPath: m_Name
-      value: DragonSpawner
-      objectReference: {fileID: 0}
     - target: {fileID: 1062575708345641151, guid: c64f044e36938924f8af389c40926686,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -991,6 +998,11 @@ PrefabInstance:
       propertyPath: cooldownTimer
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 1062575708345641144, guid: c64f044e36938924f8af389c40926686,
+        type: 3}
+      propertyPath: m_Name
+      value: DragonSpawner
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c64f044e36938924f8af389c40926686, type: 3}
 --- !u!4 &2399222119402160081 stripped
@@ -1030,11 +1042,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2046708538941445467}
     m_Modifications:
-    - target: {fileID: 4693512571690600859, guid: d02262eea0bb6554e9c21a29850e796b,
-        type: 3}
-      propertyPath: m_Name
-      value: Block Flip Ability
-      objectReference: {fileID: 0}
     - target: {fileID: 4693512571690600856, guid: d02262eea0bb6554e9c21a29850e796b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1090,6 +1097,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4693512571690600859, guid: d02262eea0bb6554e9c21a29850e796b,
+        type: 3}
+      propertyPath: m_Name
+      value: Block Flip Ability
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d02262eea0bb6554e9c21a29850e796b, type: 3}
 --- !u!114 &2046708537786202497 stripped
@@ -1117,11 +1129,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2046708538941445467}
     m_Modifications:
-    - target: {fileID: 8459786603340236952, guid: b852eec4e51cddb4789ffe698f80a41f,
-        type: 3}
-      propertyPath: m_Name
-      value: HudBlocker
-      objectReference: {fileID: 0}
     - target: {fileID: 8459786603340236953, guid: b852eec4e51cddb4789ffe698f80a41f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1181,6 +1188,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.13955602
+      objectReference: {fileID: 0}
+    - target: {fileID: 8459786603340236952, guid: b852eec4e51cddb4789ffe698f80a41f,
+        type: 3}
+      propertyPath: m_Name
+      value: HudBlocker
       objectReference: {fileID: 0}
     - target: {fileID: 8459786603340236954, guid: b852eec4e51cddb4789ffe698f80a41f,
         type: 3}

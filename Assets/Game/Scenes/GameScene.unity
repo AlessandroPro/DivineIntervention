@@ -6491,7 +6491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arOrigin: {fileID: 2128243191}
-  placementIndicator: {fileID: 674283423}
+  placementObject: {fileID: 674283423}
   blockMask:
     serializedVersion: 2
     m_Bits: 256
@@ -6658,6 +6658,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 674283424}
     m_Modifications:
+    - target: {fileID: 2399222119402160082, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: cooldownTimer
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2399222119402160082, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: hasCooldown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4408145920828906407, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
         type: 3}
       propertyPath: m_Name
@@ -6793,16 +6803,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2399222119402160082, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
-        type: 3}
-      propertyPath: cooldownTimer
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 2399222119402160082, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
-        type: 3}
-      propertyPath: hasCooldown
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 469012655918541911, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
         type: 3}

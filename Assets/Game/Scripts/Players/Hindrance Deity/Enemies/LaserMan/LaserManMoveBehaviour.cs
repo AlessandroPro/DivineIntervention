@@ -27,10 +27,12 @@ public class LaserManMoveBehaviour : StateMachineBehaviour
     {
         if(laserManLogic == null)
         {
-            laserManLogic = fsm.gameObject.GetComponent<LaserManLogic>();
+            laserManLogic = fsm.gameObject.GetComponentInParent<LaserManLogic>();
+
+            Debug.Assert(laserManLogic != null, "LaserManLogic must not be null!");
         }
 
-        if(laserManLogic != null && laserMan == null)
+        if(laserMan == null)
         {
             laserMan = laserManLogic.transform;
         }
@@ -158,6 +160,10 @@ public class LaserManMoveBehaviour : StateMachineBehaviour
         else if(rightLoSFound)
         {
             laserManLogic.MoveRight();
+        }
+        else
+        {
+            laserManLogic.Stop();
         }
     }
 

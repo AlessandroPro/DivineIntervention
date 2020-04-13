@@ -8,6 +8,7 @@ using UnityEngine;
 public class LaserManLogic : MonoBehaviour
 {
     public GameObject laserPrefab;
+    public Vector3 laserSpawnOffset;
 
     public float speed = 1.0f;
     public float fallSpeed = 3.0f;
@@ -45,6 +46,8 @@ public class LaserManLogic : MonoBehaviour
     private GameObject block;
     private Scrollable scroller;
 
+    private Animator animator;
+
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +57,9 @@ public class LaserManLogic : MonoBehaviour
         moveVel = new Vector3(speed, 0, 0);
         fallVel = new Vector3(0, -fallSpeed, 0);
         scroller = GetComponent<Scrollable>();
+
+
+        animator = GetComponent<Animator>();
     }
 
 
@@ -108,26 +114,35 @@ public class LaserManLogic : MonoBehaviour
     public void MoveLeft()
     {
         rig.MovePosition(transform.position - moveVel * Time.deltaTime);
+        animator.SetBool("Run Forward", true);
+        transform.rotation = Quaternion.Euler(0, -90, 0);
     }
 
     public void MoveRight()
     {
         rig.MovePosition(transform.position + moveVel * Time.deltaTime);
+        animator.SetBool("Run Forward", true);
+        transform.rotation = Quaternion.Euler(0, 90, 0);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void Stop()
     {
-        if (collision.transform.GetComponent<Block>() != null)
+        animator.SetBool("Run Forward", false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.GetComponent<Block>() != null)
         {
-            block = collision.gameObject;
+            block = other.gameObject;
             blockCol = block.GetComponent<BoxCollider>();
             ChangeLandState(true);
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.transform.GetComponent<Block>() != null)
+        if (other.transform.GetComponent<Block>() != null)
         {
             ChangeLandState(false);
         }
@@ -185,7 +200,9 @@ public class LaserManLogic : MonoBehaviour
 
     public void FireLaser()
     {
-        GameObject laser = Instantiate(laserPrefab, transform.position, transform.rotation);
+        animator.SetBool("Run Forward", false);
+
+        GameObject laser = Instantiate(laserPrefab, transform.position + laserSpawnOffset, transform.rotation);
         Vector3 target = spirit.transform.position - laser.transform.position;
 
         Quaternion newRot = Quaternion.FromToRotation(laser.transform.up, target);

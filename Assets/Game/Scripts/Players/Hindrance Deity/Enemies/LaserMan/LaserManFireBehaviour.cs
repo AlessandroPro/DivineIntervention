@@ -10,7 +10,7 @@ public class LaserManFireBehaviour : StateMachineBehaviour
     {
         if (laserManLogic == null)
         {
-            laserManLogic = fsm.gameObject.GetComponent<LaserManLogic>();
+            laserManLogic = fsm.gameObject.GetComponentInParent<LaserManLogic>();
         }
     }
 
@@ -23,6 +23,7 @@ public class LaserManFireBehaviour : StateMachineBehaviour
 
         if (laserManLogic.fireCooldown == false)
         {
+            laserManLogic.Stop();
             laserManLogic.FireLaser();
         }
     }

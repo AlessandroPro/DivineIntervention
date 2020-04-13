@@ -13,7 +13,7 @@ public class ARTapToPlaceObject : MonoBehaviour
     //public GameObject objectToPlace;
 
     //private ARSessionOrigin arOrigin;
-    private ARRaycastManager raycastManager;
+    public ARRaycastManager raycastManager;
     private Pose placementPose;
     private bool placementPoseIsValid = false;
     private bool isPlaced = false;
@@ -23,12 +23,9 @@ public class ARTapToPlaceObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //arOrigin = FindObjectOfType<ARSessionOrigin>();
-        raycastManager = FindObjectOfType<ARRaycastManager>();
-
-        if(DeviceManager.Instance.devMode)
+        if(DeviceManager.Instance.devMode || !DeviceManager.Instance.IsThisDevice(GameDevice.IPhoneAR))
         {
-            this.enabled = false;
+           this.enabled = false;
         }
     }
 

@@ -2428,7 +2428,8 @@ MonoBehaviour:
   spawnLocation: {x: 0, y: -10, z: 25}
   lifeTime: 25
   lifeOver: 0
-  freezeBall: {fileID: 0}
+  freezeBall: {fileID: 7175941398200722934, guid: 8291769ef118ad24fb2c2f14b4d65f7d,
+    type: 3}
   fireBall: {fileID: 7175941398200722934, guid: d1acc66f862d9134ca8c4df71bd2150e,
     type: 3}
   arrived: 1

@@ -74,7 +74,7 @@ public class GameSetup : MonoBehaviour
         HudBlocker.SetActive(false);
 
         BlockGenerator blockGenScript = blockGenerator.GetComponent<BlockGenerator>();
-       // blockGenScript.startGeneratingBlocks(); // remove this later
+        //blockGenScript.startGeneratingBlocks(); // remove this later
         blockGenScript.enableBlockAI = false;
 
         background.SetActive(true);

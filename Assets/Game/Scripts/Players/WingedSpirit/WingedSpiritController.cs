@@ -16,12 +16,12 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     public float speed = 5;
     public float slowSpeed = 3;
     public float dashSpeed = 10;
-    public float dashCooldown = 3;
+    public float dashCooldown = 1;
     public float accelaration = 1;
 
     private float dashCooldownTimer = 0;
-    private bool dashOnCooldown = false;
-    //private bool dashing = false;
+    [HideInInspector]
+    public bool dashOnCooldown = false;
 
     [Header("Invincible")]
     public float invincibleTime = 2.0f;
@@ -46,11 +46,21 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
 
     public WingedSpiritAI wingedSpiritAI;
 
-    private PhotonView photonView;
+
+    [Header("Bot AI")]
+    public bool playAsBot = false;
+    public GameObject steeringBehaviours;
+    public SteeringAgent agent;
+
 
     private void Awake()
     {
         name = "WingedSpirit";
+
+        if(playAsBot == false)
+        {
+            Destroy(steeringBehaviours);
+        }
     }
 
     // Start is called before the first frame update
@@ -59,7 +69,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         rb = GetComponent<Rigidbody>();
         capCol = GetComponent<CapsuleCollider>();
         GameManager.Instance.wingedSpirit = this.gameObject;
-        photonView = GetComponent<PhotonView>();
     }
 
     private void OnDestroy()
@@ -71,9 +80,35 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        WingedSpiritControls();
+        if(NetworkManager.Instance.IsViewMine(photonView))
+        {
+            if(playAsBot)
+            {
+                float moveSpeed = speed;
 
-        if (invincible == true)
+                if (agent.getSpeed() < 0.1f)
+                {
+                    moveSpeed = 0;
+                }
+                moveInput = agent.gameObject.transform.forward;
+                moveVelocity = Vector3.Lerp(moveVelocity, moveInput * moveSpeed, accelaration * Time.deltaTime);
+                //moveVelocity = agent.gameObject.transform.forward * moveSpeed;
+            }
+            else
+            {
+                WingedSpiritControls();
+            }
+
+            rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
+        }
+
+
+        if (dashOnCooldown)
+        {
+            DashTime();
+        }
+
+        if (invincible)
         {
             InvincibleTime();
         }
@@ -84,6 +119,21 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         if(collision.gameObject.name == "Death")
         {
             SpiritTakeDamage(10);
+        }
+    }
+
+    private void DashTime()
+    {
+        dashCooldownTimer += Time.deltaTime;
+        if (dashCooldownTimer >= dashCooldown)
+        {
+            _renderer.material = normalMat;
+            dashOnCooldown = false;
+            dashCooldownTimer = 0.0f;
+        }
+        else
+        {
+            _renderer.material = dashingMat;
         }
     }
 
@@ -131,7 +181,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         }
 
         health -= 10;
-        //GameManager.Instance.UpdateHealth(health);
 
         if(health <= 0)
         {
@@ -147,7 +196,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
 
     private void Die()
     {
-        //GameManager.Instance.UpdateHealth(0);
         NetworkManager.Instance.DestroyGameObject(this.gameObject);
     }
 
@@ -158,32 +206,13 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
             return;
         }
 
-        if (dashOnCooldown)
-        {
-            dashCooldownTimer += Time.deltaTime;
-            if (dashCooldownTimer >= dashCooldown)
-            {
-
-                _renderer.material = normalMat;
-                
-                dashOnCooldown = false;
-                dashCooldownTimer = 0.0f;
-            }
-        }
-
         if (Input.GetAxis("Horizontal") > 0.1f  || Input.GetAxis("Horizontal") < -0.1f || Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Vertical") < -0.1f)
         {
-            Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
             if(Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.Space))
             {
-                if(!dashOnCooldown)
-                {
-                    moveVelocity = moveInput.normalized * dashSpeed;
-                    dashOnCooldown = true;
-                    _renderer.material = dashingMat;
-
-                }
+                dash();
             }
 
             if(Input.GetKey("joystick button 5"))
@@ -201,11 +230,31 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
             moveVelocity = Vector3.Lerp(moveVelocity, Vector3.zero, accelaration * Time.deltaTime);
         }
 
-        rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
-
         if(Input.GetKeyDown("joystick button 0") || Input.GetKeyDown(KeyCode.A))
         {
-            orbAttack.execute();
+            sendAttack();
+        }
+    }
+
+
+    [PunRPC]
+    void Attack()
+    {
+        orbAttack.execute();
+    }
+
+    public void sendAttack()
+    {
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("Attack", RpcTarget.All);
+    }
+
+    public void dash()
+    {
+        if (!dashOnCooldown)
+        {
+            moveVelocity = moveInput.normalized * dashSpeed;
+            dashOnCooldown = true;
         }
     }
 
@@ -214,10 +263,18 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(health);
+            stream.SendNext(invincibleCurrentTime);
+            stream.SendNext(invincible);
+            stream.SendNext(dashCooldownTimer);
+            stream.SendNext(dashOnCooldown);
         }
         else
         {
             health = (float)stream.ReceiveNext();
+            invincibleCurrentTime = (float)stream.ReceiveNext();
+            invincible = (bool)stream.ReceiveNext();
+            dashCooldownTimer = (float)stream.ReceiveNext();
+            dashOnCooldown = (bool)stream.ReceiveNext();
         }
     }
 }

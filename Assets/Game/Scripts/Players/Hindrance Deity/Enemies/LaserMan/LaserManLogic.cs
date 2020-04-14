@@ -208,12 +208,17 @@ public class LaserManLogic : MonoBehaviour
         if (hit1.transform.GetComponent<Block>() == null && hit2.transform.GetComponent<Block>() == null)
         {
             lineOfSight = true;
+            currentBlockBlocking = null;
         }
         else
         {
             if(hit1.transform.gameObject == hit2.transform.gameObject)
             {
                 currentBlockBlocking = hit1.transform.gameObject;
+            }
+            else
+            {
+                currentBlockBlocking = null;
             }
             lineOfSight = false;
         }

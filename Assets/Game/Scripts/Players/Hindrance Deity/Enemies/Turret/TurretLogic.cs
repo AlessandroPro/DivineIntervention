@@ -101,6 +101,7 @@ public class TurretLogic : MonoBehaviour
         if (hit.transform.GetComponent<Block>() == null)
         {
             lineOfSight = true;
+            currentBlockBlocking = null;
         }
         else
         {

@@ -24,26 +24,12 @@ public class DragonFireBehaviour : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator fsm, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        foreach(GameObject block in dragon.destroyTargets)
-        {
-            if(block != null)
-            {
-                if (block.GetComponent<Block>().insidePlane == true)
-                {
-                    dragon.DestroyTarget(block);
-                }
-            }
-        }
+        //if()
+        //{
 
-        if(dragon.detectedSpiritBlock != null)
-        {
-            if (dragon.detectedSpiritBlock.GetComponent<Block>().insidePlane == true)
-            {
-                dragon.FreezeTarget(dragon.detectedSpiritBlock);
-            }
-        }
+        //}
 
-        fsm.SetTrigger("Scan");
+        fsm.SetTrigger("Idle");
     }
 
 }

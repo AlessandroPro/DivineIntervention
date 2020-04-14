@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class DragonScanBehaviour : StateMachineBehaviour
 {
-    public float targetingTime;
-    public int maxDestroyTargets = 4;
 
-    private float currentTargetingTime = 0.0f;
     private DragonLogic dragon;
 
+    private Transform spirit;
 
+    private Dictionary<TurretLogic, GameObject> turretTargets = new Dictionary<TurretLogic, GameObject>();
+    private Dictionary<LaserManLogic, GameObject> laserManTargets = new Dictionary<LaserManLogic, GameObject>();
 
 
     override public void OnStateEnter(Animator fsm, AnimatorStateInfo stateInfo, int layerIndex)
@@ -20,7 +20,16 @@ public class DragonScanBehaviour : StateMachineBehaviour
             dragon = fsm.gameObject.transform.parent.GetComponent<DragonLogic>();
         }
 
-        dragon.destroyTargets.Clear();
+        if (spirit == null)
+        {
+            spirit = GameManager.Instance.wingedSpirit.transform;
+        }
+
+
+        turretTargets.Clear();
+        laserManTargets.Clear();
+        dragon.destroyTarget = null;
+        dragon.freezeTarget = null;
     }
 
     override public void OnStateUpdate(Animator fsm, AnimatorStateInfo stateInfo, int layerIndex)
@@ -32,47 +41,12 @@ public class DragonScanBehaviour : StateMachineBehaviour
         }
 
 
-        currentTargetingTime += Time.deltaTime;
-
         List<GameObject> enemies = dragon.GetEnemyList();
         foreach (GameObject enemy in enemies)
         {
-            bool duplicate = false;
 
             if (enemy == null)
             {
-                continue;
-            }
-
-
-            TurretLogic turret = enemy.GetComponentInChildren<TurretLogic>();
-
-            if (turret != null)
-            {
-                foreach (GameObject target in dragon.destroyTargets)
-                {
-                    if (target == turret.currentBlockBlocking)
-                    {
-                        duplicate = true;
-                        break;
-                    }
-                }
-
-                if (duplicate == true)
-                {
-                    continue;
-                }
-
-                if (dragon.destroyTargets.Count == maxDestroyTargets)
-                {
-                    dragon.destroyTargets.RemoveAt(0);
-                    dragon.destroyTargets.Add(turret.currentBlockBlocking);
-                }
-                else
-                {
-                    dragon.destroyTargets.Add(turret.currentBlockBlocking);
-                }
-
                 continue;
             }
 
@@ -86,44 +60,75 @@ public class DragonScanBehaviour : StateMachineBehaviour
                     continue;
                 }
 
-                if (laserMan.currentBlockBlocking == laserMan.blockCol.gameObject)
+                if (laserMan.currentBlockBlocking == null || laserMan.currentBlockBlocking == laserMan.blockCol.gameObject)
                 {
                     continue;
-                }
-
-
-                foreach (GameObject target in dragon.destroyTargets)
-                {
-                    if (target == laserMan.currentBlockBlocking)
-                    {
-                        duplicate = true;
-                        break;
-                    }
-                }
-
-                if (duplicate == true)
-                {
-                    continue;
-                }
-
-
-                if (dragon.destroyTargets.Count == maxDestroyTargets)
-                {
-                    dragon.destroyTargets.RemoveAt(0);
-                    dragon.destroyTargets.Add(laserMan.currentBlockBlocking);
                 }
                 else
                 {
-                    dragon.destroyTargets.Add(laserMan.currentBlockBlocking);
+                    laserManTargets.Add(laserMan, laserMan.currentBlockBlocking);
+                }
+            }
+
+            //Lasermen are given priority over turrets
+            if(laserManTargets.Count > 0)
+            {
+                continue;
+            }
+
+            TurretLogic turret = enemy.GetComponentInChildren<TurretLogic>();
+
+            if (turret != null)
+            {
+                if(turret.currentBlockBlocking != null)
+                {
+                    turretTargets.Add(turret, turret.currentBlockBlocking);
+                }
+
+            }
+        }
+
+        float winningDistance = 0.0f;
+        foreach(KeyValuePair<LaserManLogic, GameObject> target in laserManTargets)
+        {
+            float distance = Vector3.Distance(spirit.position, target.Key.transform.position);
+
+            if(distance < winningDistance || winningDistance == 0.0f)
+            {
+                dragon.destroyTarget = target.Value;
+                winningDistance = distance;
+            }
+        }
+
+
+        if (laserManTargets.Count == 0)
+        {
+            foreach (KeyValuePair<TurretLogic, GameObject> target in turretTargets)
+            {
+                float distance = Vector3.Distance(spirit.position, target.Key.transform.position);
+
+                if (distance < winningDistance || winningDistance == 0.0f)
+                {
+                    dragon.destroyTarget = target.Value;
+                    winningDistance = distance;
                 }
             }
         }
 
-        if (currentTargetingTime >= targetingTime)
+        if (dragon.detectedSpiritBlock != null)
         {
-            currentTargetingTime = 0.0f;
+            if (dragon.detectedSpiritBlock.GetComponent<Block>().insidePlane == true)
+            {
+                dragon.freezeTarget = dragon.detectedSpiritBlock;
+            }
+        }
 
-            fsm.SetTrigger("Fire");
+
+
+
+        if (dragon.destroyTarget != null || dragon.freezeTarget != null)
+        {
+            fsm.SetTrigger("fire");
         }
 
 

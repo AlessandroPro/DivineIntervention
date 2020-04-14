@@ -18,7 +18,8 @@ public class DragonLogic : MonoBehaviour
     
     public bool arrived = true;
 
-    public List<GameObject> destroyTargets = new List<GameObject>();
+    public GameObject destroyTarget;
+    public GameObject freezeTarget;
 
     public float speed = 2.0f;
     public GameObject detectedSpiritBlock;

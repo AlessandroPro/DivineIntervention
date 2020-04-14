@@ -46,6 +46,8 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
 
     public WingedSpiritAI wingedSpiritAI;
 
+    private PhotonView photonView;
+
     private void Awake()
     {
         name = "WingedSpirit";
@@ -57,6 +59,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         rb = GetComponent<Rigidbody>();
         capCol = GetComponent<CapsuleCollider>();
         GameManager.Instance.wingedSpirit = this.gameObject;
+        photonView = GetComponent<PhotonView>();
     }
 
     private void OnDestroy()
@@ -80,7 +83,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     {
         if(collision.gameObject.name == "Death")
         {
-            TakeDamage(10);
+            SpiritTakeDamage(10);
         }
     }
 
@@ -114,7 +117,13 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void TakeDamage(float damage)
+    public void SpiritTakeDamageCall(float damage)
+    {
+        photonView.RPC("SpiritTakeDamage", RpcTarget.All, damage);
+    }
+
+    [PunRPC]
+    private void SpiritTakeDamage(float damage)
     {
         if(invincible)
         {

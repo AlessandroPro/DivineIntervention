@@ -136,4 +136,34 @@ public class Block : MonoBehaviourPun, IPunObservable
             }
         }
     }
+
+    //Called by the fireball
+    public void DestroyBlockCall()
+    {
+        photonView.RPC("DestroyBlock", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void DestroyBlock()
+    {
+        if (NetworkManager.Instance.IsViewMine(photonView))
+        {
+            Debug.Log("Oh the humanity!!!!");
+        }
+    }
+
+    //Called by the freezeball
+    public void FreezeBlockCall()
+    {
+        photonView.RPC("FreezeBlock", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void FreezeBlock(int blockID)
+    {
+        if (NetworkManager.Instance.IsViewMine(photonView))
+        {
+            Debug.Log("Chill out");
+        }
+    }
 }

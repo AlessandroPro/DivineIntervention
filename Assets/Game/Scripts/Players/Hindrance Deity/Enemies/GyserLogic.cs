@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,14 @@ public class GyserLogic : MonoBehaviour
 
     private bool blockCollide;
 
+    private PhotonView photonView;
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        photonView = GetComponentInParent<PhotonView>();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -47,11 +51,15 @@ public class GyserLogic : MonoBehaviour
     private void DestroyGyser()
     {
         this.gameObject.transform.localScale = new Vector3(transform.localScale.x - (destroySpeed * Time.deltaTime), transform.localScale.y, transform.localScale.z);
-       
 
-        if(transform.localScale.x <= 0.0f)
+        if (NetworkManager.Instance.IsViewMine(photonView) == false)
         {
-            Destroy(this.gameObject);
+            return;
+        }
+
+        if (transform.localScale.x <= 0.0f)
+        {
+            NetworkManager.Instance.DestroyGameObject(transform.parent.gameObject);
         }
     }
 
@@ -85,11 +93,16 @@ public class GyserLogic : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if(NetworkManager.Instance.IsViewMine(photonView) == false)
+        {
+            return;
+        }
+
         WingedSpiritController spiritCon = other.gameObject.GetComponent<WingedSpiritController>();
 
         if (spiritCon != null)
         {
-            spiritCon.TakeDamage(damage);
+            spiritCon.SpiritTakeDamageCall(damage);
         }
     }
 }

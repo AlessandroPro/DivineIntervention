@@ -9,6 +9,7 @@ public class SpawnAbilityLogic : MonoBehaviour
 
     public void SpawnHindrance()
     {
-        GameObject newSpawn = Instantiate(spawnPrefab, transform);
+        GameObject newSpawn = NetworkManager.Instance.InstantiateGameObject(spawnPrefab.name, transform.position, spawnPrefab.transform.rotation);
+        newSpawn.transform.parent = this.gameObject.transform;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,10 +31,21 @@ public class DragonLogic : MonoBehaviour
 
     private Transform spirit;
 
-
+    private PhotonView photonView;
 
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+
+        if(NetworkManager.Instance.IsViewMine(photonView) == false)
+        {
+            Destroy(transform.GetChild(0).GetComponent<Animator>());
+            Destroy(this);
+        }
+    }
+
     void Start()
     {
         transform.position = spawnLocation;
@@ -48,12 +60,14 @@ public class DragonLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         SpiritRayCast();
 
         if(arrived == false)
         {
             MoveToLocation();
         }
+
 
         curretLifeTime += Time.deltaTime;
 
@@ -65,8 +79,13 @@ public class DragonLogic : MonoBehaviour
 
     private void SpiritRayCast()
     {
+        if(NetworkManager.Instance.IsViewMine(photonView) == false)
+        {
+            return;
+        }
+
         RaycastHit hit;
-        Physics.Raycast(spirit.transform.position, new Vector3(0.0f, 1.0f, 0.0f), out hit, 4.0f);
+        Physics.Raycast(spirit.position, new Vector3(0.0f, 1.0f, 0.0f), out hit, 4.0f);
 
         if (hit.transform != null && hit.transform.gameObject.GetComponent<Block>() != null)
         {
@@ -80,19 +99,24 @@ public class DragonLogic : MonoBehaviour
 
     public void DestroyTarget(GameObject block)
     {
-        GameObject newFireBall = Instantiate(fireBall, new Vector3(transform.position.x, transform.position.y + 9, transform.position.z), Quaternion.Euler(Vector3.zero));
+        if (NetworkManager.Instance.IsViewMine(photonView))
+        {
+            GameObject newFireBall = NetworkManager.Instance.InstantiateGameObject(fireBall.name, new Vector3(transform.position.x, transform.position.y + 9, transform.position.z), Quaternion.Euler(Vector3.zero));
 
-        FireballScript fireballScript = newFireBall.GetComponent<FireballScript>();
-        fireballScript.SetTarget(block);
-
+            FireballScript fireballScript = newFireBall.GetComponent<FireballScript>();
+            fireballScript.SetTarget(block);
+        }
     }
 
     public void FreezeTarget(GameObject block)
     {
-        GameObject newFreezeBall = Instantiate(freezeBall, new Vector3(transform.position.x, transform.position.y + 9, transform.position.z), Quaternion.Euler(Vector3.zero));
+        if (NetworkManager.Instance.IsViewMine(photonView))
+        {
+            GameObject newFreezeBall = NetworkManager.Instance.InstantiateGameObject(freezeBall.name, new Vector3(transform.position.x, transform.position.y + 9, transform.position.z), Quaternion.Euler(Vector3.zero));
 
-        FreezeBallScript freezeballScript = newFreezeBall.GetComponent<FreezeBallScript>();
-        freezeballScript.SetTarget(block);
+            FreezeBallScript freezeballScript = newFreezeBall.GetComponent<FreezeBallScript>();
+            freezeballScript.SetTarget(block);
+        }
     }
 
     public void NewLocation(Vector3 position)
@@ -123,5 +147,10 @@ public class DragonLogic : MonoBehaviour
         {
             arrived = true;
         }
+    }
+
+    public void DestroyDragon()
+    {
+        NetworkManager.Instance.DestroyGameObject(this.gameObject);
     }
 }

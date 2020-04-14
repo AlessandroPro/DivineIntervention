@@ -66,7 +66,7 @@ public class GameSetup : MonoBehaviour
 
         plane2D.GetComponent<MeshRenderer>().enabled = false;
 
-        hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = false;
+        //hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = true;
 
         gyserGauge.GetComponent<MeshRenderer>().enabled = false;
         gyserGauge.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
@@ -74,7 +74,7 @@ public class GameSetup : MonoBehaviour
         HudBlocker.SetActive(false);
 
         BlockGenerator blockGenScript = blockGenerator.GetComponent<BlockGenerator>();
-        blockGenScript.startGeneratingBlocks(); // REMOVE this later
+        //blockGenScript.startGeneratingBlocks(); // remove this later
         blockGenScript.enableBlockAI = false;
 
         background.SetActive(true);
@@ -101,7 +101,7 @@ public class GameSetup : MonoBehaviour
         //wingedSpirit.GetComponent<WingedSpiritAI>().enabled = true;
 
         hindranceDeity.GetComponent<HinderanceDietyController>().enabled = false;
-        hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = true;
+        //hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = true;
 
         gyserGauge.GetComponent<MeshRenderer>().enabled = false;
         gyserGauge.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;

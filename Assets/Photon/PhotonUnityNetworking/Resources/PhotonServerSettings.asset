@@ -34,6 +34,13 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - TakeDamage
+  - SpiritTakeDamage
+  - DamageWingedSpirit
+  - DestroyBlock
+  - FreezeBlock
+  - SwapCall
+  - swapPlanes
   - Attack
   DisableAutoOpenWizard: 1
   ShowSettings: 0

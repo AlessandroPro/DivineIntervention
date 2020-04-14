@@ -20,7 +20,8 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     public float accelaration = 1;
 
     private float dashCooldownTimer = 0;
-    private bool dashOnCooldown = false;
+    [HideInInspector]
+    public bool dashOnCooldown = false;
 
     [Header("Invincible")]
     public float invincibleTime = 2.0f;
@@ -44,11 +45,22 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     private Vector2 moveInput;
 
     public WingedSpiritAI wingedSpiritAI;
+
+
+    [Header("Bot AI")]
+    public bool playAsBot = false;
+    public GameObject steeringBehaviours;
     public SteeringAgent agent;
+
 
     private void Awake()
     {
         name = "WingedSpirit";
+
+        if(playAsBot == false)
+        {
+            Destroy(steeringBehaviours);
+        }
     }
 
     // Start is called before the first frame update
@@ -68,17 +80,25 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     // Update is called once per frame
     void Update()
     {
-
-        // WingedSpiritControls();
         if(NetworkManager.Instance.IsViewMine(photonView))
         {
-            float moveSpeed = speed;
-            if (agent.getSpeed() < 0.1f)
+            if(playAsBot)
             {
-                moveSpeed = 0;
+                float moveSpeed = speed;
+
+                if (agent.getSpeed() < 0.1f)
+                {
+                    moveSpeed = 0;
+                }
+                moveInput = agent.gameObject.transform.forward;
+                moveVelocity = Vector3.Lerp(moveVelocity, moveInput * moveSpeed, accelaration * Time.deltaTime);
+                //moveVelocity = agent.gameObject.transform.forward * moveSpeed;
             }
-            // moveVelocity = Vector3.Lerp(moveVelocity, agent.gameObject.transform.forward * moveSpeed, accelaration * Time.deltaTime);
-            moveVelocity = agent.gameObject.transform.forward * moveSpeed;
+            else
+            {
+                WingedSpiritControls();
+            }
+
             rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
         }
 
@@ -98,7 +118,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     {
         if(collision.gameObject.name == "Death")
         {
-            TakeDamage(10);
+            SpiritTakeDamage(10);
         }
     }
 
@@ -147,7 +167,13 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void TakeDamage(float damage)
+    public void SpiritTakeDamageCall(float damage)
+    {
+        photonView.RPC("SpiritTakeDamage", RpcTarget.All, damage);
+    }
+
+    [PunRPC]
+    private void SpiritTakeDamage(float damage)
     {
         if(invincible)
         {
@@ -182,15 +208,11 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
 
         if (Input.GetAxis("Horizontal") > 0.1f  || Input.GetAxis("Horizontal") < -0.1f || Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Vertical") < -0.1f)
         {
-            Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
             if(Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.Space))
             {
-                if(!dashOnCooldown)
-                {
-                    moveVelocity = moveInput.normalized * dashSpeed;
-                    dashOnCooldown = true;
-                }
+                dash();
             }
 
             if(Input.GetKey("joystick button 5"))
@@ -208,12 +230,9 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
             moveVelocity = Vector3.Lerp(moveVelocity, Vector3.zero, accelaration * Time.deltaTime);
         }
 
-        rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
-
         if(Input.GetKeyDown("joystick button 0") || Input.GetKeyDown(KeyCode.A))
         {
-            PhotonView photonView = PhotonView.Get(this);
-            photonView.RPC("Attack", RpcTarget.All);
+            sendAttack();
         }
     }
 
@@ -224,6 +243,20 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         orbAttack.execute();
     }
 
+    public void sendAttack()
+    {
+        PhotonView photonView = PhotonView.Get(this);
+        photonView.RPC("Attack", RpcTarget.All);
+    }
+
+    public void dash()
+    {
+        if (!dashOnCooldown)
+        {
+            moveVelocity = moveInput.normalized * dashSpeed;
+            dashOnCooldown = true;
+        }
+    }
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

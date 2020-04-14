@@ -148,6 +148,18 @@ public class TurretLogic : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (NetworkManager.Instance.IsViewMine(photonView) == false)
+        {
+            return;
+        }
+
+        if (other.gameObject.GetComponent<SpiritAttack>())
+        {
+            NetworkManager.Instance.DestroyGameObject(this.gameObject);
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

@@ -127,16 +127,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 674283424}
     m_Modifications:
-    - target: {fileID: 5698188437956343375, guid: fb5b2c26a5e6b70439d11a96908411f7,
-        type: 3}
-      propertyPath: viewIdField
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3242925363118683179, guid: fb5b2c26a5e6b70439d11a96908411f7,
-        type: 3}
-      propertyPath: m_Name
-      value: BlockGenerator
-      objectReference: {fileID: 0}
     - target: {fileID: 3242925363118683178, guid: fb5b2c26a5e6b70439d11a96908411f7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -191,6 +181,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698188437956343375, guid: fb5b2c26a5e6b70439d11a96908411f7,
+        type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3242925363118683179, guid: fb5b2c26a5e6b70439d11a96908411f7,
+        type: 3}
+      propertyPath: m_Name
+      value: BlockGenerator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb5b2c26a5e6b70439d11a96908411f7, type: 3}
@@ -10927,7 +10927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arOrigin: {fileID: 2128243191}
-  placementIndicator: {fileID: 674283423}
+  placementObject: {fileID: 674283423}
   raycastManager: {fileID: 2128243190}
   blockMask:
     serializedVersion: 2
@@ -10944,7 +10944,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1770307294
 MonoBehaviour:
@@ -11026,11 +11026,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 674283424}
     m_Modifications:
-    - target: {fileID: 8175574300958669919, guid: 37a0716ad9a2e0a459e560f32908ba46,
-        type: 3}
-      propertyPath: m_Name
-      value: PlaneOutFront
-      objectReference: {fileID: 0}
     - target: {fileID: 8175574300958669888, guid: 37a0716ad9a2e0a459e560f32908ba46,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11085,6 +11080,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175574300958669919, guid: 37a0716ad9a2e0a459e560f32908ba46,
+        type: 3}
+      propertyPath: m_Name
+      value: PlaneOutFront
       objectReference: {fileID: 0}
     - target: {fileID: 4729718852645772520, guid: 37a0716ad9a2e0a459e560f32908ba46,
         type: 3}
@@ -11169,16 +11169,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 674283424}
     m_Modifications:
-    - target: {fileID: 2046708538941445466, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
-        type: 3}
-      propertyPath: m_Name
-      value: Hinderance God Objects
-      objectReference: {fileID: 0}
-    - target: {fileID: 2046708537014204212, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
-        type: 3}
-      propertyPath: gameWindow2D
-      value: 
-      objectReference: {fileID: 222613930}
     - target: {fileID: 2046708538941445467, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11234,6 +11224,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2046708538941445466, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: m_Name
+      value: Hinderance God Objects
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046708537014204212, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: gameWindow2D
+      value: 
+      objectReference: {fileID: 222613930}
+    - target: {fileID: 2046708537014204212, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: blockGen
+      value: 
+      objectReference: {fileID: 148738721}
     - target: {fileID: 2046708537786202498, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
         type: 3}
       propertyPath: blockGenerator
@@ -11395,7 +11400,7 @@ PrefabInstance:
     - target: {fileID: 4882381940155740497, guid: d282a5b3fef171b4f9d1d6adc1dfd473,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4882381940155740497, guid: d282a5b3fef171b4f9d1d6adc1dfd473,
         type: 3}
@@ -11421,11 +11426,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 674283424}
     m_Modifications:
-    - target: {fileID: 908939425928063872, guid: e8d683afd1c9e7a4889fa3d6ff7fe38c,
-        type: 3}
-      propertyPath: m_Name
-      value: PlaneOutBack
-      objectReference: {fileID: 0}
     - target: {fileID: 908939425928063903, guid: e8d683afd1c9e7a4889fa3d6ff7fe38c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11480,6 +11480,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 908939425928063872, guid: e8d683afd1c9e7a4889fa3d6ff7fe38c,
+        type: 3}
+      propertyPath: m_Name
+      value: PlaneOutBack
       objectReference: {fileID: 0}
     - target: {fileID: 4344597231921613623, guid: e8d683afd1c9e7a4889fa3d6ff7fe38c,
         type: 3}

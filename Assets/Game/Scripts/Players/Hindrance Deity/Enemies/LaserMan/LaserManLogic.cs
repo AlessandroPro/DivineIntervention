@@ -56,7 +56,7 @@ public class LaserManLogic : MonoBehaviour
         photonView = GetComponent<PhotonView>();
         scroller = GetComponent<Scrollable>();
 
-        if(NetworkManager.Instance.IsViewMine(photonView) == false)
+        if (NetworkManager.Instance.IsViewMine(photonView) == false)
         {
             Destroy(transform.GetChild(0).GetComponent<Animator>());
             Destroy(scroller);
@@ -146,12 +146,22 @@ public class LaserManLogic : MonoBehaviour
         animator.SetBool("Run Forward", false);
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.GetComponent<Block>() != null)
+
+        if (other.gameObject.GetComponent<SpiritAttack>())
+        {
+            NetworkManager.Instance.DestroyGameObject(this.gameObject);
+        }
+
+
+        Block blockFound = other.transform.GetComponent<Block>();
+        if (blockFound != null)
         {
             block = other.gameObject;
             blockCol = block.GetComponent<BoxCollider>();
+            blockFound.FreezeBlockCall();
             ChangeLandState(true);
         }
     }
@@ -211,7 +221,7 @@ public class LaserManLogic : MonoBehaviour
         }
         else
         {
-            if(hit1.transform.gameObject == hit2.transform.gameObject)
+            if (hit1.transform.gameObject == hit2.transform.gameObject)
             {
                 currentBlockBlocking = hit1.transform.gameObject;
             }

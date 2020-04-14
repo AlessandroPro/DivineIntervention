@@ -11,6 +11,8 @@ public class FireballScript : MonoBehaviour
 
 
     private GameObject target;
+    private Vector3 targetPosition;
+
     private Vector3 startPosition;
     private float t;
 
@@ -58,25 +60,25 @@ public class FireballScript : MonoBehaviour
             return;
         }
 
-        transform.position = Vector3.Lerp(startPosition, new Vector3(target.transform.position.x, target.transform.position.y, 0.0f), t);
+        if(target != null)
+        {
+            targetPosition = target.transform.position;
+        }
+
+        transform.position = Vector3.Lerp(startPosition, new Vector3(targetPosition.x, targetPosition.y, 0.0f), t);
 
 
 
         if(t >= 1.0f && NetworkManager.Instance.IsViewMine(photonView))
         {
-            try
+            if (target != null)
             {
-
                 Block blockScript = target.GetComponent<Block>();
 
                 if (blockScript.insidePlane == true)
                 {
                     blockScript.DestroyBlockCall();
                 }
-            }
-            catch(Exception e)
-            {
-                Debug.LogError(e.Message);
             }
 
             NetworkManager.Instance.DestroyGameObject(this.gameObject);

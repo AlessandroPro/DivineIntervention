@@ -14,6 +14,7 @@ public class Block : MonoBehaviourPun, IPunObservable
     public float moveDistance = 0;
     public bool insidePlane = false;
     public bool onlyShowIn2D = true;
+    public bool canMove = true;
 
     private float zPosTarget = 0;
     public GameObject blockOutline;
@@ -90,6 +91,7 @@ public class Block : MonoBehaviourPun, IPunObservable
             stream.SendNext(outPlaneID);
             stream.SendNext(moveDistance);
             stream.SendNext(insidePlane);
+            stream.SendNext(canMove);
         }
         else
         {
@@ -97,6 +99,7 @@ public class Block : MonoBehaviourPun, IPunObservable
             outPlaneID = (int)stream.ReceiveNext();
             moveDistance = (float)stream.ReceiveNext();
             insidePlane = (bool)stream.ReceiveNext();
+            canMove = (bool)stream.ReceiveNext();
         }
     }
 

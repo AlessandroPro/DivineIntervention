@@ -16,12 +16,11 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     public float speed = 5;
     public float slowSpeed = 3;
     public float dashSpeed = 10;
-    public float dashCooldown = 3;
+    public float dashCooldown = 1;
     public float accelaration = 1;
 
     private float dashCooldownTimer = 0;
     private bool dashOnCooldown = false;
-    //private bool dashing = false;
 
     [Header("Invincible")]
     public float invincibleTime = 2.0f;
@@ -45,6 +44,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     private Vector2 moveInput;
 
     public WingedSpiritAI wingedSpiritAI;
+    public SteeringAgent agent;
 
     private void Awake()
     {
@@ -68,9 +68,27 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     // Update is called once per frame
     void Update()
     {
-        WingedSpiritControls();
 
-        if (invincible == true)
+        // WingedSpiritControls();
+        if(NetworkManager.Instance.IsViewMine(photonView))
+        {
+            float moveSpeed = speed;
+            if (agent.getSpeed() < 0.1f)
+            {
+                moveSpeed = 0;
+            }
+            // moveVelocity = Vector3.Lerp(moveVelocity, agent.gameObject.transform.forward * moveSpeed, accelaration * Time.deltaTime);
+            moveVelocity = agent.gameObject.transform.forward * moveSpeed;
+            rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
+        }
+
+
+        if (dashOnCooldown)
+        {
+            DashTime();
+        }
+
+        if (invincible)
         {
             InvincibleTime();
         }
@@ -81,6 +99,21 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         if(collision.gameObject.name == "Death")
         {
             TakeDamage(10);
+        }
+    }
+
+    private void DashTime()
+    {
+        dashCooldownTimer += Time.deltaTime;
+        if (dashCooldownTimer >= dashCooldown)
+        {
+            _renderer.material = normalMat;
+            dashOnCooldown = false;
+            dashCooldownTimer = 0.0f;
+        }
+        else
+        {
+            _renderer.material = dashingMat;
         }
     }
 
@@ -122,7 +155,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         }
 
         health -= 10;
-        //GameManager.Instance.UpdateHealth(health);
 
         if(health <= 0)
         {
@@ -138,7 +170,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
 
     private void Die()
     {
-        //GameManager.Instance.UpdateHealth(0);
         NetworkManager.Instance.DestroyGameObject(this.gameObject);
     }
 
@@ -147,19 +178,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         if(wingedSpiritAI.enabled == true)
         {
             return;
-        }
-
-        if (dashOnCooldown)
-        {
-            dashCooldownTimer += Time.deltaTime;
-            if (dashCooldownTimer >= dashCooldown)
-            {
-
-                _renderer.material = normalMat;
-                
-                dashOnCooldown = false;
-                dashCooldownTimer = 0.0f;
-            }
         }
 
         if (Input.GetAxis("Horizontal") > 0.1f  || Input.GetAxis("Horizontal") < -0.1f || Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Vertical") < -0.1f)
@@ -172,8 +190,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
                 {
                     moveVelocity = moveInput.normalized * dashSpeed;
                     dashOnCooldown = true;
-                    _renderer.material = dashingMat;
-
                 }
             }
 
@@ -196,19 +212,36 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
 
         if(Input.GetKeyDown("joystick button 0") || Input.GetKeyDown(KeyCode.A))
         {
-            orbAttack.execute();
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("Attack", RpcTarget.All);
         }
     }
+
+
+    [PunRPC]
+    void Attack()
+    {
+        orbAttack.execute();
+    }
+
 
     void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
             stream.SendNext(health);
+            stream.SendNext(invincibleCurrentTime);
+            stream.SendNext(invincible);
+            stream.SendNext(dashCooldownTimer);
+            stream.SendNext(dashOnCooldown);
         }
         else
         {
             health = (float)stream.ReceiveNext();
+            invincibleCurrentTime = (float)stream.ReceiveNext();
+            invincible = (bool)stream.ReceiveNext();
+            dashCooldownTimer = (float)stream.ReceiveNext();
+            dashOnCooldown = (bool)stream.ReceiveNext();
         }
     }
 }

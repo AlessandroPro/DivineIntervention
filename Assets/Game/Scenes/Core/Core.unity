@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8dfbcafb8dd3d459685cf57d30df0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 0
+  scrollSpeed: 1.8
   wingedSpirit: {fileID: 0}
   gameSetup: {fileID: 0}
   gameOverMenu: {fileID: 11400000, guid: ab8fff9e7c31b064b925e4915918d8fe, type: 2}

@@ -47,7 +47,7 @@ public class TurretLogic : MonoBehaviour
 
         if(NetworkManager.Instance.IsViewMine(photonView) == false)
         {
-            GetComponent<Animator>().enabled = false;
+            Destroy(GetComponent<Animator>());
             Destroy(GetComponent<Scrollable>());
             Destroy(this);
         }

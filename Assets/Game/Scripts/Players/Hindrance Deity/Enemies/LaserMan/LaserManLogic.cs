@@ -18,7 +18,6 @@ public class LaserManLogic : MonoBehaviour
 
     public GameObject currentBlockBlocking;
 
-
     [HideInInspector]
     public bool lineOfSight = false;
 

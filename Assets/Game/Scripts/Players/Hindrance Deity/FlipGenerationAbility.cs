@@ -7,11 +7,13 @@ public class FlipGenerationAbility : MonoBehaviour
 {
 
     //This should have an event that the block generator listens for
-    public Image specialEffect;
+    public GameObject specialEffect;
     public BlockGenerator blockGenerator;
 
     public void FlipGeneration()
     {
         blockGenerator.SwapCall();
+        GameObject newEffect = Instantiate(specialEffect, specialEffect.transform.position, specialEffect.transform.rotation);
+        Destroy(newEffect, 0.8f);
     }
 }

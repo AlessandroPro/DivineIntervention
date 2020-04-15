@@ -1263,7 +1263,6 @@ MonoBehaviour:
   dashingMat: {fileID: 2100000, guid: 8b3fa7ed4bb8edd44b56f1787d137f74, type: 2}
   dashingInvMat: {fileID: 2100000, guid: ef9ed810a70f3404f821c15d7dd79b78, type: 2}
   orbAttack: {fileID: 1589798723}
-  wingedSpiritAI: {fileID: 0}
   playAsBot: 0
   steeringBehaviours: {fileID: 7548262208982208620}
   agent: {fileID: 5996799377710354680}

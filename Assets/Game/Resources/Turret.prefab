@@ -57,7 +57,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613831590695542311}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -97,7 +97,7 @@ SphereCollider:
   m_GameObject: {fileID: 1613831590695542311}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -126,6 +126,8 @@ MonoBehaviour:
     type: 3}
   spirit: {fileID: 0}
   vDp: 0
+  deathEffect: {fileID: 8879855204364421250, guid: e212b0caabe892241989dd5fb7c0ae2b,
+    type: 3}
 --- !u!54 &6702723439791007863
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -150,7 +152,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613831590695542311}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 5e027f3c8c5c095468f4e999ec7acca4, type: 2}
   m_CullingMode: 0
@@ -258,7 +260,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613831592513243396}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -458,8 +460,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3d8e9a3ded94234a8515c3dbdc69d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnTime: 0.5
   turretBodyRender: {fileID: 1613831590695542308}
   sphereCollider: {fileID: 1613831590695542309}
   barrelRender: {fileID: 1613831592513243402}
   fsm: {fileID: 7717106748863954343}
-  spawnEffect: {fileID: 6875446425771716245}

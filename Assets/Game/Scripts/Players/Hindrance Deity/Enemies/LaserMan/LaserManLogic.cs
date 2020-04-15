@@ -17,7 +17,7 @@ public class LaserManLogic : MonoBehaviour
     public LayerMask layerMask;
 
     public GameObject currentBlockBlocking;
-
+    public GameObject deathEffect;
 
     [HideInInspector]
     public bool lineOfSight = false;
@@ -94,6 +94,14 @@ public class LaserManLogic : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        if (deathEffect != null)
+        {
+            GameObject newDeathEffect = Instantiate(deathEffect, transform.position, deathEffect.transform.rotation);
+            Destroy(newDeathEffect, 1);
+        }
+    }
     private void CheckBlock()
     {
         if (block != null)

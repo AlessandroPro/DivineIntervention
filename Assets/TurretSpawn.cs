@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TurretSpawn : MonoBehaviour
 {
+    public float spawnTime = 0.5f;
     public MeshRenderer turretBodyRender;
     public SphereCollider sphereCollider;
     public MeshRenderer barrelRender;
@@ -12,13 +13,7 @@ public class TurretSpawn : MonoBehaviour
 
     void Start()
     {
-        turretBodyRender.enabled = false;
-        sphereCollider.enabled = false;
-        barrelRender.enabled = false;
-        fsm.enabled = false;
-       
-
-        Destroy(this.gameObject, 0.5f);
+        Destroy(this.gameObject, spawnTime);
     }
 
     private void OnDestroy()

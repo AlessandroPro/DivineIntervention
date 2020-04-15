@@ -17,7 +17,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/Scenes/Game/GameScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Game/Scenes/Testing/HinderanceScene.unity
-    guid: a5f812be1b54d5e4e8959f3b5462b6d0
   m_configObjects: {}

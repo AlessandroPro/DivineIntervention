@@ -44,7 +44,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     private Vector3 moveVelocity;
     private Vector2 moveInput;
 
-    public WingedSpiritAI wingedSpiritAI;
 
 
     [Header("Bot AI")]
@@ -201,11 +200,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
 
     private void WingedSpiritControls()
     {
-        if(wingedSpiritAI.enabled == true)
-        {
-            return;
-        }
-
         if (Input.GetAxis("Horizontal") > 0.1f  || Input.GetAxis("Horizontal") < -0.1f || Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Vertical") < -0.1f)
         {
             moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));

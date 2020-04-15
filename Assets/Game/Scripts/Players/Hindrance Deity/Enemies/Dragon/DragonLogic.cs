@@ -24,6 +24,8 @@ public class DragonLogic : MonoBehaviour
     public float speed = 2.0f;
     public GameObject detectedSpiritBlock;
 
+    public Transform attackSpawnLocation;
+
 
 
     private DragonEnemyTracker enemyTracker;
@@ -55,6 +57,12 @@ public class DragonLogic : MonoBehaviour
         if(GameManager.Instance.wingedSpirit != null)
         {
             spirit = GameManager.Instance.wingedSpirit.transform;
+        }
+
+        if(attackSpawnLocation == null)
+        {
+            Debug.LogError("Jaw not found. Using default spawn location");
+            NetworkManager.Instance.DestroyGameObject(this.gameObject);
         }
     }
 
@@ -102,7 +110,7 @@ public class DragonLogic : MonoBehaviour
     {
         if (NetworkManager.Instance.IsViewMine(photonView))
         {
-            GameObject newFireBall = NetworkManager.Instance.InstantiateGameObject(fireBall.name, new Vector3(transform.position.x, transform.position.y + 9, transform.position.z), Quaternion.Euler(Vector3.zero));
+            GameObject newFireBall = NetworkManager.Instance.InstantiateGameObject(fireBall.name, attackSpawnLocation.position, Quaternion.Euler(Vector3.zero));
 
             FireballScript fireballScript = newFireBall.GetComponent<FireballScript>();
             fireballScript.SetTarget(block);
@@ -113,7 +121,7 @@ public class DragonLogic : MonoBehaviour
     {
         if (NetworkManager.Instance.IsViewMine(photonView))
         {
-            GameObject newFreezeBall = NetworkManager.Instance.InstantiateGameObject(freezeBall.name, new Vector3(transform.position.x, transform.position.y + 9, transform.position.z), Quaternion.Euler(Vector3.zero));
+            GameObject newFreezeBall = NetworkManager.Instance.InstantiateGameObject(freezeBall.name, attackSpawnLocation.position, Quaternion.Euler(Vector3.zero));
 
             FreezeBallScript freezeballScript = newFreezeBall.GetComponent<FreezeBallScript>();
             freezeballScript.SetTarget(block);

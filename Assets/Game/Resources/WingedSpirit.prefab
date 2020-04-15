@@ -1133,7 +1133,6 @@ GameObject:
   - component: {fileID: 4902003423698505740}
   - component: {fileID: 4902003423698505737}
   - component: {fileID: 4902003423698505736}
-  - component: {fileID: 1957562558}
   - component: {fileID: 8998043357005997268}
   - component: {fileID: 8279419138581253845}
   m_Layer: 0
@@ -1264,28 +1263,10 @@ MonoBehaviour:
   dashingMat: {fileID: 2100000, guid: 8b3fa7ed4bb8edd44b56f1787d137f74, type: 2}
   dashingInvMat: {fileID: 2100000, guid: ef9ed810a70f3404f821c15d7dd79b78, type: 2}
   orbAttack: {fileID: 1589798723}
-  wingedSpiritAI: {fileID: 1957562558}
+  wingedSpiritAI: {fileID: 0}
   playAsBot: 0
   steeringBehaviours: {fileID: 7548262208982208620}
   agent: {fileID: 5996799377710354680}
---- !u!114 &1957562558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4902003423698506739}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03ed616709bf99b47bb25556e8306b9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  avoidMask:
-    serializedVersion: 2
-    m_Bits: 256
-  speed: 5
-  sceneWidth: 20
-  orbAttack: {fileID: 1589798723}
 --- !u!114 &8998043357005997268
 MonoBehaviour:
   m_ObjectHideFlags: 0

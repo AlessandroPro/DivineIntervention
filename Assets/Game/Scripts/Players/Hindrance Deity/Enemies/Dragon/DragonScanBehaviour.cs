@@ -9,8 +9,8 @@ public class DragonScanBehaviour : StateMachineBehaviour
 
     private Transform spirit;
 
-    private Dictionary<TurretLogic, GameObject> turretTargets = new Dictionary<TurretLogic, GameObject>();
-    private Dictionary<LaserManLogic, GameObject> laserManTargets = new Dictionary<LaserManLogic, GameObject>();
+    private List<TurretLogic> turretsBlocked = new List<TurretLogic>();
+    private List<LaserManLogic> laserMenBlocked = new List<LaserManLogic>();
 
 
     override public void OnStateEnter(Animator fsm, AnimatorStateInfo stateInfo, int layerIndex)
@@ -26,8 +26,8 @@ public class DragonScanBehaviour : StateMachineBehaviour
         }
 
 
-        turretTargets.Clear();
-        laserManTargets.Clear();
+        turretsBlocked.Clear();
+        laserMenBlocked.Clear();
         dragon.destroyTarget = null;
         dragon.freezeTarget = null;
     }
@@ -66,50 +66,62 @@ public class DragonScanBehaviour : StateMachineBehaviour
                 }
                 else
                 {
-                    laserManTargets.Add(laserMan, laserMan.currentBlockBlocking);
+                    laserMenBlocked.Add(laserMan);
                 }
             }
 
             //Lasermen are given priority over turrets
-            if(laserManTargets.Count > 0)
+            if(laserMenBlocked.Count > 0)
             {
                 continue;
             }
 
-            TurretLogic turret = enemy.GetComponentInChildren<TurretLogic>();
+            TurretLogic turret = enemy.GetComponent<TurretLogic>();
 
             if (turret != null)
             {
                 if(turret.currentBlockBlocking != null)
                 {
-                    turretTargets.Add(turret, turret.currentBlockBlocking);
+                    turretsBlocked.Add(turret);
                 }
 
             }
         }
 
-        float winningDistance = 0.0f;
-        foreach(KeyValuePair<LaserManLogic, GameObject> target in laserManTargets)
-        {
-            float distance = Vector3.Distance(spirit.position, target.Key.transform.position);
+        float winningDistance = Mathf.Infinity;
 
-            if(distance < winningDistance || winningDistance == 0.0f)
+        foreach(LaserManLogic laserMan in laserMenBlocked)
+        {
+
+            if (laserMan == null)
             {
-                dragon.destroyTarget = target.Value;
+                continue;
+            }
+
+            float distance = Vector3.Distance(spirit.position, laserMan.transform.position);
+
+            if(distance < winningDistance)
+            {
+                dragon.destroyTarget = laserMan.currentBlockBlocking;
                 winningDistance = distance;
             }
         }
 
 
-        if (laserManTargets.Count == 0)
+        if (laserMenBlocked.Count == 0)
         {
-            foreach (KeyValuePair<TurretLogic, GameObject> target in turretTargets)
+            foreach (TurretLogic turret in turretsBlocked)
             {
-                float distance = Vector3.Distance(spirit.position, target.Key.transform.position);
-
-                if (distance < winningDistance || winningDistance == 0.0f)
+                if(turret == null)
                 {
-                    dragon.destroyTarget = target.Value;
+                    continue;
+                }
+
+                float distance = Vector3.Distance(spirit.position, turret.transform.position);
+
+                if (distance < winningDistance)
+                {
+                    dragon.destroyTarget = turret.currentBlockBlocking;
                     winningDistance = distance;
                 }
             }
@@ -117,18 +129,21 @@ public class DragonScanBehaviour : StateMachineBehaviour
 
         if (dragon.detectedSpiritBlock != null)
         {
-            if (dragon.detectedSpiritBlock.GetComponent<Block>().insidePlane == true)
+            Block block = dragon.detectedSpiritBlock.GetComponent<Block>();
+
+            if (block != null)
             {
-                dragon.freezeTarget = dragon.detectedSpiritBlock;
+                if (block.insidePlane == true && block.canMove == true)
+                {
+                    dragon.freezeTarget = dragon.detectedSpiritBlock;
+                }
             }
         }
 
 
-
-
         if (dragon.destroyTarget != null || dragon.freezeTarget != null)
         {
-            fsm.SetTrigger("fire");
+            fsm.SetTrigger("Fire");
         }
 
 

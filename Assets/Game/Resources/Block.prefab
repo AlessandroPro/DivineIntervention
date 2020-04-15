@@ -175,6 +175,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2132978416392628000}
     m_Modifications:
+    - target: {fileID: 123864, guid: 37b4ceb5badda524a88d751fe7f10b1c, type: 3}
+      propertyPath: m_Name
+      value: stone_column_4_f
+      objectReference: {fileID: 0}
+    - target: {fileID: 123864, guid: 37b4ceb5badda524a88d751fe7f10b1c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 405638, guid: 37b4ceb5badda524a88d751fe7f10b1c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -230,14 +238,6 @@ PrefabInstance:
     - target: {fileID: 405638, guid: 37b4ceb5badda524a88d751fe7f10b1c, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.67
-      objectReference: {fileID: 0}
-    - target: {fileID: 123864, guid: 37b4ceb5badda524a88d751fe7f10b1c, type: 3}
-      propertyPath: m_Name
-      value: stone_column_4_f
-      objectReference: {fileID: 0}
-    - target: {fileID: 123864, guid: 37b4ceb5badda524a88d751fe7f10b1c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37b4ceb5badda524a88d751fe7f10b1c, type: 3}

@@ -24,10 +24,14 @@ public class DragonFireBehaviour : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator fsm, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //if()
-        //{
-
-        //}
+        if (dragon.destroyTarget != null)
+        {
+            dragon.DestroyTarget(dragon.destroyTarget);
+        }
+        else if(dragon.freezeTarget != null)
+        {
+            dragon.FreezeTarget(dragon.freezeTarget);
+        }
 
         fsm.SetTrigger("Idle");
     }

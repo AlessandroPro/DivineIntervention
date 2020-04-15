@@ -2436,9 +2436,11 @@ MonoBehaviour:
   fireBall: {fileID: 7175941398200722934, guid: d1acc66f862d9134ca8c4df71bd2150e,
     type: 3}
   arrived: 1
-  destroyTargets: []
+  destroyTarget: {fileID: 0}
+  freezeTarget: {fileID: 0}
   speed: 5
   detectedSpiritBlock: {fileID: 0}
+  attackSpawnLocation: {fileID: 2742420027741571540}
 --- !u!114 &-1332161298505544307
 MonoBehaviour:
   m_ObjectHideFlags: 0

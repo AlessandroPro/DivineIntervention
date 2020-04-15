@@ -162,7 +162,7 @@ public class Block : MonoBehaviourPun, IPunObservable
     }
 
     [PunRPC]
-    private void FreezeBlock(int blockID)
+    private void FreezeBlock()
     {
         if (NetworkManager.Instance.IsViewMine(photonView))
         {

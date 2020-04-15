@@ -11019,7 +11019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arOrigin: {fileID: 2128243191}
-  placementIndicator: {fileID: 674283423}
+  placementObject: {fileID: 0}
   raycastManager: {fileID: 2128243190}
   blockMask:
     serializedVersion: 2
@@ -11066,6 +11066,8 @@ GameObject:
   - component: {fileID: 1801795259}
   - component: {fileID: 1801795258}
   - component: {fileID: 1801795257}
+  - component: {fileID: 1801795263}
+  - component: {fileID: 1801795262}
   m_Layer: 8
   m_Name: Block (2)
   m_TagString: Block
@@ -11080,7 +11082,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801795256}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be178086408ad4646a387d6f91535543, type: 3}
   m_Name: 
@@ -11089,8 +11091,9 @@ MonoBehaviour:
   yThreshold: 0
   outPlaneID: 0
   moveDistance: 0
-  insidePlane: 0
+  insidePlane: 1
   onlyShowIn2D: 1
+  canMove: 1
   blockOutline: {fileID: 7660575995806246626, guid: f2b67719ee6648d40a35c7d8581db82d,
     type: 3}
 --- !u!65 &1801795258
@@ -11167,6 +11170,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1801795262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801795256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+--- !u!114 &1801795263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801795256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2128243188
 GameObject:
   m_ObjectHideFlags: 0
@@ -11555,6 +11595,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 674283424}
     m_Modifications:
+    - target: {fileID: 2046708537014204212, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: blockGen
+      value: 
+      objectReference: {fileID: 1221042896}
+    - target: {fileID: 2046708537014204212, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: gameWindow2D
+      value: 
+      objectReference: {fileID: 222613930}
+    - target: {fileID: 4568381863362285880, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2046708537997159674, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -11575,16 +11630,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 60.80005
       objectReference: {fileID: 0}
-    - target: {fileID: 2046708537014204212, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
-        type: 3}
-      propertyPath: blockGen
-      value: 
-      objectReference: {fileID: 1221042896}
-    - target: {fileID: 2046708537014204212, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
-        type: 3}
-      propertyPath: gameWindow2D
-      value: 
-      objectReference: {fileID: 222613930}
     - target: {fileID: 2174562247954587589, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
         type: 3}
       propertyPath: m_IsActive
@@ -11719,11 +11764,6 @@ PrefabInstance:
     - target: {fileID: 4408145922184094219, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4568381863362285880, guid: 1bcf23c5bd5e51e43a0d72772ec88c91,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -11915,6 +11955,8 @@ GameObject:
   - component: {fileID: 7838316905452201357}
   - component: {fileID: 9090644035196968479}
   - component: {fileID: 5373063486795051601}
+  - component: {fileID: 5373063486795051603}
+  - component: {fileID: 5373063486795051602}
   m_Layer: 8
   m_Name: Block
   m_TagString: Block
@@ -11929,7 +11971,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5373063486795051600}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be178086408ad4646a387d6f91535543, type: 3}
   m_Name: 
@@ -11938,10 +11980,48 @@ MonoBehaviour:
   yThreshold: 0
   outPlaneID: 0
   moveDistance: 0
-  insidePlane: 0
+  insidePlane: 1
   onlyShowIn2D: 1
+  canMove: 1
   blockOutline: {fileID: 7660575995806246626, guid: f2b67719ee6648d40a35c7d8581db82d,
     type: 3}
+--- !u!114 &5373063486795051602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373063486795051600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+--- !u!114 &5373063486795051603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373063486795051600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5373063488550776185
 GameObject:
   m_ObjectHideFlags: 0
@@ -11955,6 +12035,8 @@ GameObject:
   - component: {fileID: 7838316905056189092}
   - component: {fileID: 9090644033726480694}
   - component: {fileID: 5373063488550776186}
+  - component: {fileID: 5373063488550776188}
+  - component: {fileID: 5373063488550776187}
   m_Layer: 8
   m_Name: Block (1)
   m_TagString: Block
@@ -11969,7 +12051,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5373063488550776185}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be178086408ad4646a387d6f91535543, type: 3}
   m_Name: 
@@ -11978,10 +12060,48 @@ MonoBehaviour:
   yThreshold: 0
   outPlaneID: 0
   moveDistance: 0
-  insidePlane: 0
+  insidePlane: 1
   onlyShowIn2D: 1
+  canMove: 1
   blockOutline: {fileID: 7660575995806246626, guid: f2b67719ee6648d40a35c7d8581db82d,
     type: 3}
+--- !u!114 &5373063488550776187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373063488550776185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+--- !u!114 &5373063488550776188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5373063488550776185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &6075546569422719620
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -58,7 +58,6 @@ public class GameSetup : MonoBehaviour
     private void PCSetup()
     {
         GameObject wingedSpirit = NetworkManager.Instance.InstantiateGameObject("WingedSpirit", new Vector3(0, 10, 0), Quaternion.identity);
-        //wingedSpirit.GetComponent<WingedSpiritAI>().enabled = true;
 
         Destroy(AR);
         Destroy(interaction);
@@ -97,9 +96,6 @@ public class GameSetup : MonoBehaviour
 
         plane2D.GetComponent<MeshRenderer>().enabled = true;
 
-        // GameObject wingedSpirit = NetworkManager.Instance.InstantiateGameObject("WingedSpirit", new Vector3(0, 10, 0), Quaternion.identity);
-        //wingedSpirit.GetComponent<WingedSpiritAI>().enabled = true;
-
         hindranceDeity.GetComponent<HinderanceDietyController>().enabled = false;
         //hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = true;
 
@@ -122,8 +118,6 @@ public class GameSetup : MonoBehaviour
         Destroy(interaction);
         Destroy(devARCamera);
         plane2D.GetComponent<MeshRenderer>().enabled = false;
-
-        //wingedSpirit.GetComponent<WingedSpiritAI>().enabled = true;
 
         hindranceDeity.GetComponent<HinderanceDietyController>().enabled = true;
         hindranceDeity.GetComponent<HinderanceDeityAI>().enabled = false;

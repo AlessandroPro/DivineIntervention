@@ -467,12 +467,12 @@ MonoBehaviour:
   startMenuState: 2
   resetPosition: 1
   sceneToLoad:
-    sceneAsset: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
-    scenePath: Assets/Game/Scenes/GameScene.unity
-    sceneName: GameScene
+    sceneAsset: {fileID: 102900000, guid: a5f812be1b54d5e4e8959f3b5462b6d0, type: 3}
+    scenePath: Assets/Game/Scenes/Testing/HinderanceScene.unity
+    sceneName: HinderanceScene
   sceneToUnload:
     sceneAsset: {fileID: 102900000, guid: 35543e029c931044aad8c60db0dd7db3, type: 3}
-    scenePath: Assets/Game/Scenes/MainMenuScene.unity
+    scenePath: Assets/Game/Scenes/Game/MainMenuScene.unity
     sceneName: MainMenuScene
   playerStatusText: {fileID: 953412044}
   startGameButton: {fileID: 735457249}
@@ -906,11 +906,11 @@ MonoBehaviour:
   titleMenu: {fileID: 11400000, guid: 9bf674889cd543a4a831e3413c624162, type: 2}
   sceneToLoad:
     sceneAsset: {fileID: 102900000, guid: 35543e029c931044aad8c60db0dd7db3, type: 3}
-    scenePath: Assets/Game/Scenes/MainMenuScene.unity
+    scenePath: Assets/Game/Scenes/Game/MainMenuScene.unity
     sceneName: MainMenuScene
   sceneToUnload:
     sceneAsset: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
-    scenePath: Assets/Game/Scenes/GameScene.unity
+    scenePath: Assets/Game/Scenes/Game/GameScene.unity
     sceneName: GameScene
 --- !u!1 &953412042
 GameObject:

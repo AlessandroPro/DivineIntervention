@@ -36,6 +36,8 @@ public class GyserLogic : MonoBehaviour
             Shrink();
         }
         ReduceLifeTime();
+
+        transform.Rotate(Vector3.up, 360 * Time.deltaTime);
     }
 
     private void ReduceLifeTime()
@@ -50,7 +52,7 @@ public class GyserLogic : MonoBehaviour
 
     private void DestroyGyser()
     {
-        this.gameObject.transform.localScale = new Vector3(transform.localScale.x - (destroySpeed * Time.deltaTime), transform.localScale.y, transform.localScale.z);
+        this.gameObject.transform.localScale = new Vector3(transform.localScale.x - (destroySpeed * Time.deltaTime), transform.localScale.y, transform.localScale.z - (destroySpeed * Time.deltaTime));
 
         if (NetworkManager.Instance.IsViewMine(photonView) == false)
         {

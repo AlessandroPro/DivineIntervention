@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6270690872832773112}
   - component: {fileID: 3040869544037159235}
   - component: {fileID: 5485290954320645631}
+  - component: {fileID: 4474727824937994113}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -49,7 +50,7 @@ MeshRenderer:
   m_GameObject: {fileID: 542629625389251684}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -78,6 +79,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &4474727824937994113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542629625389251684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff9e230dca625644970ec5856102335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollSpeed: 0.5
+  scrollY: 1
+  scrollX: 0
 --- !u!1 &7175941398200722934
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +106,7 @@ GameObject:
   - component: {fileID: 6894795720627805115}
   - component: {fileID: 2075114097321375114}
   - component: {fileID: -6093352446762652149}
+  - component: {fileID: 2572876820245156241}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -163,3 +180,17 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
+--- !u!114 &2572876820245156241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7175941398200722934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc5d3027554cc74aa0bab9ed24e57c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathEffect: {fileID: 5697890669999508979, guid: ebdd606dec2dfaa4abcd74c2437a7a04,
+    type: 3}

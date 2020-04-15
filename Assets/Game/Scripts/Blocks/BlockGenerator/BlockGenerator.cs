@@ -15,7 +15,6 @@ public class BlockGenerator : MonoBehaviour
     public float timeInterval;
 
     public GameObject blockPrefab;
-    public bool enableBlockAI = false;
 
     private int outPlaneID = 1;
 
@@ -98,13 +97,6 @@ public class BlockGenerator : MonoBehaviour
         if (blockPlaneID == 0)
         {
             blockData.insidePlane = true;
-        }
-
-        ProtectionDeityAI protectionAi = block.GetComponent<ProtectionDeityAI>();
-
-        if (protectionAi != null)
-        {
-            //protectionAi.enabled = enableBlockAI;
         }
     }
 

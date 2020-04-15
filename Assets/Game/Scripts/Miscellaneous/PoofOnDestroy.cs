@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyOnDestroy : MonoBehaviour
+public class PoofOnDestroy : MonoBehaviour
 {
     public GameObject deathEffect;
 
@@ -11,7 +11,7 @@ public class EnemyOnDestroy : MonoBehaviour
         if (deathEffect != null)
         {
             GameObject newDeathEffect = Instantiate(deathEffect, transform.position, deathEffect.transform.rotation);
-            Destroy(newDeathEffect, 1);
+            Destroy(newDeathEffect, 2);
         }
     }
 }

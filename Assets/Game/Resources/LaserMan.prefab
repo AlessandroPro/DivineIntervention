@@ -563,6 +563,7 @@ GameObject:
   - component: {fileID: 527818988972699238}
   - component: {fileID: 2212975555097840522}
   - component: {fileID: 8967688304143167049}
+  - component: {fileID: -3655053891799385910}
   - component: {fileID: 1355549287574586014}
   - component: {fileID: -6598495935552116424}
   - component: {fileID: 6886732147914070214}
@@ -686,13 +687,25 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   currentBlockBlocking: {fileID: 0}
-  deathEffect: {fileID: 8879855204364421250, guid: e212b0caabe892241989dd5fb7c0ae2b,
-    type: 3}
   lineOfSight: 0
   fireCooldown: 0
   landed: 0
   blockCol: {fileID: 0}
   spirit: {fileID: 0}
+--- !u!114 &-3655053891799385910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8970433145977907811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc5d3027554cc74aa0bab9ed24e57c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathEffect: {fileID: 8879855204364421250, guid: e212b0caabe892241989dd5fb7c0ae2b,
+    type: 3}
 --- !u!65 &1355549287574586014
 BoxCollider:
   m_ObjectHideFlags: 0

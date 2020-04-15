@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6702723439791007863}
   - component: {fileID: 7717106748863954343}
   - component: {fileID: 2398611438657016355}
+  - component: {fileID: 3158824980622754648}
   - component: {fileID: 8244066621215540575}
   - component: {fileID: 6030957893894771231}
   m_Layer: 0
@@ -126,8 +127,6 @@ MonoBehaviour:
     type: 3}
   spirit: {fileID: 0}
   vDp: 0
-  deathEffect: {fileID: 8879855204364421250, guid: e212b0caabe892241989dd5fb7c0ae2b,
-    type: 3}
 --- !u!54 &6702723439791007863
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -176,6 +175,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropSpeed: 1.8
+--- !u!114 &3158824980622754648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613831590695542311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc5d3027554cc74aa0bab9ed24e57c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathEffect: {fileID: 8879855204364421250, guid: e212b0caabe892241989dd5fb7c0ae2b,
+    type: 3}
 --- !u!114 &8244066621215540575
 MonoBehaviour:
   m_ObjectHideFlags: 0

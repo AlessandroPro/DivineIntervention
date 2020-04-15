@@ -37,7 +37,6 @@ public class TurretLogic : MonoBehaviour
     private Vector3 vResult;
 
     public float vDp;
-    public GameObject deathEffect;
 
 
     private PhotonView photonView;
@@ -48,18 +47,9 @@ public class TurretLogic : MonoBehaviour
 
         if(NetworkManager.Instance.IsViewMine(photonView) == false)
         {
-            GetComponent<Animator>().enabled = false;
+            Destroy(GetComponent<Animator>());
             Destroy(GetComponent<Scrollable>());
             Destroy(this);
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if(deathEffect != null)
-        {
-            GameObject newDeathEffect = Instantiate(deathEffect, transform.position, deathEffect.transform.rotation);
-            Destroy(newDeathEffect, 1);
         }
     }
 

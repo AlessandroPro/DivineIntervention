@@ -21,6 +21,10 @@ public class TurretSpawn : MonoBehaviour
         turretBodyRender.enabled = true;
         sphereCollider.enabled = true;
         barrelRender.enabled = true;
-        fsm.enabled = true;
+
+        if (fsm != null)
+        {
+            fsm.enabled = true;
+        }
     }
 }

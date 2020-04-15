@@ -814,7 +814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   device: 0
-  editorDevice: 2
+  editorDevice: 0
   useEditorDevice: 1
   devMode: 1
 --- !u!1 &1907719000

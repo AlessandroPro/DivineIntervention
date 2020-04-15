@@ -2440,7 +2440,7 @@ MonoBehaviour:
   freezeTarget: {fileID: 0}
   speed: 5
   detectedSpiritBlock: {fileID: 0}
-  attackSpawnLocation: {fileID: 2742420027741571540}
+  attackSpawnLocation: {fileID: 0}
 --- !u!114 &-1332161298505544307
 MonoBehaviour:
   m_ObjectHideFlags: 0

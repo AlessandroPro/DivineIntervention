@@ -6,13 +6,26 @@ using UnityEngine.UI;
 public class SpiritUI : Menu
 {
     public Text healthValueText;
+    private WingedSpiritController spirit;
 
     private void Update()
     {
-        if(GameManager.Instance.wingedSpirit != null)
+
+        if (GameManager.Instance.wingedSpirit != null)
         {
-            // Yes, this is inefficient, TODO later
-            healthValueText.text = GameManager.Instance.wingedSpirit.GetComponent<WingedSpiritController>().health.ToString();
+            if(spirit == null)
+            {
+                spirit = GameManager.Instance.wingedSpirit.GetComponent<WingedSpiritController>();
+            }
+        }
+        else
+        {
+            spirit = null;
+        }
+
+        if(spirit != null)
+        {
+            healthValueText.text = spirit.health.ToString();
         }
         else
         {

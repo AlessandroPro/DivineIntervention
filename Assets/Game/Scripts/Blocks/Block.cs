@@ -8,7 +8,7 @@ public class Block : MonoBehaviourPun, IPunObservable
     public float dropSpeed;
     public float yThreshold = 0;
 
-    private MeshRenderer mRenderer;
+    public MeshRenderer mRenderer;
 
     public int outPlaneID = 0;
     public float moveDistance = 0;
@@ -18,11 +18,11 @@ public class Block : MonoBehaviourPun, IPunObservable
 
     private float zPosTarget = 0;
     public GameObject blockOutline;
+    public Material frozenMat;
 
     // Start is called before the first frame update
     void Start()
     {
-        mRenderer = GetComponent<MeshRenderer>();
         mRenderer.enabled = false;
         blockOutline.SetActive(false);
         zPosTarget = transform.position.z;
@@ -151,8 +151,9 @@ public class Block : MonoBehaviourPun, IPunObservable
     {
         if (NetworkManager.Instance.IsViewMine(photonView))
         {
-            Debug.Log("Oh the humanity!!!!");
+            NetworkManager.Instance.DestroyGameObject(this.gameObject);
         }
+        Debug.Log("Block Destroyed");
     }
 
     //Called by the freezeball
@@ -164,9 +165,8 @@ public class Block : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void FreezeBlock()
     {
-        if (NetworkManager.Instance.IsViewMine(photonView))
-        {
-            Debug.Log("Chill out");
-        }
+        mRenderer.material = frozenMat;
+        canMove = false;
+        Debug.Log("Block Frozen");
     }
 }

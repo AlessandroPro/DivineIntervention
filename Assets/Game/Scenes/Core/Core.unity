@@ -522,6 +522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3644a9cffc8f4e43bc4e09fdebf641f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mute: 0
   backgroundVolume: 1
   soundFxVolume: 1
   onBackgroundVolumeChanged:
@@ -824,9 +825,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   device: 0
-  editorDevice: 2
+  editorDevice: 1
   useEditorDevice: 1
-  devMode: 1
+  devMode: 0
 --- !u!1 &1907719000
 GameObject:
   m_ObjectHideFlags: 0

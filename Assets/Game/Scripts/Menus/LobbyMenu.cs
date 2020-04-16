@@ -14,7 +14,7 @@ public class LobbyMenu : Menu
     public MenuClassifier inGameUIClassifier;
 
     public int gameLoadedCount = 0;
-    private int numClientsRequired = 0;
+    public int numClientsRequired = 0;
 
     public override void Start()
     {
@@ -76,7 +76,7 @@ public class LobbyMenu : Menu
     {
         if (NetworkManager.Instance.IsMasterClient())
         {
-            numClientsRequired = NetworkManager.Instance.GetNumPlayersInRoom();
+            //numClientsRequired = NetworkManager.Instance.GetNumPlayersInRoom();
             if (NetworkManager.Instance.GetNumPlayersInRoom() == numClientsRequired)
             {
                 startGameButton.interactable = true;

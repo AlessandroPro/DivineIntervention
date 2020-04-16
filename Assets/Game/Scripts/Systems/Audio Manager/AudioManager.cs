@@ -5,8 +5,14 @@ using UnityEngine.Events;
 
 public class AudioManager : Singleton<AudioManager>
 {
+    public bool mute = false;
+
 	public float backgroundVolume = 1.0f;
 	public float soundFxVolume = 1.0f;
+
+    private bool savedSound;
+    private float savedBackgroundVolume;
+    private float savedSoundFxVolume;
 
 	[System.Serializable]
 	public class VolumeChangeEvent : UnityEvent<float> { }
@@ -18,8 +24,35 @@ public class AudioManager : Singleton<AudioManager>
 	{
 		// Handle Loading here
 	}
+    private void Update()
+    {
+        if(mute == true)
+        {
+            if(savedSound == false)
+            {
+                savedSound = true;
 
-	public void setBackgroundVolume(float volume)
+                savedBackgroundVolume = backgroundVolume;
+                savedSoundFxVolume = soundFxVolume;
+
+                setSoundFxVolume(0.0f);
+                setBackgroundVolume(0.0f);
+
+            }
+        }
+        else
+        {
+            if(savedSound == true)
+            {
+                savedSound = false;
+
+                setSoundFxVolume(savedSoundFxVolume);
+                setBackgroundVolume(savedBackgroundVolume);
+            }
+        }
+    }
+
+    public void setBackgroundVolume(float volume)
 	{
 		if (volume > 1.0f)
 		{

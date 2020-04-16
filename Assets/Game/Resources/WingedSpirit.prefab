@@ -1489,6 +1489,7 @@ MonoBehaviour:
   playAsBot: 0
   steeringBehaviours: {fileID: 7548262208982208620}
   agent: {fileID: 5996799377710354680}
+  dashSound: {fileID: 8300000, guid: 1be2964a8f15dc546b94db8e968851d1, type: 3}
 --- !u!114 &8998043357005997268
 MonoBehaviour:
   m_ObjectHideFlags: 0

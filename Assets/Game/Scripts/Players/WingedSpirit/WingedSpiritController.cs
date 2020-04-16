@@ -51,9 +51,16 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     public GameObject steeringBehaviours;
     public SteeringAgent agent;
 
+    [Header("Audio")]
+    public AudioClip dashSound;
+
+    private AudioSource audioSource;
+
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+
         name = "WingedSpirit";
 
         if(playAsBot == false)
@@ -190,6 +197,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
             return;
         }
 
+        audioSource.Play();
         health -= damage;
 
         if(health <= 0)
@@ -258,6 +266,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     {
         if (!dashOnCooldown)
         {
+            audioSource.PlayOneShot(dashSound);
             moveVelocity = moveInput.normalized * dashSpeed;
             dashOnCooldown = true;
         }

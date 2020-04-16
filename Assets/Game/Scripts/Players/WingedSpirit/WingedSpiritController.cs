@@ -18,6 +18,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     public float dashSpeed = 10;
     public float dashCooldown = 1;
     public float accelaration = 1;
+    public float secondsAlive = 0.0f;
 
     private float dashCooldownTimer = 0;
     [HideInInspector]
@@ -118,6 +119,8 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         {
             InvincibleTime();
         }
+
+        secondsAlive += Time.deltaTime;
     }
 
     private void OnTriggerStay(Collider other)

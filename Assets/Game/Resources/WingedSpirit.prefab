@@ -1477,6 +1477,7 @@ MonoBehaviour:
   dashSpeed: 40
   dashCooldown: 1
   accelaration: 7
+  secondsAlive: 0
   dashOnCooldown: 0
   invincibleTime: 2
   invincible: 0

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SpiritUI : Menu
 {
     public Text healthValueText;
+    public Text timeValueText;
     private WingedSpiritController spirit;
 
     private void Update()
@@ -26,6 +27,7 @@ public class SpiritUI : Menu
         if(spirit != null)
         {
             healthValueText.text = spirit.health.ToString();
+            timeValueText.text = spirit.secondsAlive.ToString("0.00") + " Seconds";
         }
         else
         {

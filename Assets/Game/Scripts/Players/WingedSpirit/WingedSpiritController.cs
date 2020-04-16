@@ -18,6 +18,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     public float dashSpeed = 10;
     public float dashCooldown = 1;
     public float accelaration = 1;
+    public float secondsAlive = 0.0f;
 
     private float dashCooldownTimer = 0;
     [HideInInspector]
@@ -35,7 +36,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     public Material dashingMat;
     public Material dashingInvMat;
 
-
     [Header("Attack")]
     public SpiritAttack orbAttack;
 
@@ -51,9 +51,16 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     public GameObject steeringBehaviours;
     public SteeringAgent agent;
 
+    [Header("Audio")]
+    public AudioClip dashSound;
+
+    private AudioSource audioSource;
+
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+
         name = "WingedSpirit";
 
         if(playAsBot == false)
@@ -110,6 +117,19 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         if (invincible)
         {
             InvincibleTime();
+        }
+
+        secondsAlive += Time.deltaTime;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.CompareTag("DamageZone"))
+        {
+            if(NetworkManager.Instance.IsViewMine(photonView))
+            {
+                SpiritTakeDamageCall(10);
+            }
         }
     }
 
@@ -179,7 +199,8 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
             return;
         }
 
-        health -= 10;
+        audioSource.Play();
+        health -= damage;
 
         if(health <= 0)
         {
@@ -247,6 +268,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     {
         if (!dashOnCooldown)
         {
+            audioSource.PlayOneShot(dashSound);
             moveVelocity = moveInput.normalized * dashSpeed;
             dashOnCooldown = true;
         }
@@ -257,6 +279,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(health);
+            stream.SendNext(secondsAlive);
             stream.SendNext(invincibleCurrentTime);
             stream.SendNext(invincible);
             stream.SendNext(dashCooldownTimer);
@@ -265,6 +288,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         else
         {
             health = (float)stream.ReceiveNext();
+            secondsAlive = (float)stream.ReceiveNext();
             invincibleCurrentTime = (float)stream.ReceiveNext();
             invincible = (bool)stream.ReceiveNext();
             dashCooldownTimer = (float)stream.ReceiveNext();

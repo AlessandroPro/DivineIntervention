@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,8 +9,13 @@ public class GyserChargeScript : MonoBehaviour
 
     public float chargeCost = 0.25f;
 
+    public Material gyserCharging;
+    public Material gyserFullyCharged;
+
     private Vector3 startPosition;
     private Vector3 endPosition = new Vector3(0,0,-1);
+
+    private MeshRenderer render;
 
     [SerializeField]
     //Between 0 and 1
@@ -18,6 +24,7 @@ public class GyserChargeScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        render = GetComponent<MeshRenderer>();
         startPosition = transform.localPosition;
         
     }
@@ -45,9 +52,27 @@ public class GyserChargeScript : MonoBehaviour
         }
 
         transform.localPosition = Vector3.Lerp(startPosition, endPosition, currentCharge);
+
+        SetMaterial();
     }
 
-
+    private void SetMaterial()
+    {
+        if(currentCharge >= 1)
+        {
+            if (render.material != gyserFullyCharged)
+            {
+                render.material = gyserFullyCharged;
+            }
+        }
+        else
+        {
+            if (render.material != gyserCharging)
+            {
+                render.material = gyserCharging;
+            }
+        }
+    }
 
     public int GyserRequest()
     {

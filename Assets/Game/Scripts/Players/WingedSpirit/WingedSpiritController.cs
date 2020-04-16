@@ -280,6 +280,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(health);
+            stream.SendNext(secondsAlive);
             stream.SendNext(invincibleCurrentTime);
             stream.SendNext(invincible);
             stream.SendNext(dashCooldownTimer);
@@ -288,6 +289,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         else
         {
             health = (float)stream.ReceiveNext();
+            secondsAlive = (float)stream.ReceiveNext();
             invincibleCurrentTime = (float)stream.ReceiveNext();
             invincible = (bool)stream.ReceiveNext();
             dashCooldownTimer = (float)stream.ReceiveNext();

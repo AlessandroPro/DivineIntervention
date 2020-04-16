@@ -755,6 +755,11 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: PunCallbackHandler+RaiseEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  OnPlayerLeftRoomEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: PunCallbackHandler+RaiseEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &1507600643
 MonoBehaviour:
   m_ObjectHideFlags: 0

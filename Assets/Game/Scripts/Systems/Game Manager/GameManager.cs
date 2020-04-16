@@ -18,7 +18,7 @@ public class GameManager : Singleton<GameManager>
         // Master client tells all clients to setup their game
        if(NetworkManager.Instance.IsMasterClient())
        {
-            NetworkManager.Instance.RaiseEventAll(null, gameSetup.setupGameSceneEvent);
+            NetworkManager.Instance.RaiseEventAll(null, NetworkManager.EventCode.setupGameSceneEvent);
        }
     }
 

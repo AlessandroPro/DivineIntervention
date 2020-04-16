@@ -18,6 +18,7 @@ public class PunCallbackHandler : MonoBehaviourPunCallbacks, IOnEventCallback
     [HideInInspector] public UnityEvent OnCreatedRoomEvent = new UnityEvent();
     [HideInInspector] public UnityEvent OnCreatedRoomFailedEvent = new UnityEvent();
     [HideInInspector] public RaiseEvent OnRaiseEvent = new RaiseEvent();
+    [HideInInspector] public RaiseEvent OnPlayerLeftRoomEvent = new RaiseEvent();
 
     public override void OnJoinedLobby()
     {
@@ -58,8 +59,9 @@ public class PunCallbackHandler : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        Debug.Log("A Player has left the room.");
+        Debug.Log("A Player has left the room. Disconnecting...");
         base.OnPlayerLeftRoom(otherPlayer);
+        NetworkManager.Instance.Disconnect();
     }
 
     public override void OnEnable()
@@ -82,5 +84,17 @@ public class PunCallbackHandler : MonoBehaviourPunCallbacks, IOnEventCallback
         //object[] data = (object[])photonEvent.CustomData;
 
         OnRaiseEvent.Invoke(eventCode, data);
+    }
+
+    public void resetAll()
+    {
+        OnJoinedLobbyEvent.RemoveAllListeners();
+        OnConnectedToMasterEvent.RemoveAllListeners();
+        OnDisconnectedEvent.RemoveAllListeners();
+        OnJoinedRoomEvent.RemoveAllListeners();
+        OnCreatedRoomEvent.RemoveAllListeners();
+        OnCreatedRoomFailedEvent.RemoveAllListeners();
+        OnRaiseEvent.RemoveAllListeners();
+        OnPlayerLeftRoomEvent.RemoveAllListeners();
     }
 }

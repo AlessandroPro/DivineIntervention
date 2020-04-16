@@ -12,26 +12,32 @@ public class LobbyMenu : Menu
     public Button startGameButton;
     public MenuClassifier inGameUIClassifier;
 
-    private readonly byte LoadGameSceneEvent = 1;
-    private readonly byte GameSceneLoadedEvent = 2;
-
     public int gameLoadedCount = 0;
     private int numClientsRequired = 0;
+
     public override void Start()
     {
         base.Start();
+    }
+
+    public override void onShowMenu(string options)
+    {
+        base.onShowMenu(options);
+        gameLoadedCount = 0;
         startGameButton.gameObject.SetActive(false);
+        playerStatusText.text = "Joining...";
         NetworkManager.Instance.punHandler.OnJoinedRoomEvent.AddListener(showPlayerStatus);
         NetworkManager.Instance.punHandler.OnRaiseEvent.AddListener(LoadGameScene);
         NetworkManager.Instance.punHandler.OnRaiseEvent.AddListener(ReceiveGameSceneLoaded);
     }
+
 
     public void OnClick_StartGame()
     {
         MenuManager.Instance.hideMenu(menuClassifier);
 
         // Tell all clients to load the game scene
-        NetworkManager.Instance.RaiseEventAll(null, LoadGameSceneEvent);
+        NetworkManager.Instance.RaiseEventAll(null, NetworkManager.EventCode.LoadGameSceneEvent);
         numClientsRequired = NetworkManager.Instance.GetNumPlayersInRoom();
     }
 
@@ -51,7 +57,7 @@ public class LobbyMenu : Menu
 
     public void LoadGameScene(byte eventCode, object[] data)
     {
-        if(eventCode != LoadGameSceneEvent)
+        if(eventCode != (byte)NetworkManager.EventCode.LoadGameSceneEvent)
         {
             return;
         }
@@ -70,7 +76,7 @@ public class LobbyMenu : Menu
             if(sceneName == sceneToLoad.ScenePath)
             {
                 // Tell the master client that the game scene has been loaded on this client
-                NetworkManager.Instance.RaiseEventAll(null, GameSceneLoadedEvent);
+                NetworkManager.Instance.RaiseEventAll(null, NetworkManager.EventCode.GameSceneLoadedEvent);
             }
         }
         MenuManager.Instance.showMenu(inGameUIClassifier);
@@ -82,7 +88,7 @@ public class LobbyMenu : Menu
     public void ReceiveGameSceneLoaded(byte eventCode, object[] data)
     {
 
-        if (eventCode != GameSceneLoadedEvent)
+        if (eventCode != (byte)NetworkManager.EventCode.GameSceneLoadedEvent)
         {
             return;
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameSetup : MonoBehaviour
 {
-    [HideInInspector] public readonly byte setupGameSceneEvent = 3;
+    //[HideInInspector] public readonly byte setupGameSceneEvent = 3;
 
     public GameObject AR;
     public GameObject mainCamera;
@@ -46,7 +46,7 @@ public class GameSetup : MonoBehaviour
     // Event called on all clients when the masterClient's game manager calls StartGame()
     public void setupGameScene(byte eventCode, object[] data)
     {
-        if(eventCode != setupGameSceneEvent)
+        if(eventCode != (byte)NetworkManager.EventCode.setupGameSceneEvent)
         {
             return;
         }

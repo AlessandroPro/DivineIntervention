@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   growSpeed: 15
   lifeTime: 3
-  damage: 5
+  damage: 10
   destroySpeed: 2
 --- !u!114 &2006199851344268885
 MonoBehaviour:

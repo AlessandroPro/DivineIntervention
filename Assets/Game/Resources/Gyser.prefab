@@ -167,7 +167,7 @@ MonoBehaviour:
   riseSpeed: 35
   shrinkSpeed: 4.4
   lifeTime: 3
-  damage: 5
+  damage: 10
   destroySpeed: 2
 --- !u!54 &6483518406804580247
 Rigidbody:

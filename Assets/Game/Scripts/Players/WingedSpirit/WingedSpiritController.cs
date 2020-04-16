@@ -113,6 +113,17 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.CompareTag("DamageZone"))
+        {
+            if(NetworkManager.Instance.IsViewMine(photonView))
+            {
+                SpiritTakeDamageCall(10);
+            }
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name == "Death")
@@ -179,7 +190,7 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
             return;
         }
 
-        health -= 10;
+        health -= damage;
 
         if(health <= 0)
         {

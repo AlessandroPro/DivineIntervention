@@ -56,6 +56,12 @@ public class PunCallbackHandler : MonoBehaviourPunCallbacks, IOnEventCallback
         OnCreatedRoomFailedEvent.Invoke();
     }
 
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        Debug.Log("A Player has left the room.");
+        base.OnPlayerLeftRoom(otherPlayer);
+    }
+
     public override void OnEnable()
     {
         base.OnEnable();

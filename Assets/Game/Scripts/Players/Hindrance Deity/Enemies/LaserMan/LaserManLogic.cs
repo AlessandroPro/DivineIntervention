@@ -204,6 +204,11 @@ public class LaserManLogic : MonoBehaviour
 
     private void TrackSpirit()
     {
+        if(spirit == null)
+        {
+            return;
+        }
+
         float left = this.transform.position.x - this.transform.localScale.x * 0.25f;
         float right = this.transform.position.x + this.transform.localScale.x * 0.25f;
 
@@ -235,6 +240,11 @@ public class LaserManLogic : MonoBehaviour
 
     public void FireLaser()
     {
+        if(spirit == null)
+        {
+            return;
+        }
+
         animator.SetBool("Run Forward", false);
 
         if (NetworkManager.Instance.IsViewMine(photonView) == false)
@@ -258,12 +268,7 @@ public class LaserManLogic : MonoBehaviour
 
     private void FindSpirit()
     {
-        WingedSpiritController spiritControl = FindObjectOfType<WingedSpiritController>();
-
-        if (spiritControl != null)
-        {
-            spirit = spiritControl.gameObject;
-        }
+         spirit = GameManager.Instance.wingedSpirit;
     }
 
     //private void OnDrawGizmos()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameOverMenu : Menu
 {
     public MenuClassifier titleMenu;
+    public MenuClassifier inGameMenu;
 
     public SceneReference sceneToLoad;
     public SceneReference sceneToUnload;
@@ -13,6 +14,7 @@ public class GameOverMenu : Menu
         NetworkManager.Instance.Disconnect();
 
         MenuManager.Instance.hideMenu(this.menuClassifier);
+        MenuManager.Instance.hideMenu(inGameMenu);
         SceneLoader.Instance.onSceneLoadedEvent.AddListener(ShowTitleScreen);
         SceneLoader.Instance.UnloadScene(sceneToUnload);
         SceneLoader.Instance.LoadScene(sceneToLoad);

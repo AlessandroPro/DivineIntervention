@@ -27,7 +27,10 @@ public class EditorAR : MonoBehaviour
                 Block block = hit.collider.gameObject.GetComponent<Block>();
                 if (block)
                 {
-                    block.toggleMove();
+                    if(block.canMove)
+                    {
+                        block.toggleMove();
+                    }
                 }
             }
         }

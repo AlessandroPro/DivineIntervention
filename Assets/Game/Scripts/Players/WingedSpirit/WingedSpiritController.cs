@@ -51,9 +51,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     public GameObject steeringBehaviours;
     public SteeringAgent agent;
 
-    [Header("Audio")]
-    public AudioClip dashSound;
-    private AudioSource audioSource; 
 
     private void Awake()
     {
@@ -63,8 +60,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         {
             Destroy(steeringBehaviours);
         }
-
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -115,6 +110,17 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
         if (invincible)
         {
             InvincibleTime();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.CompareTag("DamageZone"))
+        {
+            if(NetworkManager.Instance.IsViewMine(photonView))
+            {
+                SpiritTakeDamageCall(10);
+            }
         }
     }
 
@@ -179,15 +185,12 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     [PunRPC]
     private void SpiritTakeDamage(float damage)
     {
-
         if(invincible)
         {
             return;
         }
 
-        audioSource.Play();
-
-        health -= 10;
+        health -= damage;
 
         if(health <= 0)
         {
@@ -255,11 +258,6 @@ public class WingedSpiritController : MonoBehaviourPun, IPunObservable
     {
         if (!dashOnCooldown)
         {
-            if (dashSound != null)
-            {
-                audioSource.PlayOneShot(dashSound);
-            }
-
             moveVelocity = moveInput.normalized * dashSpeed;
             dashOnCooldown = true;
         }

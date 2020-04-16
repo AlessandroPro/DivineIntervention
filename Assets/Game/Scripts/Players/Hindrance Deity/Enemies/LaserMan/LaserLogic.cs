@@ -56,7 +56,7 @@ public class LaserLogic : MonoBehaviour
 
     private void DestroyLaser()
     {
-        transform.parent.localScale = new Vector3(transform.parent.localScale.x - (destroySpeed * Time.deltaTime), transform.parent.localScale.y, transform.parent.localScale.z);
+        transform.parent.localScale = new Vector3(transform.parent.localScale.x - (destroySpeed * Time.deltaTime), transform.parent.localScale.y, transform.parent.localScale.z - (destroySpeed * Time.deltaTime));
 
 
         if (NetworkManager.Instance.IsViewMine(photonView) == false)

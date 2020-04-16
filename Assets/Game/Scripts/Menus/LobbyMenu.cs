@@ -10,6 +10,7 @@ public class LobbyMenu : Menu
     public SceneReference sceneToUnload;
     public Text playerStatusText;
     public Button startGameButton;
+    public MenuClassifier inGameUIClassifier;
 
     private readonly byte LoadGameSceneEvent = 1;
     private readonly byte GameSceneLoadedEvent = 2;
@@ -72,6 +73,7 @@ public class LobbyMenu : Menu
                 NetworkManager.Instance.RaiseEventAll(null, GameSceneLoadedEvent);
             }
         }
+        MenuManager.Instance.showMenu(inGameUIClassifier);
         SceneLoader.Instance.onSceneLoadedEvent.RemoveListener(NotifyGameSceneLoaded);
     }
 

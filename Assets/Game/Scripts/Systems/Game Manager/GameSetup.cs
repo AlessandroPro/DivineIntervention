@@ -17,7 +17,6 @@ public class GameSetup : MonoBehaviour
     public GameObject AbilitySwapCanvas;
     public GameObject HudBlocker;
     public GameObject background;
-    public GameObject basePlatform;
 
     // Start is called before the first frame update
     void Awake()
@@ -26,14 +25,8 @@ public class GameSetup : MonoBehaviour
         NetworkManager.Instance.punHandler.OnRaiseEvent.AddListener(setupGameScene);
     }
 
-    // Event called on all clients when the masterClient's game manager calls StartGame()
-    public void setupGameScene(byte eventCode, object[] data)
+    private void Start()
     {
-        if(eventCode != setupGameSceneEvent)
-        {
-            return;
-        }
-
         SceneLoader.Instance.SetActiveScene(gameObject.scene);
 
         switch (DeviceManager.Instance.device)
@@ -49,6 +42,30 @@ public class GameSetup : MonoBehaviour
                 break;
         }
     }
+
+    // Event called on all clients when the masterClient's game manager calls StartGame()
+    public void setupGameScene(byte eventCode, object[] data)
+    {
+        if(eventCode != setupGameSceneEvent)
+        {
+            return;
+        }
+
+        SceneLoader.Instance.SetActiveScene(gameObject.scene);
+
+        switch (DeviceManager.Instance.device)
+        {
+            case GameDevice.PC:
+                PCStartGame();
+                break;
+            case GameDevice.AndroidTablet:
+                AndroidStartGame();
+                break;
+            case GameDevice.IPhoneAR:
+                IPhoneARStartGame();
+                break;
+        }
+    }
     private void OnDestroy()
     {
         GameManager.Instance.gameSetup = null;
@@ -57,8 +74,6 @@ public class GameSetup : MonoBehaviour
 
     private void PCSetup()
     {
-        GameObject wingedSpirit = NetworkManager.Instance.InstantiateGameObject("WingedSpirit", new Vector3(0, 10, 0), Quaternion.identity);
-
         Destroy(AR);
         Destroy(interaction);
         Destroy(devARCamera);
@@ -71,10 +86,6 @@ public class GameSetup : MonoBehaviour
         gyserGauge.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
         AbilitySwapCanvas.SetActive(false);
         HudBlocker.SetActive(false);
-
-        BlockGenerator blockGenScript = blockGenerator.GetComponent<BlockGenerator>();
-        //blockGenScript.startGeneratingBlocks(); // remove this later
-        blockGenScript.enableBlockAI = false;
 
         background.SetActive(true);
     }
@@ -104,12 +115,7 @@ public class GameSetup : MonoBehaviour
         AbilitySwapCanvas.SetActive(false);
         HudBlocker.SetActive(false);
 
-        BlockGenerator blockGenScript = blockGenerator.GetComponent<BlockGenerator>();
-        blockGenScript.startGeneratingBlocks();
-        blockGenScript.enableBlockAI = false;
-
         background.SetActive(false);
-        basePlatform.GetComponent<MeshRenderer>().enabled = true;
     }
 
     private void AndroidSetup()
@@ -127,9 +133,25 @@ public class GameSetup : MonoBehaviour
         AbilitySwapCanvas.SetActive(true);
         HudBlocker.SetActive(true);
 
-        BlockGenerator blockGenScript = blockGenerator.GetComponent<BlockGenerator>();
-        blockGenScript.enableBlockAI = false;
-
         background.SetActive(true);
     }
+
+
+    private void PCStartGame()
+    {
+        NetworkManager.Instance.InstantiateGameObject("WingedSpirit", new Vector3(0, 10, 0), Quaternion.identity);
+    }
+
+    private void IPhoneARStartGame()
+    {
+        BlockGenerator blockGenScript = blockGenerator.GetComponent<BlockGenerator>();
+        blockGenScript.startGeneratingBlocks();
+    }
+
+    private void AndroidStartGame()
+    {
+
+    }
+
+
 }

@@ -9,6 +9,7 @@ public class LobbyMenu : Menu
     public SceneReference sceneToLoad;
     public SceneReference sceneToUnload;
     public Text playerStatusText;
+    public Text playerTypeText;
     public Button startGameButton;
     public MenuClassifier inGameUIClassifier;
 
@@ -25,10 +26,26 @@ public class LobbyMenu : Menu
         base.onShowMenu(options);
         gameLoadedCount = 0;
         startGameButton.gameObject.SetActive(false);
+        startGameButton.interactable = false;
         playerStatusText.text = "Joining...";
         NetworkManager.Instance.punHandler.OnJoinedRoomEvent.AddListener(showPlayerStatus);
         NetworkManager.Instance.punHandler.OnRaiseEvent.AddListener(LoadGameScene);
         NetworkManager.Instance.punHandler.OnRaiseEvent.AddListener(ReceiveGameSceneLoaded);
+        NetworkManager.Instance.punHandler.OnPlayerEnteredRoomEvent.AddListener(checkNumPlayersInRoom);
+        NetworkManager.Instance.punHandler.OnPlayerLeftRoomEvent.AddListener(checkNumPlayersInRoom);
+
+        switch (DeviceManager.Instance.device)
+        {
+            case GameDevice.PC:
+                playerTypeText.text = "Welcome, Winged Spirit.";
+                break;
+            case GameDevice.AndroidTablet:
+                playerTypeText.text = "Welcome, Hinderance Deity.";
+                break;
+            case GameDevice.IPhoneAR:
+                playerTypeText.text = "Welcome, Protection Deity.";
+                break;
+        }
     }
 
 
@@ -38,7 +55,6 @@ public class LobbyMenu : Menu
 
         // Tell all clients to load the game scene
         NetworkManager.Instance.RaiseEventAll(null, NetworkManager.EventCode.LoadGameSceneEvent);
-        numClientsRequired = NetworkManager.Instance.GetNumPlayersInRoom();
     }
 
     public void showPlayerStatus()
@@ -47,11 +63,28 @@ public class LobbyMenu : Menu
         {
             playerStatusText.text = "You are the Leader.";
             startGameButton.gameObject.SetActive(true);
+            checkNumPlayersInRoom();
         }
         else
         {
             playerStatusText.text = "Waiting for the leader to start.";
             startGameButton.gameObject.SetActive(false);
+        }
+    }
+
+    public void checkNumPlayersInRoom()
+    {
+        if (NetworkManager.Instance.IsMasterClient())
+        {
+            numClientsRequired = NetworkManager.Instance.GetNumPlayersInRoom();
+            if (NetworkManager.Instance.GetNumPlayersInRoom() == numClientsRequired)
+            {
+                startGameButton.interactable = true;
+            }
+            else
+            {
+                startGameButton.interactable = false;
+            }
         }
     }
 

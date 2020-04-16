@@ -17,8 +17,10 @@ public class PunCallbackHandler : MonoBehaviourPunCallbacks, IOnEventCallback
     [HideInInspector] public UnityEvent OnJoinedRoomEvent = new UnityEvent();
     [HideInInspector] public UnityEvent OnCreatedRoomEvent = new UnityEvent();
     [HideInInspector] public UnityEvent OnCreatedRoomFailedEvent = new UnityEvent();
+    [HideInInspector] public UnityEvent OnPlayerLeftRoomEvent = new UnityEvent();
+    [HideInInspector] public UnityEvent OnPlayerEnteredRoomEvent = new UnityEvent();
     [HideInInspector] public RaiseEvent OnRaiseEvent = new RaiseEvent();
-    [HideInInspector] public RaiseEvent OnPlayerLeftRoomEvent = new RaiseEvent();
+
 
     public override void OnJoinedLobby()
     {
@@ -61,14 +63,21 @@ public class PunCallbackHandler : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         Debug.Log("A Player has left the room. Disconnecting...");
         base.OnPlayerLeftRoom(otherPlayer);
+        OnPlayerLeftRoomEvent.Invoke();
         NetworkManager.Instance.Disconnect();
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        Debug.Log("A Player has joined the room.");
+        base.OnPlayerEnteredRoom(newPlayer);
+        OnPlayerEnteredRoomEvent.Invoke();
     }
 
     public override void OnEnable()
     {
         base.OnEnable();
         PhotonNetwork.NetworkingClient.EventReceived -= OnEvent;
-        //PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
     }
 
     public override void OnDisable()
@@ -81,7 +90,6 @@ public class PunCallbackHandler : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         byte eventCode = photonEvent.Code;
         object[] data = new object[] { };
-        //object[] data = (object[])photonEvent.CustomData;
 
         OnRaiseEvent.Invoke(eventCode, data);
     }
@@ -96,5 +104,6 @@ public class PunCallbackHandler : MonoBehaviourPunCallbacks, IOnEventCallback
         OnCreatedRoomFailedEvent.RemoveAllListeners();
         OnRaiseEvent.RemoveAllListeners();
         OnPlayerLeftRoomEvent.RemoveAllListeners();
+        OnPlayerEnteredRoomEvent.RemoveAllListeners();
     }
 }

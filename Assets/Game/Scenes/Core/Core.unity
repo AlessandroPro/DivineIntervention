@@ -750,12 +750,17 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  OnRaiseEvent:
+  OnPlayerLeftRoomEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: PunCallbackHandler+RaiseEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  OnPlayerLeftRoomEvent:
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnPlayerEnteredRoomEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnRaiseEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: PunCallbackHandler+RaiseEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -819,7 +824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   device: 0
-  editorDevice: 0
+  editorDevice: 2
   useEditorDevice: 1
   devMode: 1
 --- !u!1 &1907719000

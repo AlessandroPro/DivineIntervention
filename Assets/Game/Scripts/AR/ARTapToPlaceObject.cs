@@ -10,15 +10,15 @@ public class ARTapToPlaceObject : MonoBehaviour
 {
     public ARSessionOrigin arOrigin;
     public GameObject placementObject;
-    //public GameObject objectToPlace;
 
-    //private ARSessionOrigin arOrigin;
     public ARRaycastManager raycastManager;
     private Pose placementPose;
     private bool placementPoseIsValid = false;
     private bool isPlaced = false;
 
     public LayerMask blockMask;
+
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +27,8 @@ public class ARTapToPlaceObject : MonoBehaviour
         {
            this.enabled = false;
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -62,6 +64,7 @@ public class ARTapToPlaceObject : MonoBehaviour
                     if(block.canMove)
                     {
                         block.toggleMove();
+                        audioSource.Play();
                     }
                 }
             }
@@ -71,8 +74,6 @@ public class ARTapToPlaceObject : MonoBehaviour
     private void PlaceObject()
     {
         isPlaced = true;
-        
-        //Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
     }
 
     private void UpdatePlacementIndicator()
@@ -81,8 +82,6 @@ public class ARTapToPlaceObject : MonoBehaviour
         {
             placementObject.SetActive(true);
 
-            //UNCOMMENT THIS to go back to regular AR placement
-            //placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
             arOrigin.MakeContentAppearAt(placementObject.transform, placementPose.position, placementPose.rotation);
             
         }

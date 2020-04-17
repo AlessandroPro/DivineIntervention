@@ -9,12 +9,21 @@ public class TitleMenu : Menu
     public Button connectButton;
     public Text connectText;
 
+    public SceneReference titleScene;
+
     public override void Start()
     {
         base.Start();
+        onShowMenu(null);
+    }
+
+    public override void onShowMenu(string options)
+    {
+        base.onShowMenu(options);
         connectText.gameObject.SetActive(false);
+        connectButton.interactable = true;
         NetworkManager.Instance.punHandler.OnConnectedToMasterEvent.AddListener(showLobbyMenu);
-        NetworkManager.Instance.punHandler.OnDisconnectedEvent.AddListener(enableConnect);
+        NetworkManager.Instance.punHandler.OnDisconnectedEvent.AddListener(backToTitleMenu);
     }
 
     public void onClick_Connect()
@@ -32,9 +41,23 @@ public class TitleMenu : Menu
         NetworkManager.Instance.JoinRoom();
     }
 
-    public void enableConnect()
+    public void backToTitleMenu()
     {
-        connectButton.interactable = true;
-        connectText.gameObject.SetActive(false);
+
+        MenuManager.Instance.hideAllMenus();
+
+        NetworkManager.Instance.punHandler.resetAll();
+        SceneLoader.Instance.onSceneLoadedEvent.RemoveAllListeners();
+        SceneLoader.Instance.onSceneLoadedEvent.AddListener(showTitleMenu);
+
+        SceneLoader.Instance.UnloadActiveScene();
+        SceneLoader.Instance.LoadScene(titleScene);
+    }
+
+    public void showTitleMenu(List<string> scenes)
+    {
+        MenuManager.Instance.hideAllMenus();
+        MenuManager.Instance.showMenu(this.menuClassifier);
+        SceneLoader.Instance.onSceneLoadedEvent.RemoveListener(showTitleMenu);
     }
 }

@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6fc40461cc6f6748979cb24c175b0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  specialEffect: {fileID: 0}
+  specialEffect: {fileID: 5169594206975017554, guid: 757a9a77a74a7c24ebfeff60f46b2a42,
+    type: 3}
+  blockGenerator: {fileID: 0}
 --- !u!114 &4693512571690600858
 MonoBehaviour:
   m_ObjectHideFlags: 0

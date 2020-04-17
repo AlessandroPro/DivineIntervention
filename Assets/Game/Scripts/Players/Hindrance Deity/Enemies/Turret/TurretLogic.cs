@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,8 +29,6 @@ public class TurretLogic : MonoBehaviour
 
     public GameObject spirit;
 
-    private Transform parentTransform;
-
     private bool destroyed = false;
     private float timeSincePlaced = 0;
 
@@ -39,10 +38,19 @@ public class TurretLogic : MonoBehaviour
 
     public float vDp;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private PhotonView photonView;
+
+    private void Awake()
     {
-        parentTransform = transform.parent;
+        photonView = GetComponent<PhotonView>();
+
+        if(NetworkManager.Instance.IsViewMine(photonView) == false)
+        {
+            Destroy(GetComponent<Animator>());
+            Destroy(GetComponent<Scrollable>());
+            Destroy(this);
+        }
     }
 
     // Update is called once per frame
@@ -90,14 +98,24 @@ public class TurretLogic : MonoBehaviour
         RaycastHit hit;
         Physics.Raycast(transform.position, (spirit.transform.position - transform.position), out hit, layerMask);
 
-        if (hit.transform.GetComponent<Block>() == null)
+        Block block = hit.transform.GetComponent<Block>();
+        if (block == null)
         {
             lineOfSight = true;
+            currentBlockBlocking = null;
         }
         else
         {
-            currentBlockBlocking = hit.transform.gameObject;
             lineOfSight = false;
+
+            if (block.canMove)
+            {
+                currentBlockBlocking = hit.transform.gameObject;
+            }
+            else
+            {
+                currentBlockBlocking = null;
+            }
         }
     }
 
@@ -114,17 +132,17 @@ public class TurretLogic : MonoBehaviour
 
     private void OutOfBoundsCheck()
     {
-        if (parentTransform.localPosition.y <= 0.0f)
+        if (transform.position.y <= 0.0f)
         {
-            Destroy(parentTransform.gameObject);
+            NetworkManager.Instance.DestroyGameObject(gameObject);
         }
     }
 
     public void Fire()
     {
-        if (!destroyed)
+        if (!destroyed && NetworkManager.Instance.IsViewMine(photonView))
         {
-            Instantiate(projectile, barrel.transform.position, barrel.transform.rotation);
+            NetworkManager.Instance.InstantiateGameObject("Bullet", barrel.transform.position, barrel.transform.rotation);
             currentFireCooldown = rateOfFire;
         }
     }
@@ -139,9 +157,26 @@ public class TurretLogic : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (NetworkManager.Instance.IsViewMine(photonView) == false)
+        {
+            return;
+        }
+
+        if (other.gameObject.GetComponent<SpiritAttack>())
+        {
+            NetworkManager.Instance.DestroyGameObject(this.gameObject);
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (NetworkManager.Instance.IsViewMine(photonView) == false)
+        {
+            return;
+        }
+
         Block block = collision.gameObject.GetComponent<Block>();
 
         // Knocks the turret out of the 2D plane if hit by a block, then it is destroyed
@@ -153,14 +188,14 @@ public class TurretLogic : MonoBehaviour
             {
                 // TODO: this is only for turrets that spawn within blocks
                 // Remove this once the Hindrance AI is smart enough to avoid this
-                Destroy(parentTransform.gameObject);
+                Destroy(gameObject);
             }
             else
             {
                 Destroy(GetComponent<Rigidbody>());
-                Rigidbody rb = parentTransform.gameObject.AddComponent<Rigidbody>();
+                Rigidbody rb = gameObject.AddComponent<Rigidbody>();
                 rb.AddForce(Vector3.forward * 20 * block.outPlaneID * -1, ForceMode.Impulse);
-                Destroy(parentTransform.gameObject, 2);
+                Destroy(gameObject, 2);
             }
         }
     }

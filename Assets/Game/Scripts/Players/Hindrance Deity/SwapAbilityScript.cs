@@ -8,6 +8,7 @@ public class SwapAbilityScript : MonoBehaviour
 {
     public HinderanceAbility hinderance;
     public HinderanceDietyController dietyController;
+    public Color selectColor;
     private Image _buttonImage;
 
 
@@ -32,7 +33,7 @@ public class SwapAbilityScript : MonoBehaviour
     {
         if(hinderance.abilityName == dietyController.tapAbility.abilityName)
         {
-            _buttonImage.color = Color.blue;
+            _buttonImage.color = selectColor;
         }
         else
         {

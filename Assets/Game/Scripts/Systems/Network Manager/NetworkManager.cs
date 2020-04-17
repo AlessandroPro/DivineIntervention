@@ -12,6 +12,13 @@ public class NetworkManager : Singleton<NetworkManager>
     public bool useNetwork = true;
     string gameVersion = "1";
 
+    public enum EventCode
+    {
+        LoadGameSceneEvent = 1,
+        GameSceneLoadedEvent,
+        setupGameSceneEvent
+    }
+
     void Awake()
     {
         PlayerPrefs.DeleteAll();
@@ -114,25 +121,25 @@ public class NetworkManager : Singleton<NetworkManager>
         return PhotonNetwork.PlayerList.Length;
     }
 
-    public void RaiseEventAll(object content, byte evCode)
+    public void RaiseEventAll(object content, EventCode evCode)
     {
         RaiseEvent(content, evCode, ReceiverGroup.All);
     }
 
-    public void RaiseEventOthers(object content, byte evCode)
+    public void RaiseEventOthers(object content, EventCode evCode)
     {
         RaiseEvent(content, evCode, ReceiverGroup.Others);
     }
 
-    public void RaiseEventMaster(object content, byte evCode)
+    public void RaiseEventMaster(object content, EventCode evCode)
     {
         RaiseEvent(content, evCode, ReceiverGroup.MasterClient);
     }
 
-    private void RaiseEvent(object content, byte evCode, ReceiverGroup recGroup)
+    private void RaiseEvent(object content, EventCode evCode, ReceiverGroup recGroup)
     {
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = recGroup };
         SendOptions sendOptions = new SendOptions { Reliability = true };
-        PhotonNetwork.RaiseEvent(evCode, content, raiseEventOptions, sendOptions);
+        PhotonNetwork.RaiseEvent((byte)evCode, content, raiseEventOptions, sendOptions);
     }
 }

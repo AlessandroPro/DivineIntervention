@@ -35,7 +35,7 @@ public class HinderanceDietyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(wingedSpirit == null)
+        if(wingedSpirit == null )
         {
             if (GameManager.Instance.wingedSpirit == null)
             {

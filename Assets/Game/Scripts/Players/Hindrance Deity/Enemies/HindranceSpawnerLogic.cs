@@ -12,8 +12,8 @@ public class HindranceSpawnerLogic : MonoBehaviour
     {
         Vector3 spawnPosition = new Vector3(position.x, position.y, 0.0f);
 
-        GameObject newSpawn = Instantiate(enemyPrefab, transform);
-        newSpawn.transform.localPosition = spawnPosition;
+        GameObject newSpawn = NetworkManager.Instance.InstantiateGameObject(enemyPrefab.name, spawnPosition, enemyPrefab.transform.rotation);
+        newSpawn.transform.parent = this.gameObject.transform;
 
         dragonEnemyTracker.AddToEnemyList(newSpawn);
 

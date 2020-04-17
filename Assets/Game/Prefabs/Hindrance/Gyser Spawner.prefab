@@ -331,4 +331,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chargeTime: 10
   chargeCost: 0.25
+  gyserCharging: {fileID: 2100000, guid: 31a16f5d6fc191f4a819697ff8a7511e, type: 2}
+  gyserFullyCharged: {fileID: 2100000, guid: 2cd7ed70d70b75d4a93e11c26b416a0d, type: 2}
   currentCharge: 0

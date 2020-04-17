@@ -50,6 +50,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 256
+  tapAllowance: {fileID: 0}
   disallowedRadius: 4
   errorTime: 0.25
 --- !u!120 &1203005616
@@ -155,15 +156,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 858499681906137960}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 998a88bc0f5f8ee44aa029799595c9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tapAbility: {fileID: 0}
   swipeAbility: {fileID: 0}
+  blockGen: {fileID: 0}
+  dragonAbility: {fileID: 0}
   gameWindow2D: {fileID: 0}
   tapIntervalMin: 2
   tapIntervalMax: 10
   swipeIntervalMin: 2
   swipeIntervalMax: 10
+  dragonIntervalMin: 0
+  dragonIntervalMax: 0

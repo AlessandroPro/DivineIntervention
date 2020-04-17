@@ -9,29 +9,52 @@ public class LobbyMenu : Menu
     public SceneReference sceneToLoad;
     public SceneReference sceneToUnload;
     public Text playerStatusText;
+    public Text playerTypeText;
     public Button startGameButton;
-
-    private readonly byte LoadGameSceneEvent = 1;
-    private readonly byte GameSceneLoadedEvent = 2;
+    public MenuClassifier inGameUIClassifier;
 
     public int gameLoadedCount = 0;
-    private int numClientsRequired = 0;
+    public int numClientsRequired = 0;
+
     public override void Start()
     {
         base.Start();
+    }
+
+    public override void onShowMenu(string options)
+    {
+        base.onShowMenu(options);
+        gameLoadedCount = 0;
         startGameButton.gameObject.SetActive(false);
+        startGameButton.interactable = false;
+        playerStatusText.text = "Joining...";
         NetworkManager.Instance.punHandler.OnJoinedRoomEvent.AddListener(showPlayerStatus);
         NetworkManager.Instance.punHandler.OnRaiseEvent.AddListener(LoadGameScene);
         NetworkManager.Instance.punHandler.OnRaiseEvent.AddListener(ReceiveGameSceneLoaded);
+        NetworkManager.Instance.punHandler.OnPlayerEnteredRoomEvent.AddListener(checkNumPlayersInRoom);
+        NetworkManager.Instance.punHandler.OnPlayerLeftRoomEvent.AddListener(checkNumPlayersInRoom);
+
+        switch (DeviceManager.Instance.device)
+        {
+            case GameDevice.PC:
+                playerTypeText.text = "Welcome, Winged Spirit.";
+                break;
+            case GameDevice.AndroidTablet:
+                playerTypeText.text = "Welcome, Hinderance Deity.";
+                break;
+            case GameDevice.IPhoneAR:
+                playerTypeText.text = "Welcome, Protection Deity.";
+                break;
+        }
     }
+
 
     public void OnClick_StartGame()
     {
         MenuManager.Instance.hideMenu(menuClassifier);
 
         // Tell all clients to load the game scene
-        NetworkManager.Instance.RaiseEventAll(null, LoadGameSceneEvent);
-        numClientsRequired = NetworkManager.Instance.GetNumPlayersInRoom();
+        NetworkManager.Instance.RaiseEventAll(null, NetworkManager.EventCode.LoadGameSceneEvent);
     }
 
     public void showPlayerStatus()
@@ -40,6 +63,7 @@ public class LobbyMenu : Menu
         {
             playerStatusText.text = "You are the Leader.";
             startGameButton.gameObject.SetActive(true);
+            checkNumPlayersInRoom();
         }
         else
         {
@@ -48,9 +72,25 @@ public class LobbyMenu : Menu
         }
     }
 
+    public void checkNumPlayersInRoom()
+    {
+        if (NetworkManager.Instance.IsMasterClient())
+        {
+            //numClientsRequired = NetworkManager.Instance.GetNumPlayersInRoom();
+            if (NetworkManager.Instance.GetNumPlayersInRoom() == numClientsRequired)
+            {
+                startGameButton.interactable = true;
+            }
+            else
+            {
+                startGameButton.interactable = false;
+            }
+        }
+    }
+
     public void LoadGameScene(byte eventCode, object[] data)
     {
-        if(eventCode != LoadGameSceneEvent)
+        if(eventCode != (byte)NetworkManager.EventCode.LoadGameSceneEvent)
         {
             return;
         }
@@ -69,9 +109,10 @@ public class LobbyMenu : Menu
             if(sceneName == sceneToLoad.ScenePath)
             {
                 // Tell the master client that the game scene has been loaded on this client
-                NetworkManager.Instance.RaiseEventAll(null, GameSceneLoadedEvent);
+                NetworkManager.Instance.RaiseEventAll(null, NetworkManager.EventCode.GameSceneLoadedEvent);
             }
         }
+        MenuManager.Instance.showMenu(inGameUIClassifier);
         SceneLoader.Instance.onSceneLoadedEvent.RemoveListener(NotifyGameSceneLoaded);
     }
 
@@ -80,7 +121,7 @@ public class LobbyMenu : Menu
     public void ReceiveGameSceneLoaded(byte eventCode, object[] data)
     {
 
-        if (eventCode != GameSceneLoadedEvent)
+        if (eventCode != (byte)NetworkManager.EventCode.GameSceneLoadedEvent)
         {
             return;
         }

@@ -59,6 +59,11 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: AbilityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  skill:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ActiveSkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   hasCooldown: 1
   cooldownTimer: 3
   currentCooldown: 0
@@ -75,5 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3941838ae751ab54aae183f662fe26c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretPrefab: {fileID: 2696022861207923819, guid: dc015281c74cb2e40a24b752dd938537,
+  enemyPrefab: {fileID: 8970433145977907811, guid: 409cf7e00f0e07f4db3e9ab95be9a0a6,
     type: 3}
+  dragonEnemyTracker: {fileID: 0}

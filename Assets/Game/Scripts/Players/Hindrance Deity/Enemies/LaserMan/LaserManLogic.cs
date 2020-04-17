@@ -228,7 +228,10 @@ public class LaserManLogic : MonoBehaviour
         {
             if (hit1.transform.gameObject == hit2.transform.gameObject)
             {
-                currentBlockBlocking = hit1.transform.gameObject;
+                if(hit1.transform.GetComponent<Block>().canMove)
+                {
+                    currentBlockBlocking = hit1.transform.gameObject;
+                }
             }
             else
             {

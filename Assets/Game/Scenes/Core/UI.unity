@@ -640,6 +640,7 @@ MonoBehaviour:
   startGameButton: {fileID: 735457249}
   inGameUIClassifier: {fileID: 11400000, guid: 659364109ac16bf4faa38591232affb8, type: 2}
   gameLoadedCount: 0
+  numClientsRequired: 3
 --- !u!1 &535871347
 GameObject:
   m_ObjectHideFlags: 0

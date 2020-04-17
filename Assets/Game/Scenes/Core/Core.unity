@@ -779,7 +779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   punHandler: {fileID: 1507600642}
-  roomName: GameRoom
+  roomName: Test
   useNetwork: 1
 --- !u!1 &1573782487
 GameObject:
@@ -825,9 +825,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   device: 0
-  editorDevice: 1
+  editorDevice: 2
   useEditorDevice: 1
-  devMode: 0
+  devMode: 1
 --- !u!1 &1907719000
 GameObject:
   m_ObjectHideFlags: 0

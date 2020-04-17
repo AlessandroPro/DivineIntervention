@@ -98,15 +98,24 @@ public class TurretLogic : MonoBehaviour
         RaycastHit hit;
         Physics.Raycast(transform.position, (spirit.transform.position - transform.position), out hit, layerMask);
 
-        if (hit.transform.GetComponent<Block>() == null)
+        Block block = hit.transform.GetComponent<Block>();
+        if (block == null)
         {
             lineOfSight = true;
             currentBlockBlocking = null;
         }
         else
         {
-            currentBlockBlocking = hit.transform.gameObject;
             lineOfSight = false;
+
+            if (block.canMove)
+            {
+                currentBlockBlocking = hit.transform.gameObject;
+            }
+            else
+            {
+                currentBlockBlocking = null;
+            }
         }
     }
 

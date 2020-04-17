@@ -49,4 +49,12 @@ public class MenuManager : Singleton<MenuManager>
 			menu.onHideMenu(options);
 		}
 	}
+
+	public void hideAllMenus()
+	{
+		foreach(Menu menu in menuList.Values)
+		{
+			menu.onHideMenu("");
+		}
+	}
 }

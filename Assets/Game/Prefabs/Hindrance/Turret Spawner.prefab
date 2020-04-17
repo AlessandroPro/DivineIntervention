@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3941838ae751ab54aae183f662fe26c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretPrefab: {fileID: 3327263271194730235, guid: 6a2916eb3baa42b46bf2e7c4fd27c8f4,
+  enemyPrefab: {fileID: 1613831590695542311, guid: 5a2df1b4ace53174c96c5fe94b934a9a,
     type: 3}
+  dragonEnemyTracker: {fileID: 0}
 --- !u!114 &333181838306702938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,6 +74,11 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: AbilityEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  skill:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ActiveSkillEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   hasCooldown: 1
   cooldownTimer: 3
   currentCooldown: 0

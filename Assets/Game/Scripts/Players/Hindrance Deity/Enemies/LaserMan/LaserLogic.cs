@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,14 @@ public class LaserLogic : MonoBehaviour
     private bool blockCollide;
 
     private BoxCollider currentBox;
+
+
+    private PhotonView photonView;
+
+    private void Awake()
+    {
+        photonView = GetComponentInParent<PhotonView>();
+    }
 
 
     void Update()
@@ -47,12 +56,17 @@ public class LaserLogic : MonoBehaviour
 
     private void DestroyLaser()
     {
-        transform.parent.localScale = new Vector3(transform.parent.localScale.x - (destroySpeed * Time.deltaTime), transform.parent.localScale.y, transform.parent.localScale.z);
+        transform.parent.localScale = new Vector3(transform.parent.localScale.x - (destroySpeed * Time.deltaTime), transform.parent.localScale.y, transform.parent.localScale.z - (destroySpeed * Time.deltaTime));
 
+
+        if (NetworkManager.Instance.IsViewMine(photonView) == false)
+        {
+            return;
+        }
 
         if (transform.parent.localScale.x <= 0.0f)
         {
-            Destroy(transform.parent.gameObject);
+            NetworkManager.Instance.DestroyGameObject(transform.parent.gameObject);
         }
     }
 
@@ -66,11 +80,14 @@ public class LaserLogic : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        WingedSpiritController spiritCon = other.gameObject.GetComponent<WingedSpiritController>();
-
-        if (spiritCon != null)
+        if (NetworkManager.Instance.IsViewMine(photonView))
         {
-            spiritCon.TakeDamage(damage);
+            WingedSpiritController spiritCon = other.gameObject.GetComponent<WingedSpiritController>();
+
+            if (spiritCon != null)
+            {
+                spiritCon.SpiritTakeDamageCall(damage);
+            }
         }
     }
 }

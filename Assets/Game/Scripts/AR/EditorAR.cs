@@ -5,6 +5,7 @@ using UnityEngine;
 public class EditorAR : MonoBehaviour
 {
     public LayerMask blockMask;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -13,6 +14,8 @@ public class EditorAR : MonoBehaviour
         {
             this.enabled = false;
         }
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -27,7 +30,11 @@ public class EditorAR : MonoBehaviour
                 Block block = hit.collider.gameObject.GetComponent<Block>();
                 if (block)
                 {
-                    block.toggleMove();
+                    if(block.canMove)
+                    {
+                        block.toggleMove();
+                        audioSource.Play();
+                    }
                 }
             }
         }

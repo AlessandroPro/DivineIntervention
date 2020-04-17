@@ -21,7 +21,7 @@ public class DragonLeaveBehaviour : StateMachineBehaviour
     {
         if (dragon.arrived)
         {
-            Destroy(dragon.gameObject);
+            dragon.DestroyDragon();
         }
     }
 }

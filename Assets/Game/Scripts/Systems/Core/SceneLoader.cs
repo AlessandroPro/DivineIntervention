@@ -142,4 +142,9 @@ public class SceneLoader : Singleton<SceneLoader>
 	{
 		SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene.SceneName));
 	}
+
+	public void UnloadActiveScene()
+	{
+		UnloadScene(SceneManager.GetActiveScene().name);
+	}
 }

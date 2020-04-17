@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Scrollable))]
+
 public class LaserManLogic : MonoBehaviour
 {
     public GameObject laserPrefab;
@@ -16,7 +17,6 @@ public class LaserManLogic : MonoBehaviour
     public LayerMask layerMask;
 
     public GameObject currentBlockBlocking;
-
 
     [HideInInspector]
     public bool lineOfSight = false;
@@ -48,7 +48,21 @@ public class LaserManLogic : MonoBehaviour
 
     private Animator animator;
 
+    private PhotonView photonView;
 
+    private void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+        scroller = GetComponent<Scrollable>();
+
+        if (NetworkManager.Instance.IsViewMine(photonView) == false)
+        {
+            Destroy(transform.GetChild(0).GetComponent<Animator>());
+            Destroy(scroller);
+            Destroy(this);
+        }
+
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -56,10 +70,9 @@ public class LaserManLogic : MonoBehaviour
         rig = GetComponent<Rigidbody>();
         moveVel = new Vector3(speed, 0, 0);
         fallVel = new Vector3(0, -fallSpeed, 0);
-        scroller = GetComponent<Scrollable>();
-
-
         animator = GetComponent<Animator>();
+
+
     }
 
 
@@ -113,15 +126,17 @@ public class LaserManLogic : MonoBehaviour
 
     public void MoveLeft()
     {
-        rig.MovePosition(transform.position - moveVel * Time.deltaTime);
         animator.SetBool("Run Forward", true);
+
+        rig.MovePosition(transform.position - moveVel * Time.deltaTime);
         transform.rotation = Quaternion.Euler(0, -90, 0);
     }
 
     public void MoveRight()
     {
-        rig.MovePosition(transform.position + moveVel * Time.deltaTime);
         animator.SetBool("Run Forward", true);
+
+        rig.MovePosition(transform.position + moveVel * Time.deltaTime);
         transform.rotation = Quaternion.Euler(0, 90, 0);
     }
 
@@ -130,12 +145,22 @@ public class LaserManLogic : MonoBehaviour
         animator.SetBool("Run Forward", false);
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.GetComponent<Block>() != null)
+
+        if (other.gameObject.GetComponent<SpiritAttack>())
+        {
+            NetworkManager.Instance.DestroyGameObject(this.gameObject);
+        }
+
+
+        Block blockFound = other.transform.GetComponent<Block>();
+        if (blockFound != null)
         {
             block = other.gameObject;
             blockCol = block.GetComponent<BoxCollider>();
+            blockFound.FreezeBlockCall();
             ChangeLandState(true);
         }
     }
@@ -152,9 +177,14 @@ public class LaserManLogic : MonoBehaviour
 
     private void OutOfBoundsCheck()
     {
+        if (NetworkManager.Instance.IsViewMine(photonView) == false)
+        {
+            return;
+        }
+
         if (transform.localPosition.y <= 0.0f)
         {
-            Destroy(transform.gameObject);
+            NetworkManager.Instance.DestroyGameObject(transform.gameObject);
         }
 
     }
@@ -174,6 +204,11 @@ public class LaserManLogic : MonoBehaviour
 
     private void TrackSpirit()
     {
+        if(spirit == null)
+        {
+            return;
+        }
+
         float left = this.transform.position.x - this.transform.localScale.x * 0.25f;
         float right = this.transform.position.x + this.transform.localScale.x * 0.25f;
 
@@ -187,12 +222,20 @@ public class LaserManLogic : MonoBehaviour
         if (hit1.transform.GetComponent<Block>() == null && hit2.transform.GetComponent<Block>() == null)
         {
             lineOfSight = true;
+            currentBlockBlocking = null;
         }
         else
         {
-            if(hit1.transform.gameObject == hit2.transform.gameObject)
+            if (hit1.transform.gameObject == hit2.transform.gameObject)
             {
-                currentBlockBlocking = hit1.transform.gameObject;
+                if(hit1.transform.GetComponent<Block>().canMove)
+                {
+                    currentBlockBlocking = hit1.transform.gameObject;
+                }
+            }
+            else
+            {
+                currentBlockBlocking = null;
             }
             lineOfSight = false;
         }
@@ -200,9 +243,19 @@ public class LaserManLogic : MonoBehaviour
 
     public void FireLaser()
     {
+        if(spirit == null)
+        {
+            return;
+        }
+
         animator.SetBool("Run Forward", false);
 
-        GameObject laser = Instantiate(laserPrefab, transform.position + laserSpawnOffset, transform.rotation);
+        if (NetworkManager.Instance.IsViewMine(photonView) == false)
+        {
+            return;
+        }
+
+        GameObject laser = NetworkManager.Instance.InstantiateGameObject(laserPrefab.name, transform.position + laserSpawnOffset, transform.rotation);
         Vector3 target = spirit.transform.position - laser.transform.position;
 
         Quaternion newRot = Quaternion.FromToRotation(laser.transform.up, target);
@@ -218,12 +271,7 @@ public class LaserManLogic : MonoBehaviour
 
     private void FindSpirit()
     {
-        WingedSpiritController spiritControl = FindObjectOfType<WingedSpiritController>();
-
-        if (spiritControl != null)
-        {
-            spirit = spiritControl.gameObject;
-        }
+         spirit = GameManager.Instance.wingedSpirit;
     }
 
     //private void OnDrawGizmos()

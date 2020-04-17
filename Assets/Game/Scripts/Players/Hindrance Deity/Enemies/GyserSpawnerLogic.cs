@@ -26,7 +26,7 @@ public class GyserSpawnerLogic : MonoBehaviour
 
         if(verdict == 1)
         {
-            GameObject geyser = Instantiate(gyserPrefab, transform);
+            GameObject geyser = NetworkManager.Instance.InstantiateGameObject(gyserPrefab.name, transform.position, transform.rotation);
             geyser.transform.rotation = transform.rotation;
             geyser.transform.localPosition = new Vector3(position.x, 0, 0);
         }
@@ -36,7 +36,7 @@ public class GyserSpawnerLogic : MonoBehaviour
 
             for (int i = -10; i < 12; i += 2)
             {
-                geyser = Instantiate(gyserPrefab, transform);
+                geyser = NetworkManager.Instance.InstantiateGameObject(gyserPrefab.name, transform.position, transform.rotation);
                 geyser.transform.rotation = transform.rotation;
                 geyser.transform.localPosition = new Vector3(i, 0, 0);
             }

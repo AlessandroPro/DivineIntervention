@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,6 @@ public class BlockGenerator : MonoBehaviour
     public float timeInterval;
 
     public GameObject blockPrefab;
-    public bool enableBlockAI = false;
 
     private int outPlaneID = 1;
 
@@ -23,12 +23,14 @@ public class BlockGenerator : MonoBehaviour
     public float Size { get { return size; } set { size = value; } }
     public float MinBlockWidth { get; set; }
 
+    private PhotonView photonView;
 
     private void Awake()
     {
         dropSpeed = GameManager.Instance.scrollSpeed;
         RemainingSpace = size;
         MinBlockWidth = size * 0.15f;
+        photonView = GetComponent<PhotonView>();
     }
 
     // Update is called once per frame
@@ -96,22 +98,25 @@ public class BlockGenerator : MonoBehaviour
         {
             blockData.insidePlane = true;
         }
+    }
 
-        ProtectionDeityAI protectionAi = block.GetComponent<ProtectionDeityAI>();
-
-        if (protectionAi != null)
+    [PunRPC]
+    public void swapPlanes()
+    {
+        if (DeviceManager.Instance.device == GameDevice.IPhoneAR || DeviceManager.Instance.editorDevice == GameDevice.IPhoneAR)
         {
-            //protectionAi.enabled = enableBlockAI;
+            outPlaneID *= -1;
+
+            foreach (Block block in GetComponentsInChildren<Block>())
+            {
+                block.swapSides(outPlaneID);
+            }
         }
     }
 
-    public void swapPlanes()
+    
+    public void SwapCall()
     {
-        outPlaneID *= -1;
-
-        foreach (Block block in GetComponentsInChildren<Block>())
-        {
-            block.swapSides(outPlaneID);
-        }
+        photonView.RPC("swapPlanes", RpcTarget.All);
     }
 }

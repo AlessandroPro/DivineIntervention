@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,16 @@ public class BulletLogic : MonoBehaviour
 
     private Rigidbody rigid;
     private Vector3 startPos;
+
+    private PhotonView photonView;
+
+
+    private void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+
+    }
+
 
     void Start()
     {
@@ -29,12 +40,15 @@ public class BulletLogic : MonoBehaviour
 
         if (spiritController != null)
         {
-            spiritController.TakeDamage(damage);
+            spiritController.SpiritTakeDamageCall(damage);
         }
 
         if(!other.GetComponent<BlockChanger>() || Vector3.Distance(transform.position, startPos) > 40)
         {
-            Destroy(this.gameObject);
+            if(NetworkManager.Instance.IsViewMine(photonView))
+            {
+                NetworkManager.Instance.DestroyGameObject(this.gameObject);
+            }
         }
         
     }

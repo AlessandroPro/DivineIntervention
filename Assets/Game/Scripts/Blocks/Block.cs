@@ -8,20 +8,21 @@ public class Block : MonoBehaviourPun, IPunObservable
     public float dropSpeed;
     public float yThreshold = 0;
 
-    private MeshRenderer mRenderer;
+    public MeshRenderer mRenderer;
 
     public int outPlaneID = 0;
     public float moveDistance = 0;
     public bool insidePlane = false;
     public bool onlyShowIn2D = true;
+    public bool canMove = true;
 
     private float zPosTarget = 0;
     public GameObject blockOutline;
+    public Material frozenMat;
 
     // Start is called before the first frame update
     void Start()
     {
-        mRenderer = GetComponent<MeshRenderer>();
         mRenderer.enabled = false;
         blockOutline.SetActive(false);
         zPosTarget = transform.position.z;
@@ -90,6 +91,7 @@ public class Block : MonoBehaviourPun, IPunObservable
             stream.SendNext(outPlaneID);
             stream.SendNext(moveDistance);
             stream.SendNext(insidePlane);
+            stream.SendNext(canMove);
         }
         else
         {
@@ -97,6 +99,7 @@ public class Block : MonoBehaviourPun, IPunObservable
             outPlaneID = (int)stream.ReceiveNext();
             moveDistance = (float)stream.ReceiveNext();
             insidePlane = (bool)stream.ReceiveNext();
+            canMove = (bool)stream.ReceiveNext();
         }
     }
 
@@ -135,5 +138,35 @@ public class Block : MonoBehaviourPun, IPunObservable
                 blockOutline.SetActive(true);
             }
         }
+    }
+
+    //Called by the fireball
+    public void DestroyBlockCall()
+    {
+        photonView.RPC("DestroyBlock", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void DestroyBlock()
+    {
+        if (NetworkManager.Instance.IsViewMine(photonView))
+        {
+            NetworkManager.Instance.DestroyGameObject(this.gameObject);
+        }
+        Debug.Log("Block Destroyed");
+    }
+
+    //Called by the freezeball
+    public void FreezeBlockCall()
+    {
+        photonView.RPC("FreezeBlock", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void FreezeBlock()
+    {
+        mRenderer.material = frozenMat;
+        canMove = false;
+        Debug.Log("Block Frozen");
     }
 }
